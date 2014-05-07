@@ -7,7 +7,8 @@ if has('win32')
   " font ‚Ìİ’è
   set guifont=HGºŞ¼¯¸M:h10:cSHIFTJIS
   " _vimrc ‚ÌêŠ
-  let $MYVIMRC='$HOME/dotfiles/.vim/_vimrc'
+  let $MYVIMRC='$HOME/dotfiles/_vimrc'
+  FullScreen
 else
   set transparency=8
   au GUIEnter * set lines=60

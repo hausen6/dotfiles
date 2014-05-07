@@ -9,6 +9,9 @@ set clipboard=autoselect,unnamed
 " インクリメンタルサーチon
 set incsearch
 set ic
+" 設定ファイルのパス設定
+let $MYVIMRC='$HOME/.vim/_vimrc'
+let $MYGVIMRC='$HOME/.vim/_gvimrc'
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -27,8 +30,8 @@ let g:neobundle_default_git_protocol='https'
 set nocompatible
 filetype off
 if has('vim_starting')
-  set runtimepath+=C:\Users\joe/dotfiles/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/dotfiles/.vim/bundle'))
+  set runtimepath+=C:\Users\joe/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle'))
 endif
 filetype plugin indent on
 " Installation check.
@@ -40,9 +43,20 @@ if neobundle#exists_not_installed_bundles()
 endif
 " ここにインストールしたいプラグインのリストを書く
 NeoBundleFetch 'Shougo/neobundle.vim'  
+
 NeoBundle 'Shougo/unite.vim'
+
 NeoBundle 'Shougo/vimfiler.vim'
-nnoremap <Leader>f :VimFilerBufferDir<CR>
+""VimFilerの設定
+"デフォルトでIDE風のFilerを開く
+"autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
+autocmd VimEnter * VimFiler split -simple -winwidth=30 -no-quit
+let g:vimfiler_as_default_explorer = 1
+" VimFiler使用のキーマップ
+nnoremap <Leader>f :VimFiler<CR>
+" e でタブオープンにする
+let g:vimfiler_edit_action = 'tabopen'
+
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
