@@ -1,0 +1,20 @@
+:colorscheme hybrid
+
+" ŠÂ‹«ˆË‘¶‚Ìİ’è
+if has('win32')
+  " windows ‚Ìİ’è
+  au GUIEnter * simalt ~x
+  " font ‚Ìİ’è
+  set guifont=HGºŞ¼¯¸M:h10:cSHIFTJIS
+  " _vimrc ‚ÌêŠ
+  let $MYVIMRC='$HOME/dotfiles/.vim/_vimrc'
+else
+  set transparency=8
+  au GUIEnter * set lines=60
+  au GUIEnter * set columns=190
+endif 
+" window ‚ğ”¼“§–¾‚É‚·‚é
+gui
+set transparency=235
+
+source $MYVIMRC
