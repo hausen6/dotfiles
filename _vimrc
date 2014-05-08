@@ -48,12 +48,9 @@ NeoBundle 'Shougo/unite.vim'
 
 NeoBundle 'Shougo/vimfiler.vim'
 ""VimFilerの設定
-"デフォルトでIDE風のFilerを開く
-"autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
-autocmd VimEnter * VimFiler split -simple -winwidth=30 -no-quit
 let g:vimfiler_as_default_explorer = 1
 " VimFiler使用のキーマップ
-nnoremap <Leader>f :VimFiler<CR>
+nnoremap <Leader>f :VimFiler -split -simple -winwidth=30 -no-quit<CR>
 " e でタブオープンにする
 let g:vimfiler_edit_action = 'tabopen'
 
