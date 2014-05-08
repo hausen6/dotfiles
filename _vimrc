@@ -10,8 +10,8 @@ set clipboard=autoselect,unnamed
 set incsearch
 set ic
 " 設定ファイルのパス設定
-let $MYVIMRC='$HOME/.vim/bundle/dotfiles/_vimrc'
-let $MYGVIMRC='$HOME/.vim/bundle/dotfiles/_gvimrc'
+let $MYVIMRC='$VIM/_vimrc'
+let $MYGVIMRC='$VIM/_gvimrc'
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -44,8 +44,7 @@ endif
 " ここにインストールしたいプラグインのリストを書く
 NeoBundleFetch 'Shougo/neobundle.vim'  
 
-" 自分の設定ファイル
-NeoBundle 'hausen6/dotfiles'
+NeoBundle 'w0ng/vim-hybrid'
 
 NeoBundle 'Shougo/unite.vim'
 
