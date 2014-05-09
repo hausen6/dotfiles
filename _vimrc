@@ -10,8 +10,8 @@ set clipboard=autoselect,unnamed
 set incsearch
 set ic
 " 設定ファイルのパス設定
-let $MYVIMRC='$VIM/_vimrc'
-let $MYGVIMRC='$VIM/_gvimrc'
+let $MYVIMRC='~/_vimrc'
+let $MYGVIMRC='~/_gvimrc'
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -24,13 +24,18 @@ function! s:Exec()
 :endfunction         
 command! Exec call <SID>Exec() 
 map <silent> <C-P> :call <SID>Exec()<CR>
-
+" GUI をFullScreenにする
+if has("gui_running")
+  set fuoptions=maxvert,maxhorz
+  au GUIEnter * set fullscreen
+endif
 " =========== NeoBundleの設定 =============
 let g:neobundle_default_git_protocol='https'
 set nocompatible
 filetype off
 if has('vim_starting')
   set runtimepath+=C:\Users\joe/.vim/bundle/neobundle.vim
+  set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#rc(expand('~/.vim/bundle'))
 endif
 filetype plugin indent on
