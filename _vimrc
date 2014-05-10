@@ -29,6 +29,9 @@ if has("gui_running")
   set fuoptions=maxvert,maxhorz
   au GUIEnter * set fullscreen
 endif
+
+
+
 " =========== NeoBundleの設定 =============
 let g:neobundle_default_git_protocol='https'
 set nocompatible
@@ -49,6 +52,7 @@ endif
 " ここにインストールしたいプラグインのリストを書く
 NeoBundleFetch 'Shougo/neobundle.vim'  
 
+NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
 NeoBundle 'Shougo/unite.vim'
@@ -78,9 +82,9 @@ let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
   let g:quickrun_config = 
   \   {
-      \ "*"      : { "runner"                 : "remote/vimproc"},
+      \ "_"      : { "runner"                 : "remote/vimproc"}, 
+  	           { "outputter"              : "quickfix"},
       \ "python" : { "cmdopt"                 : "-u"},
-      \   "_"    : { "outputter/buffer/split" : ":botright"},
   \   }
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
@@ -102,6 +106,20 @@ function! s:hooks.on_source(bundle)
   " 補完の最初の項目が選択された状態だと使いにくいためオフにする
   let g:jedi#popup_select_first = 0
   " quickrunと被るため大文字に変更
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+""VimFilerの設定
+NeoBundle 'Shougo/vimfiler.vim'
+""VimFilerの設定
+""VimFilerの設定
+""VimFilerの設定
+""VimFilerの設定
+""VimFilerの設定
+""VimFilerの設定
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
   "let g:jedi#goto_command = '<Leader>G'
