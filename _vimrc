@@ -83,7 +83,6 @@ function! s:hooks.on_source(bundle)
   let g:quickrun_config = 
   \   {
       \ "_"      : { "runner"                 : "remote/vimproc"}, 
-  	           { "outputter"              : "quickfix"},
       \ "python" : { "cmdopt"                 : "-u"},
   \   }
 endfunction
@@ -106,12 +105,7 @@ function! s:hooks.on_source(bundle)
   " 補完の最初の項目が選択された状態だと使いにくいためオフにする
   let g:jedi#popup_select_first = 0
   " quickrunと被るため大文字に変更
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimfiler.vim'
+
 ""VimFilerの設定
 NeoBundle 'Shougo/vimfiler.vim'
 ""VimFilerの設定
