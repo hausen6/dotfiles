@@ -53,6 +53,10 @@ endif
 NeoBundleFetch 'Shougo/neobundle.vim'  
 
 NeoBundle 'Shougo/vimshell.vim'
+
+NeoBundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_use_migemo = 1
+
 NeoBundle 'w0ng/vim-hybrid'
 
 NeoBundle 'Shougo/unite.vim'
@@ -106,18 +110,19 @@ function! s:hooks.on_source(bundle)
   let g:jedi#popup_select_first = 0
   " quickrunと被るため大文字に変更
 
-""VimFilerの設定
-NeoBundle 'Shougo/vimfiler.vim'
-""VimFilerの設定
-""VimFilerの設定
-""VimFilerの設定
-""VimFilerの設定
-""VimFilerの設定
-""VimFilerの設定
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
   "let g:jedi#goto_command = '<Leader>G'
 endfunction
+" 選択候補が常に選択されてしまう問題の対処?
+let s:save_cpo = &cpo
+set cpo&vim
+if g:jedi#popup_select_first == 0
+  inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
+endif
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim-indent-guides
 NeoBundle "nathanaelkane/vim-indent-guides"
@@ -133,9 +138,6 @@ NeoBundle 'majutsushi/tagbar', {
       \   "mac": "brew install ctags",
       \ }}
 nnoremap <Leader>t :TagbarToggle<CR>
-
-
-
 
 " 補完
 " if_luaが有効ならneocompleteを使う
@@ -163,15 +165,15 @@ elseif neobundle#is_installed('neocomplcache')
 endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C
-" jedi-vim と neocomplete の連携
-autocmd FileType python setlocal omnifunc=jedi#completions
-
-let g:jedi#auto_vim_configuration = 0
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:jedi#popup_on_dot = 0
+"" jedi-vim と neocomplete の連携
+"autocmd FileType python setlocal omnifunc=jedi#completions
+"
+"let g:jedi#auto_vim_configuration = 0
+"
+"if !exists('g:neocomplete#force_omni_input_patterns')
+"        let g:neocomplete#force_omni_input_patterns = {}
+"endif
+"let g:jedi#popup_on_dot = 0
 
 " スニペットの設定
 NeoBundle "honza/vim-snippets"

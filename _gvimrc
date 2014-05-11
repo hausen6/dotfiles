@@ -1,4 +1,4 @@
-:colorscheme hybrid
+":colorscheme hybrid
 
 " 環境依存の設定
 if has('win32')
@@ -13,9 +13,10 @@ if has('win32')
   gui
   set transparency=235
 else
-  "set transparency=10
+  set transparency=10
   au GUIEnter * set lines=60
   au GUIEnter * set columns=190
+  nnoremap <Leader>w :set transparency=15<CR>
 endif 
 
 " カーソル行ハイライト
@@ -30,3 +31,5 @@ hi clear CursorLine
 hi CursorLine gui=underline
 " ESC ESC でハイライトキャンセル
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
+
+source $MYVIMRC
