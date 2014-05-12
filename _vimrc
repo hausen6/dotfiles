@@ -54,6 +54,9 @@ let g:EasyMotion_use_migemo = 1
 NeoBundle 'w0ng/vim-hybrid'
 
 NeoBundle 'Shougo/unite.vim'
+" history/yank ‚ğ—LŒø‚É‚·‚é
+let g:unite_source_history_yank_enable = 1
+nnoremap <Leader>uy :<C-u>Unite history/yank<CR>
 
 NeoBundle 'Shougo/vimfiler.vim'
 ""VimFiler‚Ìİ’è
