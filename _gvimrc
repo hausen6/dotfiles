@@ -7,7 +7,6 @@ if has('win32')
   " font ‚Ìİ’è
   set guifont=HGºŞ¼¯¸M:h10:cSHIFTJIS
   " _vimrc ‚ÌêŠ
-  let $MYVIMRC='$HOME/dotfiles/_vimrc'
   FullScreen
   " window ‚ğ”¼“§–¾‚É‚·‚é
   gui

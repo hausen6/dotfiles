@@ -62,6 +62,8 @@ let g:vimfiler_as_default_explorer = 1
 nnoremap <Leader>f :VimFiler -split -simple -winwidth=30 -no-quit<CR>
 " e でタブオープンにする
 let g:vimfiler_edit_action = 'tabopen'
+" 自動でcdする
+let g:vimfiler_enable_auto_cd = 1
 
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 NeoBundle 'Shougo/vimproc', {
