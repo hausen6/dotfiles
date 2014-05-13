@@ -1,0 +1,5 @@
+#! /bin/sh
+
+ln -s _vimrc ~/_vimrc
+ln -s _gvimrc ~/_gvimrc
+ln -s .latexmkrc ~/.latexmkrc
