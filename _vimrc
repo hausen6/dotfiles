@@ -233,6 +233,9 @@ nnoremap <C-g> <ESC>
 " $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
+" jkでの移動を画面中心にする
+nnoremap j jzz
+nnoremap k kzz
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
