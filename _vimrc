@@ -1,6 +1,6 @@
-" joe 用の設定
+" joe 用の設定 "
 set noswapfile
-"
+
 " 基本設定
 " 行数を表示
 :set number
@@ -12,6 +12,9 @@ set ic
 " 設定ファイルのパス設定
 let $MYVIMRC='~/_vimrc'
 let $MYGVIMRC='~/_gvimrc'
+" tabstopの設定
+set expandtab
+set tabstop=4
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -56,7 +59,6 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'Shougo/unite.vim'
 " history/yank を有効にする
 let g:unite_source_history_yank_enable = 1
-nnoremap <Leader>uy :<C-u>Unite history/yank<CR>
 
 NeoBundle 'Shougo/vimfiler.vim'
 ""VimFilerの設定
@@ -83,35 +85,40 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle "thinca/vim-quickrun"
 let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
-  let g:quickrun_config = 
-  \   {
-      \ "_"      : { "runner"                 : "remote/vimproc"}, 
-      \ "python" : { "cmdopt"                 : "-u"},
-      \ "tex"    : { "command" : "latexmk",
-      \              "cmdopt" :  "-pdfdvi",
-      \              "exec" : ["%c %o %s", 'open %s:r.pdf'],
-      \		     },
-  \   }
+let g:quickrun_config = {}
+let g:quickrun_config['_'] = {
+	\ "runner" : "remote/vimproc"
+	\ }
+let g:quickrun_config['python'] = {
+	\ 'cmdopt' : '-u'
+	\}
+let g:quickrun_config['tex'] = {
+	\ 'command'                         : 'latexmk'   ,
+	\ 'cmdopt'                          : '-pdfdvi'   ,
+	\ 'outputter/error/success'         : 'buffer :split'      ,
+	\ 'outputter/error/error'           : 'quickfix'  ,
+	\ 'exec'                            : ['%c %o %s'],
+	\}
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
 " jedi-vim
 NeoBundleLazy "davidhalter/jedi-vim", {
-\ "autoload": {
-\              "filetypes": ["python", "python3", "djangohtml"],
-\             },
-\ "build": {
-\              "mac": "pip install jedi",
-\              "unix": "pip install jedi",
-\ }}
+	\ "autoload": {
+	\              "filetypes": ["python", "python3", "djangohtml"],
+	\             },
+	\ "build": {
+	\              "mac": "pip install jedi",
+	\              "unix": "pip install jedi",
+	\ }}
 let s:hooks = neobundle#get_hooks("jedi-vim")
 function! s:hooks.on_source(bundle)
-  " jediにvimの設定を任せると'completeopt+=preview'するので
-  " 自動設定機能をOFFにし手動で設定を行う
-  let g:jedi#auto_vim_configuration = 0
-  " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-  let g:jedi#popup_select_first = 0
-  " quickrunと被るため大文字に変更
+		" jediにvimの設定を任せると'completeopt+=preview'するので
+		" 自動設定機能をOFFにし手動で設定を行う
+		let g:jedi#auto_vim_configuration = 0
+		" 補完の最初の項目が選択された状態だと使いにくいためオフにする
+		let g:jedi#popup_select_first = 0
+		" quickrunと被るため大文字に変更
 
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
@@ -127,13 +134,9 @@ function! s:hooks.on_source(bundle)
   unlet s:save_cpo
 endfunction
 
-" vim-indent-guides
-NeoBundle "nathanaelkane/vim-indent-guides"
-let s:hooks = neobundle#get_hooks("vim-indent-guides")
-function! s:hooks.on_source(bundle)
-  let g:indent_guides_guide_size = 1
-  IndentGuidesEnable " 2013-06-24 10:00 追記
-endfunction
+" indentLine
+NeoBundle 'Yggdroot/indentLine'
+
 
 " python class browser
 NeoBundle 'majutsushi/tagbar', {
@@ -199,10 +202,6 @@ NeoBundle "Shougo/neosnippet-snippets"
 " submodeの設定
 NeoBundle "kana/vim-submode"
 " window size の調整を連続キーでやる
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-
-
 call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
 call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
 call submode#map('winsize', 'n', '', '>', '<C-w>>')
@@ -215,8 +214,14 @@ call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
 call submode#map('changetab', 'n', '', 't', 'gt')
 call submode#map('changetab', 'n', '', 'T', 'gT')
 
+
 " soround
 NeoBundle "tpope/vim-surround"
+
+" 括弧のやつ
+NeoBundle 'kana/vim-smartinput'
+
+NeoBundle 'Align'
 " =========================================
 
 " **** キーマップ ****
@@ -245,13 +250,9 @@ nnoremap <silent>sj <C-w>j
 nnoremap <silent>sk <C-w>k
 nnoremap <silent>sl <C-w>l
 " unite
-nnoremap <Leader>u<Space> :Unite<Space>
-nnoremap <Leader>uf       :UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <Leader>us       :Unite bookmark<CR>
-" カッコなどの入力移動
-inoremap () ()<Left>
-inoremap [] []<Left>
-inoremap 「」 「」<Left>
-inoremap {} {}<Left>
-inoremap 【】 【】<Left>
+nnoremap <Leader>u<Space> : Unite<Space>
+nnoremap <Leader>uf       : UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <Leader>us       : Unite bookmark<CR>
+nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
+nnoremap <Leader>uo       : <C-u>Unite outline<CR>
 " ********************
