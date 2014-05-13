@@ -24,12 +24,6 @@ function! s:Exec()
 :endfunction         
 command! Exec call <SID>Exec() 
 map <silent> <C-P> :call <SID>Exec()<CR>
-" GUI をFullScreenにする
-if has("gui_running")
-  set fuoptions=maxvert,maxhorz
-  au GUIEnter * set fullscreen
-endif
-
 
 
 " =========== NeoBundleの設定 =============
@@ -60,6 +54,9 @@ let g:EasyMotion_use_migemo = 1
 NeoBundle 'w0ng/vim-hybrid'
 
 NeoBundle 'Shougo/unite.vim'
+" history/yank を有効にする
+let g:unite_source_history_yank_enable = 1
+nnoremap <Leader>uy :<C-u>Unite history/yank<CR>
 
 NeoBundle 'Shougo/vimfiler.vim'
 ""VimFilerの設定
@@ -68,6 +65,8 @@ let g:vimfiler_as_default_explorer = 1
 nnoremap <Leader>f :VimFiler -split -simple -winwidth=30 -no-quit<CR>
 " e でタブオープンにする
 let g:vimfiler_edit_action = 'tabopen'
+" 自動でcdする
+let g:vimfiler_enable_auto_cd = 1
 
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 NeoBundle 'Shougo/vimproc', {
@@ -88,6 +87,10 @@ function! s:hooks.on_source(bundle)
   \   {
       \ "_"      : { "runner"                 : "remote/vimproc"}, 
       \ "python" : { "cmdopt"                 : "-u"},
+      \ "tex"    : { "command" : "latexmk",
+      \              "cmdopt" :  "-pdfdvi",
+      \              "exec" : ["%c %o %s", 'open %s:r.pdf'],
+      \		     },
   \   }
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
@@ -113,16 +116,16 @@ function! s:hooks.on_source(bundle)
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
   "let g:jedi#goto_command = '<Leader>G'
-endfunction
-" 選択候補が常に選択されてしまう問題の対処?
-let s:save_cpo = &cpo
-set cpo&vim
-if g:jedi#popup_select_first == 0
-  inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
-endif
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+  " 選択候補が常に選択されてしまう問題の対処?
+  let s:save_cpo = &cpo
+  set cpo&vim
+  if g:jedi#popup_select_first == 0
+  inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
+  endif
+  let &cpo = s:save_cpo
+  unlet s:save_cpo
+endfunction
 
 " vim-indent-guides
 NeoBundle "nathanaelkane/vim-indent-guides"
@@ -165,15 +168,12 @@ elseif neobundle#is_installed('neocomplcache')
 endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C
-"" jedi-vim と neocomplete の連携
-"autocmd FileType python setlocal omnifunc=jedi#completions
-"
-"let g:jedi#auto_vim_configuration = 0
-"
-"if !exists('g:neocomplete#force_omni_input_patterns')
-"        let g:neocomplete#force_omni_input_patterns = {}
-"endif
-"let g:jedi#popup_on_dot = 0
+" jedi-vim と neocomplete の連携
+autocmd FileType python setlocal omnifunc=jedi#completions
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+endif
 
 " スニペットの設定
 NeoBundle "honza/vim-snippets"
@@ -224,6 +224,7 @@ let mapleader=" "
 " <ESC> を C-g に割り当てる
 inoremap <C-g> <ESC>
 vnoremap <C-g> <ESC>
+nnoremap <C-g> <ESC>
 " $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
