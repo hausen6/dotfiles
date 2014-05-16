@@ -16,6 +16,7 @@ let $MYGVIMRC='~/_gvimrc'
 set expandtab
 set tabstop=4
 
+
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -123,15 +124,16 @@ function! s:hooks.on_source(bundle)
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
   "let g:jedi#goto_command = '<Leader>G'
-
-  " 選択候補が常に選択されてしまう問題の対処?
-  let s:save_cpo = &cpo
-  set cpo&vim
-  if g:jedi#popup_select_first == 0
-  inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
-  endif
-  let &cpo = s:save_cpo
-  unlet s:save_cpo
+endfunction
+function! g:SetPopOnJediOff()
+        " 選択候補が常に選択されてしまう問題の対処?
+        let s:save_cpo = &cpo
+        set cpo&vim
+        if g:jedi#popup_select_first == 0
+        inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
+        endif
+        let &cpo = s:save_cpo
+        unlet s:save_cpo
 endfunction
 
 " indentLine
@@ -233,9 +235,9 @@ nnoremap <C-g> <ESC>
 " $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
-" jkでの移動を画面中心にする
-nnoremap j jzz
-nnoremap k kzz
+" jkでの移動
+nnoremap j gj
+nnoremap k gk
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
@@ -259,3 +261,14 @@ nnoremap <Leader>us       : Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
 nnoremap <Leader>uo       : <C-u>Unite outline<CR>
 " ********************
+set foldmethod=expr
+set modeline
+command! Evimrc e $MYVIMRC
+
+augroup MyAutoGroup
+        autocmd!
+        autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+        autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+        autocmd BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
+        autocmd BufNewFile,BufRead *.py :TagbarToggle
+augroup END
