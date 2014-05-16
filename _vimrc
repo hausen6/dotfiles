@@ -15,6 +15,16 @@ let $MYGVIMRC='~/_gvimrc'
 " tabstopの設定
 set expandtab
 set tabstop=4
+"  ******* open || reload vimrc ******
+set foldmethod=expr
+set modeline
+command! Evimrc e $MYVIMRC
+" autogroup
+augroup MyAutoGroup
+    autocmd!
+    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
 
 
 " 縦に連番の番号を co で入力する
@@ -86,20 +96,20 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle "thinca/vim-quickrun"
 let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {
-	\ "runner" : "remote/vimproc"
-	\ }
-let g:quickrun_config['python'] = {
-	\ 'cmdopt' : '-u'
-	\}
-let g:quickrun_config['tex'] = {
-	\ 'command'                         : 'latexmk'   ,
-	\ 'cmdopt'                          : '-pdfdvi'   ,
-	\ 'outputter/error/success'         : 'buffer :split'      ,
-	\ 'outputter/error/error'           : 'quickfix'  ,
-	\ 'exec'                            : ['%c %o %s'],
-	\}
+        let g:quickrun_config = {}
+        let g:quickrun_config['_'] = {
+            \ "runner" : "remote/vimproc"
+            \ }
+        let g:quickrun_config['python'] = {
+            \ 'cmdopt' : '-u'
+            \}
+        let g:quickrun_config['tex'] = {
+            \ 'command'                         : 'latexmk'   ,
+            \ 'cmdopt'                          : '-pdfdvi'   ,
+            \ 'outputter/error/success'         : 'buffer :split'      ,
+            \ 'outputter/error/error'           : 'quickfix'  ,
+            \ 'exec'                            : ['%c %o %s'],
+            \}
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
@@ -114,12 +124,12 @@ NeoBundleLazy "davidhalter/jedi-vim", {
 	\ }}
 let s:hooks = neobundle#get_hooks("jedi-vim")
 function! s:hooks.on_source(bundle)
-		" jediにvimの設定を任せると'completeopt+=preview'するので
-		" 自動設定機能をOFFにし手動で設定を行う
-		let g:jedi#auto_vim_configuration = 0
-		" 補完の最初の項目が選択された状態だと使いにくいためオフにする
-		let g:jedi#popup_select_first = 0
-		" quickrunと被るため大文字に変更
+        " jediにvimの設定を任せると'completeopt+=preview'するので
+        " 自動設定機能をOFFにし手動で設定を行う
+        let g:jedi#auto_vim_configuration = 0
+        " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+        let g:jedi#popup_select_first     = 0
+        " quickrunと被るため大文字に変更
 
   let g:jedi#rename_command = '<Leader>R'
   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
@@ -152,24 +162,24 @@ nnoremap <Leader>t :TagbarToggle<CR>
 NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 if neobundle#is_installed('neocomplete')
     " neocomplete用設定
-    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_at_startup  = 1
     let g:neocomplete#enable_ignore_case = 1
-    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_smart_case  = 1
     if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
+    let g:neocomplete#keyword_patterns   = {}
     endif
     let g:neocomplete#keyword_patterns._ = '\h\w*'
 elseif neobundle#is_installed('neocomplcache')
     " neocomplcache用設定
-    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_at_startup  = 1
     let g:neocomplcache_enable_ignore_case = 1
-    let g:neocomplcache_enable_smart_case = 1
+    let g:neocomplcache_enable_smart_case  = 1
     if !exists('g:neocomplcache_keyword_patterns')
         let g:neocomplcache_keyword_patterns = {}
     endif
-    let g:neocomplcache_keyword_patterns._ = '\h\w*'
+    let g:neocomplcache_keyword_patterns._           = '\h\w*'
     let g:neocomplcache_enable_camel_case_completion = 1
-    let g:neocomplcache_enable_underbar_completion = 1
+    let g:neocomplcache_enable_underbar_completion   = 1
 endif
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C
@@ -200,6 +210,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 NeoBundle "Shougo/neosnippet-snippets"
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
 
 " submodeの設定
 NeoBundle "kana/vim-submode"
@@ -238,6 +249,9 @@ noremap <Leader>l $
 " jkでの移動
 nnoremap j gj
 nnoremap k gk
+" 簡単にページを閉じる
+nnoremap qq :q<CR>
+nnoremap ww :w<CR>
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>

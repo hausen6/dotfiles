@@ -1,0 +1,50 @@
+snippet     mathexpression
+alias       $
+abbr        $ expression $
+	$${1:#:expression}$${2}
+
+# ========== ENVIRONMENT ==========
+
+snippet     begin
+alias       \begin
+	\begin{${1:#:type}}
+	${2:TARGET}
+	\end{$1}
+
+snippet     documentclass, dc
+alias       \documentclass
+    \documentclass[11pt, a4paper]{jsarticle}
+
+    \title{${1:TARGET}}
+    \author{${2:TARGET}}
+    \date{${3:TARGET}}
+
+    \begin{document}
+    \maketitle
+    ${4:TARGET}
+    \end{document}
+
+snippet     enumerate
+alias       \begin{enumerate} \enumerate
+    \begin{enumerate}
+    \vspace{-10pt}
+    
+    \item {${1:TARGET}}
+    \vspace{-10pt}
+    \end{enumerate}
+
+snippet     description
+alias       \begin{description} \enumerate
+    \begin{description}
+    \vspace{-10pt}
+    \item {${1:TARGET}}
+    \vspace{-10pt}
+    \end{description}
+
+snippet     itemize
+alias       \begin{itemize} \enumerate
+    \begin{itemize}
+    \vspace{-10pt}
+    \item {${1:TARGET}}
+    \vspace{-10pt}
+    \end{itemize}
