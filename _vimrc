@@ -111,6 +111,31 @@ function! s:hooks.on_source(bundle)
             \ 'exec'                            : ['%c %o %s'],
             \}
 endfunction
+function! s:SetLaTeXMainSource()
+    let currentFileDirectory = expand('%:p:h').'\'
+    let latexmain = glob(currentFileDirectory.'*.latexmain')
+    let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
+    if latexmain == ''
+        unlet g:quickrun_config['tex']['srcfile']
+    endif
+endfunction
+function! s:TexPdfView()
+    let texPdfFilename = expand('%')
+    if exists("g:quickrun_config['tex']['srcfile']")
+        let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
+    endif
+    if has('win32')
+        let g:TexPdfViewCommand = '!start '.
+                    \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
+                    \             texPdfFilename
+    endif
+    if has('unix')
+        let g:TexPdfViewCommand = '! '.
+                    \             'evince'.
+                    \             texPdfFilename
+    endif
+    execute g:TexPdfViewCommand
+endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
 " jedi-vim
@@ -279,10 +304,25 @@ set foldmethod=expr
 set modeline
 command! Evimrc e $MYVIMRC
 
-augroup MyAutoGroup
-        autocmd!
-        autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-        autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-        autocmd BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
-        autocmd BufNewFile,BufRead *.py :TagbarToggle
+augroup myVimrcGroup
+        au!
+        " vimrc, gvimrc Çé©ìÆì«Ç›çûÇ›
+        au BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+        au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
+augroup myPythonGroup
+        au!
+        "  **************** python ópÇÃé©ìÆê›íË ****************
+        " jedi-vimé© ìÆëIëÇoff Ç…Ç∑ÇÈ"
+        au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()         
+        " class view Çê›íË"
+        au BufNewFile,BufRead *.py :TagbarToggle 
+        au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/python.snip
+augroup END
+"  **************** latex ópÇÃé©ìÆê›íË ****************
+augroup myLaTeXGroup
+        au!
+        au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
+        au BufEnter *.tex call <SID>SetLaTeXMainSource()
+        au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
 augroup END
