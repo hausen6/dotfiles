@@ -15,16 +15,6 @@ let $MYGVIMRC='~/_gvimrc'
 " tabstopの設定
 set expandtab
 set tabstop=4
-"  ******* open || reload vimrc ******
-set foldmethod=expr
-set modeline
-command! Evimrc e $MYVIMRC
-" autogroup
-augroup MyAutoGroup
-    autocmd!
-    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-augroup END
 
 
 " 縦に連番の番号を co で入力する
@@ -34,9 +24,9 @@ command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <co
 
 " Ctrl-Pで開いているPython スクリプトを実行
 function! s:Exec()
-    exe "!" . &ft . " %"        
-:endfunction         
-command! Exec call <SID>Exec() 
+    exe "!" . &ft . " %"
+:endfunction
+command! Exec call <SID>Exec()
 map <silent> <C-P> :call <SID>Exec()<CR>
 
 
@@ -58,7 +48,7 @@ if neobundle#exists_not_installed_bundles()
   "finish
 endif
 " ここにインストールしたいプラグインのリストを書く
-NeoBundleFetch 'Shougo/neobundle.vim'  
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimshell.vim'
 
@@ -75,7 +65,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 ""VimFilerの設定
 let g:vimfiler_as_default_explorer = 1
 " VimFiler使用のキーマップ
-nnoremap <Leader>f :VimFiler -split -simple -winwidth=30 -no-quit<CR>
+nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
 " e でタブオープンにする
 let g:vimfiler_edit_action = 'tabopen'
 " 自動でcdする
@@ -104,37 +94,36 @@ function! s:hooks.on_source(bundle)
             \ 'cmdopt' : '-u'
             \}
         let g:quickrun_config['tex'] = {
-            \ 'command'                         : 'latexmk'   ,
-            \ 'cmdopt'                          : '-pdfdvi'   ,
-            \ 'outputter/error/success'         : 'buffer :split'      ,
-            \ 'outputter/error/error'           : 'quickfix'  ,
-            \ 'exec'                            : ['%c %o %s'],
+            \ 'command'               : 'latexmk'   ,
+            \ 'cmdopt'                : '-pdfdvi'   ,
+            \ 'outputter'             : 'quickfix'     ,
+            \ 'exec'                  : ['%c %o %s'],
             \}
-endfunction
-function! s:SetLaTeXMainSource()
-    let currentFileDirectory = expand('%:p:h').'\'
-    let latexmain = glob(currentFileDirectory.'*.latexmain')
-    let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
-    if latexmain == ''
-        unlet g:quickrun_config['tex']['srcfile']
-    endif
-endfunction
-function! s:TexPdfView()
-    let texPdfFilename = expand('%')
-    if exists("g:quickrun_config['tex']['srcfile']")
-        let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
-    endif
-    if has('win32')
-        let g:TexPdfViewCommand = '!start '.
-                    \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
-                    \             texPdfFilename
-    endif
-    if has('unix')
-        let g:TexPdfViewCommand = '! '.
-                    \             'evince'.
-                    \             texPdfFilename
-    endif
-    execute g:TexPdfViewCommand
+        function! s:SetLaTeXMainSource()
+            let currentFileDirectory = expand('%:p:h').'\'
+            let latexmain = glob(currentFileDirectory.'*.latexmain')
+            let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
+            if latexmain == ''
+                unlet g:quickrun_config['tex']['srcfile']
+            endif
+        endfunction
+        function! s:TexPdfView()
+            let texPdfFilename = expand('%:r').'.pdf'
+            if exists("g:quickrun_config['tex']['srcfile']")
+                let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
+            endif
+            if has('win32')
+                let g:TexPdfViewCommand = '!start '.
+                            \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
+                            \             texPdfFilename
+            endif
+            if has('unix')
+                let g:TexPdfViewCommand = '! '.
+                            \             'evince'.
+                            \             texPdfFilename
+            endif
+            execute g:TexPdfViewCommand
+        endfunction
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
@@ -234,8 +223,8 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-NeoBundle "Shougo/neosnippet-snippets"
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
+NeoBundle "Shougo/neosnippet-snippets"
 
 " submodeの設定
 NeoBundle "kana/vim-submode"
@@ -275,13 +264,12 @@ noremap <Leader>l $
 nnoremap j gj
 nnoremap k gk
 " 簡単にページを閉じる
-nnoremap qq :q<CR>
-nnoremap ww :w<CR>
+nnoremap <Leader>q :tabc<CR>
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
-nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
- 
+nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
+nnoremap <silent> <Space>eg  :<C-u>tabedit $MYGVIMRC<CR>
+
 " .vimrcや.gvimrcの変更を反映するためのKey-mappingを定義する
 nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
@@ -299,6 +287,8 @@ nnoremap <Leader>uf       : UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       : Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
 nnoremap <Leader>uo       : <C-u>Unite outline<CR>
+
+
 " ********************
 set foldmethod=expr
 set modeline
@@ -309,20 +299,22 @@ augroup myVimrcGroup
         " vimrc, gvimrc を自動読み込み
         au BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
         au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+        au BufWritePre * :%s/\s\+$//e
 augroup END
 augroup myPythonGroup
         au!
         "  **************** python 用の自動設定 ****************
         " jedi-vim自 動選択をoff にする"
-        au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()         
+        au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
         " class view を設定"
-        au BufNewFile,BufRead *.py :TagbarToggle 
+        au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/python.snip
 augroup END
 "  **************** latex 用の自動設定 ****************
 augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
+        au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter *.tex call <SID>SetLaTeXMainSource()
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
 augroup END
