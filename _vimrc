@@ -1,5 +1,6 @@
 " joe 用の設定 "
 set noswapfile
+syntax on
 
 " 基本設定
 " 行数を表示
@@ -15,7 +16,6 @@ let $MYGVIMRC='~/_gvimrc'
 " tabstopの設定
 set expandtab
 set tabstop=4
-
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -49,29 +49,6 @@ if neobundle#exists_not_installed_bundles()
 endif
 " ここにインストールしたいプラグインのリストを書く
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/vimshell.vim'
-
-NeoBundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_use_migemo = 1
-
-NeoBundle 'w0ng/vim-hybrid'
-
-NeoBundle 'Shougo/unite.vim'
-" history/yank を有効にする
-let g:unite_source_history_yank_enable = 1
-
-NeoBundle 'Shougo/vimfiler.vim'
-""VimFilerの設定
-let g:vimfiler_as_default_explorer = 1
-" VimFiler使用のキーマップ
-nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
-" e でタブオープンにする
-let g:vimfiler_edit_action = 'tabopen'
-" 自動でcdする
-let g:vimfiler_enable_auto_cd = 1
-
-call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -80,10 +57,55 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
-"
-" quickrun
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'w0ng/vim-hybrid'
 NeoBundle "thinca/vim-quickrun"
+NeoBundleLazy "davidhalter/jedi-vim", {
+	\ "autoload": {
+	\              "filetypes": ["python", "python3", "djangohtml"],
+	\             },
+	\ "build": {
+	\              "mac": "pip install jedi",
+	\              "unix": "pip install jedi",
+	\ }}
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'majutsushi/tagbar', {
+      \ "build": {
+      \   "mac": "brew install ctags",
+      \ }}
+NeoBundle "honza/vim-snippets"
+NeoBundle "Shougo/neosnippet.vim"
+NeoBundle "Shougo/neosnippet-snippets"
+NeoBundle "kana/vim-submode"
+NeoBundle "tpope/vim-surround"
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'h1mesuke/vim-alignta'
+
+" easymotion
+" 日本語に有効にする
+let g:EasyMotion_use_migemo = 1
+
+" unite
+" history/yank を有効にする
+let g:unite_source_history_yank_enable = 1
+
+""VimFilerの設定
+let g:vimfiler_as_default_explorer = 1
+" VimFiler使用のキーマップ
+nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
+" e でタブオープンにする
+let g:vimfiler_edit_action = 'tabopen'
+" 自動でcdする
+let g:vimfiler_enable_auto_cd = 1
+let g:vimfiler_safe_mode_by_default = 0
+call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+" quickrun
 let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
         let g:quickrun_config = {}
@@ -128,14 +150,6 @@ endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
 " jedi-vim
-NeoBundleLazy "davidhalter/jedi-vim", {
-	\ "autoload": {
-	\              "filetypes": ["python", "python3", "djangohtml"],
-	\             },
-	\ "build": {
-	\              "mac": "pip install jedi",
-	\              "unix": "pip install jedi",
-	\ }}
 let s:hooks = neobundle#get_hooks("jedi-vim")
 function! s:hooks.on_source(bundle)
         " jediにvimの設定を任せると'completeopt+=preview'するので
@@ -160,20 +174,12 @@ function! g:SetPopOnJediOff()
         unlet s:save_cpo
 endfunction
 
-" indentLine
-NeoBundle 'Yggdroot/indentLine'
-
 
 " python class browser
-NeoBundle 'majutsushi/tagbar', {
-      \ "build": {
-      \   "mac": "brew install ctags",
-      \ }}
 nnoremap <Leader>t :TagbarToggle<CR>
 
-" 補完
+" neocomplete
 " if_luaが有効ならneocompleteを使う
-NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 if neobundle#is_installed('neocomplete')
     " neocomplete用設定
     let g:neocomplete#enable_at_startup  = 1
@@ -205,8 +211,6 @@ if !exists('g:neocomplete#force_omni_input_patterns')
 endif
 
 " スニペットの設定
-NeoBundle "honza/vim-snippets"
-NeoBundle "Shougo/neosnippet.vim"
 let s:hooks = neobundle#get_hooks("neosnippet.vim")
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -224,10 +228,8 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
-NeoBundle "Shougo/neosnippet-snippets"
 
 " submodeの設定
-NeoBundle "kana/vim-submode"
 " window size の調整を連続キーでやる
 call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
 call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
@@ -240,15 +242,7 @@ call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
 call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
 call submode#map('changetab', 'n', '', 't', 'gt')
 call submode#map('changetab', 'n', '', 'T', 'gT')
-
-
-" soround
-NeoBundle "tpope/vim-surround"
-
-" 括弧のやつ
-NeoBundle 'kana/vim-smartinput'
-
-NeoBundle 'Align'
+" Neobundle 終わり
 " =========================================
 
 " **** キーマップ ****
@@ -261,8 +255,17 @@ nnoremap <C-g> <ESC>
 noremap <Leader>h ^
 noremap <Leader>l $
 " jkでの移動
-nnoremap j gj
-nnoremap k gk
+nnoremap j gjzz
+nnoremap k gkzz
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
+nnoremap gg ggzz
+nnoremap G Gzz
+" 検索での移動を画面中心に
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+
 " 簡単にページを閉じる
 nnoremap <Leader>q :tabc<CR>
 
@@ -308,7 +311,7 @@ augroup myPythonGroup
         au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
         " class view を設定"
         au BufNewFile,BufRead *.py :TagbarToggle
-        au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/python.snip
+        au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
 augroup END
 "  **************** latex 用の自動設定 ****************
 augroup myLaTeXGroup

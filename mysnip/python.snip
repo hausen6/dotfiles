@@ -1,9 +1,13 @@
 snippet     new
 alias       new
-    # coding: ${1:TARGET}
+    # -*- coding: ${1:TARGET} -*-
+    import os
+    import sys
+    import shutil
+    from glob import glob
 
     def main():
-        pass
+        ${2:TARGET}
 
     if __name__ == '__main__':
         main()
