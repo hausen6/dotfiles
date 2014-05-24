@@ -1,4 +1,6 @@
-:colorscheme hybrid
+":colorscheme hybrid
+set background=light
+colorscheme solarized
 
 " ŠÂ‹«ˆË‘¶‚Ìİ’è
 if has('win32')

@@ -61,6 +61,7 @@ NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'w0ng/vim-hybrid'
@@ -265,6 +266,9 @@ nnoremap G Gzz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
+" ジャンプしたときに画面を中心に
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 " 簡単にページを閉じる
 nnoremap <Leader>q :tabc<CR>
@@ -290,7 +294,6 @@ nnoremap <Leader>uf       : UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       : Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
 nnoremap <Leader>uo       : <C-u>Unite outline<CR>
-
 
 " ********************
 set foldmethod=expr
