@@ -36,6 +36,6 @@ set cursorline
 "hi clear CursorLine
 "hi CursorLine gui=underline
 "" ESC ESC でハイライトキャンセル
-nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
+"nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
 
 source $MYVIMRC

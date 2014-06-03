@@ -1,5 +1,4 @@
 " joe 用の設定 "
-set noswapfile
 syntax on
 
 " 基本設定
@@ -13,9 +12,18 @@ set ic
 " 設定ファイルのパス設定
 let $MYVIMRC='~/_vimrc'
 let $MYGVIMRC='~/_gvimrc'
-" tabstopの設定
-set expandtab
-set tabstop=4
+" バックアップファイルの作成場所変更
+set directory=~/.vim/vimbackup/
+set backupdir=~/.vim/vimbackup/
+set undodir=~/.vim/vimbackup/
+" 自動改行OFF
+set formatoptions=q
+"日本語の行の連結時には空白を入力しない。
+set formatoptions+=mM
+"□や○の文字があってもカーソル位置がずれないようにする。
+set ambiwidth=double
+"画面最後の行をできる限り表示する。
+set display+=lastline
 
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -258,6 +266,8 @@ noremap <Leader>l $
 " jkでの移動
 nnoremap j gjzz
 nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
 nnoremap gg ggzz
@@ -300,16 +310,27 @@ set foldmethod=expr
 set modeline
 command! Evimrc e $MYVIMRC
 
+" vimrc, gvimrc を自動読み込み
 augroup myVimrcGroup
         au!
-        " vimrc, gvimrc を自動読み込み
         au BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
         au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
         au BufWritePre * :%s/\s\+$//e
 augroup END
+"  ************ ファイル作成時にディレクトリも作成する *************
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir) && (a:force ||
+    \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
+"  **************** python 用の自動設定 ****************
 augroup myPythonGroup
         au!
-        "  **************** python 用の自動設定 ****************
         " jedi-vim自 動選択をoff にする"
         au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
         " class view を設定"
