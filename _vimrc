@@ -94,14 +94,29 @@ NeoBundle "kana/vim-submode"
 NeoBundle "tpope/vim-surround"
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundleLazy "sjl/gundo.vim", {
+      \ "autoload": {
+      \   "commands": ['GundoToggle'],
+      \}}
+NeoBundle "scrooloose/syntastic"
+NeoBundle "git://github.com/osyo-manga/unite-quickfix.git"
+
+" syntastic
+let g:syntastic_python_checkers = ['flake8']
+" 複数指定する場合はカンマ区切り
+" e.g ) let g:flake8_ignore = 'E501,W293'
+let g:flake8_ignore = 'E501'
+" 複数指定する場合はカンマ区切り
+" let g:syntastic_python_flake8_args = '--ignore="E501,E302"'
+let g:syntastic_python_flake8_args = '--ignore="E501"'
+
+" gundo.vim
+nnoremap <Leader>un :GundoToggle<CR>
+let g:gundo_auto_preview = 0
 
 " easymotion
 " 日本語に有効にする
 let g:EasyMotion_use_migemo = 1
-
-" unite
-" history/yank を有効にする
-let g:unite_source_history_yank_enable = 1
 
 ""VimFilerの設定
 let g:vimfiler_as_default_explorer = 1
@@ -113,6 +128,9 @@ let g:vimfiler_edit_action = 'tabopen'
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_safe_mode_by_default = 0
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+" unite
+let g:unite_source_history_yank_enable = 1
 
 " quickrun
 let s:hooks = neobundle#get_hooks("vim-quickrun")
@@ -251,15 +269,45 @@ call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
 call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
 call submode#map('changetab', 'n', '', 't', 'gt')
 call submode#map('changetab', 'n', '', 'T', 'gT')
+
+
 " Neobundle 終わり
 " =========================================
+" python の自動文法修正
+" original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829
+function! Preserve(command)
+    " Save the last search.
+    let search = @/
+    " Save the current cursor position.
+    let cursor_position = getpos('.')
+    " Save the current window position.
+    normal! H
+    let window_position = getpos('.')
+    call setpos('.', cursor_position)
+    " Execute the command.
+    execute a:command
+    " Restore the last search.
+    let @/ = search
+    " Restore the previous window position.
+    call setpos('.', window_position)
+    normal! zt
+    " Restore the previous cursor position.
+    call setpos('.', cursor_position)
+endfunction
+
+function! Autopep8()
+    call Preserve(':silent %!autopep8 -')
+endfunction
+
+" Shift + F で自動修正
+autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
 
 " **** キーマップ ****
 let mapleader=" "
 " <ESC> を C-g に割り当てる
-inoremap <C-g> <ESC>
-vnoremap <C-g> <ESC>
-nnoremap <C-g> <ESC>
+inoremap <C-j> <ESC>
+vnoremap <C-j> <ESC>
+nnoremap <C-j> <ESC>
 " $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
