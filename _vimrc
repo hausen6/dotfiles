@@ -25,6 +25,8 @@ set ambiwidth=double
 "画面最後の行をできる限り表示する。
 set display+=lastline
 
+set tabstop=4
+
 " 縦に連番の番号を co で入力する
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
@@ -37,6 +39,8 @@ function! s:Exec()
 command! Exec call <SID>Exec()
 map <silent> <C-P> :call <SID>Exec()<CR>
 
+" 今日の日付を挿入
+nnoremap <F6> <ESC>i<C-R>=strftime("%Y/%m/%d")<CR><CR>
 
 " =========== NeoBundleの設定 =============
 let g:neobundle_default_git_protocol='https'
@@ -123,7 +127,7 @@ let g:vimfiler_as_default_explorer = 1
 " VimFiler使用のキーマップ
 nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
 " e でタブオープンにする
-let g:vimfiler_edit_action = 'tabopen'
+let g:vimfiler_edit_action = 'open'
 " 自動でcdする
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_safe_mode_by_default = 0
@@ -135,13 +139,13 @@ let g:unite_source_history_yank_enable = 1
 " quickrun
 let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
-        let g:quickrun_config = {}
+		let g:quickrun_config = {}
         let g:quickrun_config['_'] = {
             \ "runner" : "remote/vimproc"
             \ }
         let g:quickrun_config['python'] = {
-            \ 'cmdopt' : '-u'
-            \}
+            \ 'cmdopt' : '-u',
+            \ }
         let g:quickrun_config['tex'] = {
             \ 'command'               : 'latexmk'   ,
             \ 'cmdopt'                : '-pdfdvi'   ,
@@ -295,13 +299,6 @@ function! Preserve(command)
     call setpos('.', cursor_position)
 endfunction
 
-function! Autopep8()
-    call Preserve(':silent %!autopep8 -')
-endfunction
-
-" Shift + F で自動修正
-autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
-
 " **** キーマップ ****
 let mapleader=" "
 " <ESC> を C-g に割り当てる
@@ -380,7 +377,7 @@ augroup END
 augroup myPythonGroup
         au!
         " jedi-vim自 動選択をoff にする"
-        au BufNewFile,BufRead *.py :call g:SetPopOnJediOff()
+        au BufNewFile,BufRead *.py call g:SetPopOnJediOff()
         " class view を設定"
         au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip

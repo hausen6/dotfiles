@@ -9,7 +9,7 @@ alias       \documentclass
     \documentclass[11pt, a4paper]{jsarticle}
     % ******* ƒvƒŠƒAƒ“ƒuƒ‹ ********
     \usepackage{amsmath}
-    \usepackage{graphicx}
+    \usepackage[dvipdfmx]{graphicx}
     \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
     %
     % ***********************
@@ -48,3 +48,23 @@ alias       \begin{itemize} \enumerate
     \item {${1:TARGET}}
     \vspace{-10pt}
     \end{itemize}
+
+snippet		minipage
+alias		\begin{minipage} \minipage
+	\begin{figure}
+		\begin{minipage}{0.5\hsize}
+		\begin{center}
+			\includegraphics[width=80mm]{${1:TARGET}}
+			\caption{${2:TARGET}}
+			\label{${3:TARGET}}
+		\end{center}
+		\end{minipage}
+
+		\begin{minipage}{0.5\hsize}
+		\begin{center}
+			\includegraphics[width=80mm]{${4:TARGET}}
+			\caption{${5:TARGET}}
+			\label{${6:TARGET}}
+		\end{center}
+		\end{minipage}
+	\end{figure}
