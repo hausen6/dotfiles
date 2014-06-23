@@ -68,3 +68,26 @@ alias		\begin{minipage} \minipage
 		\end{center}
 		\end{minipage}
 	\end{figure}
+
+snippet     siki
+alias		$ $$
+	$${1:TARGET}$ ${2:TARGET}
+
+snippet     bold
+alias		bf bold
+	\mbox{\boldmath $${1:TARGET}$}${2:TARGET}
+
+snippet     frac
+alias   	frac
+	\frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
+
+snippet     align
+alias 		align
+	\begin{align}
+		\label{eq:${1:TARGET}}
+		${2:TARGET}
+	\end{align}
+
+snippet    	label
+alias   	\lebel label
+	\label{${1:TARGET}} ${2:TARGET}

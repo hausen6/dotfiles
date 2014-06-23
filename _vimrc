@@ -104,6 +104,7 @@ NeoBundleLazy "sjl/gundo.vim", {
       \}}
 NeoBundle "scrooloose/syntastic"
 NeoBundle "git://github.com/osyo-manga/unite-quickfix.git"
+NeoBundle 'osyo-manga/shabadou.vim'
 
 " syntastic
 let g:syntastic_python_checkers = ['flake8']
@@ -141,7 +142,8 @@ let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
 		let g:quickrun_config = {}
         let g:quickrun_config['_'] = {
-            \ "runner" : "remote/vimproc"
+            \ "runner" : "remote/vimproc",
+			\ 'hook/neko/enable' : 1,
             \ }
         let g:quickrun_config['python'] = {
             \ 'cmdopt' : '-u',
@@ -150,16 +152,9 @@ function! s:hooks.on_source(bundle)
             \ 'command'               : 'latexmk'   ,
             \ 'cmdopt'                : '-pdfdvi'   ,
             \ 'outputter'             : 'quickfix'     ,
-            \ 'exec'                  : ['%c %o %s'],
+            \ 'exec'                  : '%c %o %s',
             \}
-        function! s:SetLaTeXMainSource()
-            let currentFileDirectory = expand('%:p:h').'\'
-            let latexmain = glob(currentFileDirectory.'*.latexmain')
-            let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
-            if latexmain == ''
-                unlet g:quickrun_config['tex']['srcfile']
-            endif
-        endfunction
+
         function! s:TexPdfView()
             let texPdfFilename = expand('%:r').'.pdf'
             if exists("g:quickrun_config['tex']['srcfile']")
@@ -377,7 +372,7 @@ augroup END
 augroup myPythonGroup
         au!
         " jedi-vimé© ìÆëIëÇoff Ç…Ç∑ÇÈ"
-        au BufNewFile,BufRead *.py call g:SetPopOnJediOff()
+        au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
         " class view Çê›íË"
         au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
@@ -387,6 +382,15 @@ augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
-        au BufEnter *.tex call <SID>SetLaTeXMainSource()
+        au BufEnter,BufWrite *.tex call g:SetLaTeXMainSource()
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
+		au BufEnter *.tex nnoremap <Leader>rr :QuickRun tex<CR>
 augroup END
+function! g:SetLaTeXMainSource()
+    let currentFileDirectory = expand('%:p:h').'\'
+    let latexmain = glob(currentFileDirectory.'*.latexmain')
+    let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
+    if latexmain == ''
+        unlet g:quickrun_config['tex']['srcfile']
+    endif
+endfunction
