@@ -13,8 +13,13 @@ if test -L ~/.latexmkrc ; then
 	rm ~/.latexmkrc
 	echo rm .latexmkrc file
 fi
+if test -L ~/.vim/mysnip; then
+	rm -rf ~/.vim/mysnip
+	echo rm ~/.vim/mysnip
+fi
 
 # シンボリックリンクを作成する
 ln -s ~/dotfiles/_vimrc ~/_vimrc
 ln -s ~/dotfiles/_gvimrc ~/_gvimrc
 ln -s ~/dotfiles/.latexmkrc ~/.latexmkrc
+ln -s ~/dotfiles/mysnip/ ~/.vim/mysnip

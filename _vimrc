@@ -167,7 +167,7 @@ function! s:hooks.on_source(bundle)
             endif
             if has('unix')
                 let g:TexPdfViewCommand = '! '.
-                            \             'evince'.
+                            \             'evince '.
                             \             texPdfFilename
             endif
             execute g:TexPdfViewCommand
