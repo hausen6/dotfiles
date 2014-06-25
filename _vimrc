@@ -142,11 +142,15 @@ let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
 		let g:quickrun_config = {}
         let g:quickrun_config['_'] = {
-            \ "runner" : "remote/vimproc",
-			\ 'hook/neko/enable' : 1,
+			\ "hook/inu/enable" : 1,
+			\ "hook/inu/wait" : 20,
+            \ "runner" : "vimproc",
+			\ 'runner/vimproc/updatetime' : 40,
+			\ 'hook/time/enable' : 1,
             \ }
         let g:quickrun_config['python'] = {
             \ 'cmdopt' : '-u',
+			\ 'split' : 'vertical'
             \ }
         let g:quickrun_config['tex'] = {
             \ 'command'               : 'latexmk'   ,
@@ -154,6 +158,9 @@ function! s:hooks.on_source(bundle)
             \ 'outputter'             : 'quickfix'     ,
             \ 'exec'                  : '%c %o %s',
             \}
+		" 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
+		set splitbelow
+		set splitright
 
         function! s:TexPdfView()
             let texPdfFilename = expand('%:r').'.pdf'
@@ -376,6 +383,10 @@ augroup myPythonGroup
         " class view を設定"
         au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
+		au BufEnter *.py set tabstop=4
+		au BufEnter *.py set autoindent
+		au BufEnter *.py set expandtab
+		au BufEnter *.py set shiftwidth=4
 augroup END
 "  **************** latex 用の自動設定 ****************
 augroup myLaTeXGroup
@@ -384,7 +395,7 @@ augroup myLaTeXGroup
         au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter,BufWrite *.tex call g:SetLaTeXMainSource()
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
-		au BufEnter *.tex nnoremap <Leader>rr :QuickRun tex<CR>
+		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 augroup END
 function! g:SetLaTeXMainSource()
     let currentFileDirectory = expand('%:p:h').'\'
