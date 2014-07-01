@@ -179,6 +179,14 @@ function! s:hooks.on_source(bundle)
             endif
             execute g:TexPdfViewCommand
         endfunction
+		function! g:SetLaTeXMainSource()
+			let currentFileDirectory = expand('%:p:h').'\'
+			let latexmain = glob(currentFileDirectory.'*.latexmain')
+			let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
+			if latexmain == ''
+				unlet g:quickrun_config['tex']['srcfile']
+			endif
+		endfunction
 endfunction
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "
@@ -329,6 +337,7 @@ nnoremap <C-i> <C-i>zz
 
 " 簡単にページを閉じる
 nnoremap <Leader>q :tabc<CR>
+nnoremap <Leader>w :write!<CR>
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
@@ -351,6 +360,7 @@ nnoremap <Leader>uf       : UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       : Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
 nnoremap <Leader>uo       : <C-u>Unite outline<CR>
+nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 
 " ********************
 set foldmethod=expr
@@ -395,13 +405,6 @@ augroup myLaTeXGroup
         au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter,BufWrite *.tex call g:SetLaTeXMainSource()
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
+		au BufEnter *.tex :call g:SetLaTeXMainSource()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 augroup END
-function! g:SetLaTeXMainSource()
-    let currentFileDirectory = expand('%:p:h').'\'
-    let latexmain = glob(currentFileDirectory.'*.latexmain')
-    let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
-    if latexmain == ''
-        unlet g:quickrun_config['tex']['srcfile']
-    endif
-endfunction
