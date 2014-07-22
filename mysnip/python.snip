@@ -11,3 +11,13 @@ alias       new
 
     if __name__ == '__main__':
         main()
+
+snippet     cread
+alias       cread
+    for line in codecs.open(${1:File}, '${2:Mode}', '${3:Unicode}'):
+        ${4:TARGET}
+
+snippet     cwrite
+alias       cwrite
+    with codecs.open(${1:File}, '${2:Mode}', '${3:Unicode}') as ${4:F object}:
+        ${5:TARGET}
