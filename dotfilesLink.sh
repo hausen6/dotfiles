@@ -9,9 +9,9 @@ if test -L ~/_gvimrc ; then
 	rm ~/_gvimrc
 	echo rm _gvimrc file
 fi
-if test -L ~/.latexmkrc ; then
-	rm ~/.latexmkrc
-	echo rm .latexmkrc file
+if test -L ~/pdflatex.sh ; then
+	rm ~/pdflatex.sh
+	echo rm pdflatex.sh file
 fi
 if test -L ~/.vim/mysnip; then
 	rm -rf ~/.vim/mysnip
@@ -21,5 +21,5 @@ fi
 # シンボリックリンクを作成する
 ln -s ~/dotfiles/_vimrc ~/_vimrc
 ln -s ~/dotfiles/_gvimrc ~/_gvimrc
-ln -s ~/dotfiles/.latexmkrc ~/.latexmkrc
+ln -s ~/dotfiles/pdflatex.sh ~/pdflatex.sh
 ln -s ~/dotfiles/mysnip/ ~/.vim/mysnip

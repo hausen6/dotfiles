@@ -339,6 +339,9 @@ nnoremap gg ggzz
 nnoremap G Gzz
 "}}}
 " åüçıÇ≈ÇÃà⁄ìÆÇâÊñ íÜêSÇ…"{{{
+nnoremap <c-o> <c-o>zz
+nnoremap <c-i> <c-i>zz
+nnoremap <c-]> <c-]>zz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -596,10 +599,7 @@ function! s:hooks.on_source(bundle)
 		set splitright
 
         function! s:TexPdfView()
-            let texPdfFilename = expand('%:r').'.pdf'
-            if exists("g:quickrun_config['tex']['srcfile']")
-                let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
-            endif
+			let texPdfFilename = 'main.pdf'
             if has('win32')
                 let g:TexPdfViewCommand = '!start '.
                             \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
@@ -611,7 +611,24 @@ function! s:hooks.on_source(bundle)
                             \             texPdfFilename
             endif
             execute g:TexPdfViewCommand
-        endfunction
+		endfunction
+        " function! s:TexPdfView()
+        "     let texPdfFilename = expand('%:r').'.pdf'
+        "     if exists("g:quickrun_config['tex']['srcfile']")
+        "         let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
+        "     endif
+        "     if has('win32')
+        "         let g:TexPdfViewCommand = '!start '.
+        "                     \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
+        "                     \             texPdfFilename
+        "     endif
+        "     if has('unix')
+        "         let g:TexPdfViewCommand = '! '.
+        "                     \             'evince '.
+        "                     \             texPdfFilename
+        "     endif
+        "     execute g:TexPdfViewCommand
+        " endfunction
 		function! g:SetLaTeXMainSource()
 			let currentFileDirectory = expand('%:p:h').'\'
 			let latexmain = glob(currentFileDirectory.'*.latexmain')
@@ -1023,22 +1040,32 @@ function! s:SetLaTeXMainSource() " latex ópä÷êî/*{{{*/
 	if latexmain == ''
 		unlet g:quickrun_config['tex']['srcfile']
 	endif
+ 	:set efm=%E!\ LaTeX\ %trror:\ %m,
 endfunction " }}}
-function! s:SetLatexQuickRunConfig() " latexê›íË {{{
-        let g:quickrun_config['tex'] = {
-            \ 'command'               : 'python'   ,
-            \ 'outputter'             : 'buffer'     ,
-            \ 'exec'                  : '%c ~/pdflatex.py %o %s',
-            \}
-endfunction"}}}
+function! s:SetLatexQuickrun()
+	if has('win32')
+		let g:quickrun_config['tex'] = {
+		\	'command' : '~/pdfplatex.bat',
+		\	'outputter': 'error',
+		\	'outputter/error/error': 'quickfix',
+		\ }
+	endif
+	if has('unix')
+		let g:quickrun_config['tex'] = {
+		\	'command' : '~/pdfplatex.sh',
+		\	'outputter': 'error',
+		\	'outputter/error/error': 'quickfix',
+	\}
+	endif
+endfunction
 "  **************** latex ópÇÃé©ìÆê›íË ****************"{{{
 augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
-        au BufEnter,BufWrite *.tex call <SID>SetLaTeXMainSource()
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
-        au BufEnter *.tex :call <SID>SetLatexQuickRunConfig()
+        au BufEnter,BufWrite *.tex call <SID>SetLaTeXMainSource()
+        au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 augroup END
 "}}}
