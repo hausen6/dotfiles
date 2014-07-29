@@ -25,6 +25,15 @@ alias       \documentclass
     ${4:TARGET}
     \end{document}
 
+snippet     figure
+alias 		\bigin{figure} \figure
+	\begin{figure}
+		\includegraphics[${1:size}]{${2:FIGURE}}
+		\caption{${3:CAPTION}}
+		\label{${4:LABEL}}
+	\end{figure}
+
+
 snippet     myenumerate
 alias       \begin{enumerate} \enumerate
     \begin{enumerate}
