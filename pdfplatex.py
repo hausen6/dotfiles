@@ -4,12 +4,12 @@ import sys
 import logging
 from logging import getLogger, StreamHandler, Formatter, DEBUG
 import codecs
+import re
 from glob import glob
-from subprocess import call
+import subprocess
 
 
 class MyArgsErrors(Exception):
-    def __init__(self, ):
         pass
 
 
@@ -20,10 +20,8 @@ class MyCodecs():
             'iso2022_jp_ext','latin_1', 'ascii')
     def __init__(self, _file, ):
         self.logger = getLogger(self.__class__.__name__)
-        self.log_handler = StreamHandler()
-        self.log_handler.formatter = Formatter('%(levelname)s : %(name)s.%(funcName)s() : %(message)s')
-        self.logger.addHandler(self.log_handler)
         self.__file = _file
+        self.file_encode = ''
 
     def check_codecs(self, ):
         """
@@ -33,6 +31,7 @@ class MyCodecs():
             try:
                 f = open(self.__file, 'r').read().decode(codec)
                 self.logger.debug('Encoding is \"{0}\"'.format(codec))
+                self.file_encode = codec
                 return codec
             except:
                 pass
@@ -49,42 +48,97 @@ class MyCodecs():
             f.write(''.join(lines))
 
 
-class PDFPLaTEX:
-    def __init__(self, *argv):
+class LatexCompile:
+    def __init__(self, _args):
         """
         コンストラクタ
         """
         self.logger = getLogger(self.__class__.__name__)
-        self.log_handler = StreamHandler()
-        self.log_handler.setFormatter()
-        self.args = argv
+        self.args = _args
         self.mainfile = ''
+        self.bibFrag = False
 
     def check_args(self, ):
         """
         引数をチェックするメソッド
         """
-        if len(self.args) != 1:
+        if len(self.args) != 2:
             raise MyArgsErrors, 'Number of arguments is 1 ! ({0} given)'.format(len(self.args))
         else:
-            self.mainfile = self.args
+            self.logger.debug(type(self.args))
+            if not (isinstance(self.args, list) or isinstance(self.args, tuple)):
+                raise MyArgsErrors, 'Give \'list\' or \'tupple\' argument (\'{0}\' given)'.format(type(self.args))
+            self.mainfile = self.args[1]
 
     def check_Bibtex(self, ):
         """
         BiBTeXを使っているかチェックするメソッド
         """
-        __main = open(self.mainfile, 'r')
+        self.logger.debug(self.mainfile)
+        myc = MyCodecs(self.mainfile)
+        myc.check_codecs()
+        __main = codecs.open(self.mainfile, 'r', myc.file_encode)
+        bibre = re.compile(r'^\\bibliography')
+        for line in __main:
+            check = bibre.search(line)
+            if check:
+                self.logger.debug(line)
+                self.bibFrag = True
+                return
+
+    def pdflatex(self, ):
+        """ Tex のメイン・ソースをコンパイルするメソッド """
+        jobname, extra = os.path.splitext(self.mainfile)
+        self.logger.debug(jobname)
+        cmds = []
+        cmds.append('pdflatex')
+        cmds.append('-synctex=1')
+        cmds.append('-jobname={0}'.format(jobname))
+        cmds.append('-kanji=utf8')
+        cmds.append('-guess-input-enc')
+        cmds.append('{0}'.format(self.mainfile))
+        cmd = ' '.join(cmds)
+        self.logger.debug(cmd)
+        return subprocess.call(cmd)
+
+    def bibtex(self, ):
+        """ bibtex コンパイルメソッド """
+        jobname, extra = os.path.splitext(self.mainfile)
+        cmds = []
+        cmds.append('jbibtex')
+        cmds.append('{0}.aux'.format(jobname))
+        cmd = ' '.join(cmds)
+        return subprocess.call(cmd)
+
+    def makePDF(self, ):
+        """ pdf を作るメソッド """
+        jobname, extra = os.path.splitext(self.mainfile)
+        cmds = []
+        cmds.append('dvips')
+        cmds.append('{0}.dvi'.format(jobname))
+        cmd = ' '.join(cmds)
+        subprocess.call(cmd)
+        cmds = []
+        cmds.append('ps2pdf')
+        cmds.append('{0}.ps'.format(jobname))
+        cmd = ' '.join(cmds)
+
+    def compile(self, ):
+        """ 全てコンパイルするメソッド """
+        self.check_args()
+        if self.pdflatex():
+            if self.check_Bibtex():
+                if self.bibtex():
+                    self.pdflatex()
+                    self.pdflatex()
+            self.makePDF()
 
 
 def main():
-    mainfile = sys.argv[1]
-    logging.basicConfig(level=DEBUG)
-    c = MyCodecs(mainfile)
-    c.enc('u8')
-    exit(0)
-    p = PDFPLaTEX(logging.DEBUG, mainfile)
-    p.check_args()
-    p.check_Bibtex()
+    l = LatexCompile(sys.argv)
+    l.compile()
+
 
 if __name__ == '__main__':
+    logging.basicConfig(level=DEBUG)
     main()

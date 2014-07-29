@@ -322,7 +322,7 @@ syntax on
 " ========================================="}}}
 
 " =========== キーマップ ========= "{{{
-let mapleader=","
+let mapleader=" "
 " <ESC> を C-g に割り当てる"{{{
 inoremap <C-j> <ESC>
 vnoremap <C-j> <ESC>
