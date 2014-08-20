@@ -168,7 +168,7 @@ syntax on
         " VimFiler使用のキーマップ
         nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
         " e でタブオープンにする
-        let g:vimfiler_edit_action = 'open'
+        let g:vimfiler_edit_action = 'tabopen'
         " 自動でcdする
         let g:vimfiler_enable_auto_cd = 1
         let g:vimfiler_safe_mode_by_default = 0
@@ -184,24 +184,32 @@ syntax on
         function! s:hooks.on_source(bundle)
                 let g:quickrun_config = {}
                 let g:quickrun_config['_'] = {
-                    \ "hook/inu/enable" : 1,
-                    \ "hook/inu/wait" : 20,
-                    \ "runner" : "vimproc",
-                    \ 'runner/vimproc/updatetime' : 40,
-                    \ 'hook/time/enable' : 1,
-                    \ }
+					\ "hook/close_buffer/" : 1,
+					\ "hook/inu/enable" : 1,
+					\ "hook/inu/wait" : 20,
+					\ "runner" : "vimproc",
+					\ 'runner/vimproc/updatetime' : 40,
+					\ 'hook/time/enable' : 1,
+				\ }
                 let g:quickrun_config['python'] = {
                     \ 'cmdopt' : '-u',
                     \ 'split' : 'vertical'
                     \ }
+				let g:quickrun_config['tex'] = {
+						\ 'command' : 'latexmk',
+						\ 'cmdopt' : '-c',
+						\ 'outputter': 'quickfix',
+						\ 'outputter/error/error': 'quickfix',
+						\ 'exec' : ["%c %s"],
+				\}
                 " 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
                 set splitbelow
                 set splitright
                 echo 'hello'
                 function! s:TexPdfView()
                     let texPdfFilename = expand('%:r').'.pdf'
-                    if exists("g:quickrun_config['tex']['srcfile']")
-                        let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
+                    if exists("g:quickrun_config['tex']['args']")
+                        let texPdfFilename = fnamemodify(g:quickrun_config['tex']['args'], ':.:r') . '.pdf'
                     endif
                     if has('win32')
                         let g:TexPdfViewCommand = '!start '.
@@ -442,7 +450,7 @@ augroup myVimrcGroup
 		au QuickFixCmdPost vimgrep cw
         au BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
         au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-        au BufWritePre * :%s/\s\+$//e
+        " au BufWritePre * :%s/\s\+$//e
 augroup END
 "}}}
 
@@ -505,38 +513,38 @@ augroup END
 
 "  **************** latex 用の自動設定 ****************"{{{
 function! s:SetLaTeXMainSource() " latex 用関数{{{
-	let currentFileDirectory = expand('%:p:h').'\'
-	let latexmain = glob(currentFileDirectory.'*.latexmain')
-	let g:quickrun_config['tex']['srcfile'] = fnamemodify(latexmain, ':r')
-	if latexmain == ''
-		unlet g:quickrun_config['tex']['srcfile']
-	endif
- 	:set efm=%E!\ LaTeX\ %trror:\ %m,
+    let currentFileDirectory = expand('%:p:h').'\'
+    let latexmain = currentFileDirectory.'main.tex' " glob(currentFileDirectory.'*.latexmain')
+    let g:quickrun_config['tex']['srcfile'] = latexmain "fnamemodify(latexmain, ':r')
+    if latexmain == ''
+        unlet g:quickrun_config['tex']['srcfile']
+    endif
 endfunction " }}}
-function! s:SetLatexQuickrun()"{{{
-	if has('win32')
-		let g:quickrun_config['tex'] = {
-		\	'command' : '~/pdfplatex.bat',
-		\	'outputter': 'error',
-		\	'outputter/error/error': 'quickfix',
-		\ }
-	endif
-	if has('unix')
-		let g:quickrun_config['tex'] = {
-		\	'command' : '~/pdfplatex.sh',
-		\	'outputter': 'error',
-		\	'outputter/error/error': 'quickfix',
-	\}
-	endif
-endfunction"}}}
+" function! s:SetLatexQuickrun()"{{{
+" 	if has('win32')
+" 		let g:quickrun_config['tex'] = {
+" 		\	'command' : '~/pdfplatex.bat',
+" 		\	'outputter': 'error',
+" 		\	'outputter/error/error': 'quickfix',
+" 		\ }
+" 	endif
+" 	if has('unix')
+" 		let g:quickrun_config['tex'] = {
+" 		\	'command' : '~/pdfplatex.sh',
+" 		\	'outputter': 'error',
+" 		\	'outputter/error/error': 'quickfix',
+" 	\}
+" 	endif
+" endfunction"}}}
 augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
         au BufEnter,BufWrite *.tex call <SID>SetLaTeXMainSource()
-        au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
+        " au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
+		au BufEnter *.tex set commentstring=\%\%s
 augroup END
 "}}}
 " vim:set comentstrings=" %s

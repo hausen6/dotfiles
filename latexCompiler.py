@@ -2,7 +2,7 @@
 import os
 import sys
 import logging
-from logging import getLogger, StreamHandler, Formatter, DEBUG
+from logging import getLogger, StreamHandler, Formatter, DEBUG, WARNING
 import codecs
 import re
 from glob import glob
@@ -68,7 +68,7 @@ class LatexCompile:
             self.logger.debug(type(self.args))
             if not (isinstance(self.args, list) or isinstance(self.args, tuple)):
                 raise MyArgsErrors, 'Give \'list\' or \'tupple\' argument (\'{0}\' given)'.format(type(self.args))
-            self.mainfile = self.args[1]
+            self.mainfile = os.path.abspath(self.args[1])
 
     def check_Bibtex(self, ):
         """
@@ -89,17 +89,18 @@ class LatexCompile:
     def pdflatex(self, ):
         """ Tex のメイン・ソースをコンパイルするメソッド """
         jobname, extra = os.path.splitext(self.mainfile)
+        jobname = os.path.basename(jobname)
         self.logger.debug(jobname)
         cmds = []
-        cmds.append('pdflatex')
+        cmds.append('platex')
         cmds.append('-synctex=1')
-        cmds.append('-jobname={0}'.format(jobname))
+        cmds.append('-jobname=\"{0}\"'.format(jobname))
         cmds.append('-kanji=utf8')
         cmds.append('-guess-input-enc')
         cmds.append('{0}'.format(self.mainfile))
         cmd = ' '.join(cmds)
         self.logger.debug(cmd)
-        return subprocess.call(cmd)
+        return subprocess.call(cmd, shell=True)
 
     def bibtex(self, ):
         """ bibtex コンパイルメソッド """
@@ -108,29 +109,31 @@ class LatexCompile:
         cmds.append('jbibtex')
         cmds.append('{0}.aux'.format(jobname))
         cmd = ' '.join(cmds)
-        return subprocess.call(cmd)
+        return subprocess.call(cmd, shell=True)
 
     def makePDF(self, ):
         """ pdf を作るメソッド """
         jobname, extra = os.path.splitext(self.mainfile)
         cmds = []
         cmds.append('dvips')
-        cmds.append('{0}.dvi'.format(jobname))
+        cmds.append('\"{0}.dvi\"'.format(jobname))
         cmd = ' '.join(cmds)
-        subprocess.call(cmd)
+        subprocess.call(cmd, shell=True)
         cmds = []
         cmds.append('ps2pdf')
-        cmds.append('{0}.ps'.format(jobname))
+        cmds.append('\"{0}.ps\"'.format(jobname))
         cmd = ' '.join(cmds)
+        subprocess.call(cmd, shell=True)
 
     def compile(self, ):
         """ 全てコンパイルするメソッド """
         self.check_args()
-        if self.pdflatex():
+        if not self.pdflatex():
             if self.check_Bibtex():
-                if self.bibtex():
+                if not self.bibtex():
                     self.pdflatex()
                     self.pdflatex()
+            self.pdflatex()
             self.makePDF()
 
 

@@ -1,7 +1,7 @@
 snippet     mathexpression
 alias       $
 abbr        $ expression $
-	$${1:#:expression}$${2}
+    $${1:#:expression}$${2}
 
 # ========== ENVIRONMENT ==========
 snippet     documentclass, dc
@@ -9,8 +9,18 @@ alias       \documentclass
     \documentclass[11pt, a4paper]{jsarticle}
     % ******* プリアンブル ********
     \usepackage{amsmath}
-    \usepackage[dvipdfmx]{graphicx}
+    \usepackage{graphicx}
     \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+    \usepackage{enumitem}
+
+    % 各定義
+    \renewcommand{\figurename}{Fig.}
+    \renewcommand{\tablename}{Table.}
+    \def\eqref#1{Eq.(\ref{#1})}
+    \def\figref#1{Fig.\ref{#1}}
+    \def\tabref#1{Table.\ref{#1}}
+    \def\algref#1{Algorithm.\ref{#1}}
+    \def\argmax{\mathop{\rm argmax}}
     %
     % ***********************
     % ******* Title *********
@@ -26,12 +36,12 @@ alias       \documentclass
     \end{document}
 
 snippet     figure
-alias 		\bigin{figure} \figure
-	\begin{figure}
-		\includegraphics[${1:size}]{${2:FIGURE}}
-		\caption{${3:CAPTION}}
-		\label{${4:LABEL}}
-	\end{figure}
+alias         \bigin{figure} \figure
+    \begin{figure}
+        \includegraphics[${1:size}]{${2:FIGURE}}
+        \caption{${3:CAPTION}}
+        \label{${4:LABEL}}
+    \end{figure}
 
 
 snippet     myenumerate
@@ -58,45 +68,45 @@ alias       \begin{itemize} \enumerate
     \vspace{-10pt}
     \end{itemize}
 
-snippet		minipage
-alias		\begin{minipage} \minipage
-	\begin{figure}
-		\begin{minipage}{0.5\hsize}
-		\begin{center}
-			\includegraphics[width=80mm]{${1:TARGET}}
-			\caption{${2:TARGET}}
-			\label{${3:TARGET}}
-		\end{center}
-		\end{minipage}
+snippet        minipage
+alias        \begin{minipage} \minipage
+    \begin{figure}
+        \begin{minipage}{0.5\hsize}
+        \begin{center}
+            \includegraphics[width=80mm]{${1:TARGET}}
+            \caption{${2:TARGET}}
+            \label{${3:TARGET}}
+        \end{center}
+        \end{minipage}
 
-		\begin{minipage}{0.5\hsize}
-		\begin{center}
-			\includegraphics[width=80mm]{${4:TARGET}}
-			\caption{${5:TARGET}}
-			\label{${6:TARGET}}
-		\end{center}
-		\end{minipage}
-	\end{figure}
+        \begin{minipage}{0.5\hsize}
+        \begin{center}
+            \includegraphics[width=80mm]{${4:TARGET}}
+            \caption{${5:TARGET}}
+            \label{${6:TARGET}}
+        \end{center}
+        \end{minipage}
+    \end{figure}
 
 snippet     siki
-alias		$ $$
-	$${1:TARGET}$${2:TARGET}
+alias        $ $$
+    $${1:TARGET}$${2:TARGET}
 
 snippet     bold
-alias		bf bold
-	\mbox{\boldmath $${1:TARGET}$}${2:TARGET}
+alias        bf bold
+    \mbox{\boldmath $${1:TARGET}$}${2:TARGET}
 
 snippet     frac
-alias   	frac
-	\frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
+alias       frac
+    \frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
 
 snippet     align
-alias 		align
-	\begin{align}
-		\label{eq:${1:TARGET}}
-		${2:TARGET}
-	\end{align}
+alias         align
+    \begin{align}
+        \label{eq:${1:TARGET}}
+        ${2:TARGET}
+    \end{align}
 
-snippet    	label
-alias   	\lebel label
-	\label{${1:TARGET}} ${2:TARGET}
+snippet        label
+alias       \lebel label
+    \label{${1:TARGET}} ${2:TARGET}

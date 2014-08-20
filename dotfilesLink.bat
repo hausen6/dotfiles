@@ -9,7 +9,7 @@ rem gvimrcのパスをセット
 set GVIMRC=%~dp0_gvimrc
 echo %GVIMRC%
 rem .latexmkrcのパスをセット
-set pdflatex=%~dp0pdfplatex.bat
+set latexCompiler=%~dp0latexCompiler.exe
 echo %latexmkrc%
 rem スニペット用フォルダ mysnip のパスをセット
 set MYSNIP=%~dp0mysnip
@@ -24,14 +24,14 @@ cd %USERPROFILE%
 rem 既にリンクが作成されていた場合はそのリンクを削除
 if exist _vimrc del _vimrc
 if exist _gvimrc del _gvimrc
-if exist pdflatex.bat del pdflatex.bat
+if exist latexCompiler.exe del latexCompiler.exe
 if exist .vim\mysnip rmdir .vim\mysnip
 
 :mklink
 rem シンボリックリンクを作成
 mklink _vimrc %VIMRC%
 mklink _gvimrc %GVIMRC%
-mklink pdflatex.bat %pdflatex%
+mklink latexCompiler.exe %latexCompiler%
 mklink /d .vim\mysnip %MYSNIP%
 
 PAUSE

@@ -1,4 +1,5 @@
-$latex='platex -kanji=utf8 -guess-input-enc -synctex=1 -interaction=nonstopmode %S';
-$dvipdf='dvipdfmx -f ptex-ipaex.map %S';
-$bibtex='pbibtex -kanji=utf8 %B';
-@default_files = ("main.tex"); #default target file is main.tex
+# latexmk
+$latex         = 'platex -kanji=utf8 -synctex=1 -guess-input-enc -interaction=nonstopmode %S';
+$bibtex        = 'pbibtex -kanji=utf8 %B';
+$pdf_mode       = 2;
+$default_files = ("main.tex"); #default target file is main.tex;
