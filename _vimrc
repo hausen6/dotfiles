@@ -507,7 +507,7 @@ augroup myPythonGroup
 		au BufEnter *.py set autoindent
 		au BufEnter *.py set expandtab
 		au BufEnter *.py set shiftwidth=4
-        au BufEnter *.py set foldmethod=expr foldexpr=PythonFoldSetting(v:lnum) foldtext=PythonFoldText(v:lnum)
+        " au BufEnter *.py set foldmethod=expr foldexpr=PythonFoldSetting(v:lnum) foldtext=PythonFoldText(v:lnum)
 augroup END
 "}}}
 

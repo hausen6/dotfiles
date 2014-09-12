@@ -21,3 +21,15 @@ snippet     cwrite
 alias       cwrite
     with codecs.open(${1:File}, '${2:Mode}', '${3:Unicode}') as ${4:F object}:
         ${5:TARGET}
+
+snippet     prints
+alias       prints
+    print("${1:STR}")
+
+snippet     print
+alias       print
+    print(${1:STR})
+
+snippet     printf
+alias       printf
+    print("${1:STR}".format(${2:object}))
