@@ -136,6 +136,12 @@ syntax on
         "     \   'filetypes': ['python', 'python3'],
         "     \    },
         "     \ }
+        NeoBundleLazy "osyo-manga/vim-watchdogs", {
+            \ "autoload": {
+                \ 'filetypes': ['python', 'python3'],
+                \ },
+            \}
+        NeoBundle "jceb/vim-hier"
         NeoBundle "git://github.com/osyo-manga/unite-quickfix.git"
         NeoBundle 'osyo-manga/shabadou.vim'
         NeoBundle 'tyru/caw.vim'
@@ -181,14 +187,14 @@ syntax on
 
     " quickrun"{{{
         let s:hooks = neobundle#get_hooks("vim-quickrun")
+        let g:quickrun_config = {}
         function! s:hooks.on_source(bundle)
-                let g:quickrun_config = {}
                 let g:quickrun_config['_'] = {
 					\ "hook/close_buffer/" : 1,
 					\ "hook/inu/enable" : 1,
 					\ "hook/inu/wait" : 20,
 					\ "runner" : "vimproc",
-					\ 'runner/vimproc/updatetime' : 40,
+					\ 'runner/vimproc/updatetime' : 10,
 					\ 'hook/time/enable' : 1,
 				\ }
                 let g:quickrun_config['python'] = {
@@ -205,16 +211,39 @@ syntax on
                 " 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
                 set splitbelow
                 set splitright
-                echo 'hello'
+                " vim-watchdogs"{{{
+                    "  保存時自動書き込み
+                    let g:watchdogs_check_BufWritePost_enables = {
+                        \ "python": 1,
+                        \ "python3": 1,
+                    \}
+                    " flake8 を使ったシンタックスチェック
+                    let s:config = {
+                        \ "python/watchdogs_checker": {
+                            \ "type": "watchdogs_checker/flake8",
+                        \},
+                        \ "watchdogs_checker/_": {
+                            \'outputter/quickfix/open_cmd': '',
+                        \},
+                    \}
+                    call watchdogs#setup(s:config)
+                    "}}}
                 function! s:TexPdfView()
-                    let texPdfFilename = expand('%:r').'.pdf'
-                    if exists("g:quickrun_config['tex']['args']")
-                        let texPdfFilename = fnamemodify(g:quickrun_config['tex']['args'], ':.:r') . '.pdf'
-                    endif
+                    let texPdfFilename = expand('%:r')
+					let synctex = expand('%')
+					let texPdfFilename = fnamemodify(texPdfFilename, ':h') . '\main.pdf'
+                    " let texPdfFilename = expand('%:r').'.pdf'
+                    " if exists("g:quickrun_config['tex']['srcfile']")
+                    "     let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
+                    " endif
+					echo texPdfFilename
                     if has('win32')
-                        let g:TexPdfViewCommand = '!start '.
-                                    \             '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance '.
-                                    \             texPdfFilename
+                        let g:TexPdfViewCommand = 'silent !start '.
+                                    \ '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance "' . 
+                                    \ texPdfFilename .
+									\ '" -forward-search "' .
+									\ synctex . '" ' .
+									\ line('.')
                     endif
                     if has('unix')
                         let g:TexPdfViewCommand = '! '.
@@ -255,6 +284,7 @@ syntax on
 
     " python class browser"{{{
     nnoremap <Leader>t :TagbarToggle<CR>"}}}
+
 
     " neocomplete"{{{
         " if_luaが有効ならneocompleteを使う
@@ -443,7 +473,29 @@ augroup foldmethod-expr
     \                   | endif
 augroup END
 "  }}}
-
+" Capture {{{
+command!
+      \ -nargs=1
+      \ -complete=command
+      \ Capture
+      \ call Capture(<f-args>)
+ 
+function! Capture(cmd)
+  redir => result
+  silent execute a:cmd
+  redir END
+ 
+  let bufname = 'Capture: ' . a:cmd
+  new
+  setlocal bufhidden=unload
+  setlocal nobuflisted
+  setlocal buftype=nofile
+  setlocal noswapfile
+  silent file `=bufname`
+  silent put =result
+  1,2delete _
+endfunction
+" }}}
 "  **************** vim 用の自動設定 **************** "{{{
 augroup myVimrcGroup
         au!
@@ -507,6 +559,7 @@ augroup myPythonGroup
 		au BufEnter *.py set autoindent
 		au BufEnter *.py set expandtab
 		au BufEnter *.py set shiftwidth=4
+        au BufWritePre *.py :%s/\s*$//
         " au BufEnter *.py set foldmethod=expr foldexpr=PythonFoldSetting(v:lnum) foldtext=PythonFoldText(v:lnum)
 augroup END
 "}}}

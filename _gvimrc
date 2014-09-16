@@ -11,7 +11,8 @@ if has('win32')
     " フォント名に日本語名を使うので、一時的に文字コードを変える
     " Osaka fontを使う．使用にはインストール -> フォントフォルダに入れる と いった操作が必要
     set encoding=cp932
-    set guifont=Osaka－等幅:h11
+    " set guifont=Osaka－等幅:h11
+    set guifont=Ricty:h11:cSHIFTJIS
     set ambiwidth=double
     " set guifont=HGｺﾞｼｯｸM:h11:cSHIFTJIS
   " window を半透明にする
