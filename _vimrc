@@ -23,7 +23,7 @@ syntax on
     "}}}
     " 自動改行OFF"{{{
     set formatoptions=q
-    set tw=0
+    " set tw=0
     "}}}
     "日本語の行の連結時には空白を入力しない。"{{{
     set formatoptions+=mM
