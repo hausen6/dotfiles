@@ -12,7 +12,7 @@ if has('win32')
     " Osaka fontを使う．使用にはインストール -> フォントフォルダに入れる と いった操作が必要
     set encoding=cp932
     " set guifont=Osaka－等幅:h11
-    set guifont=Ricty:h11:cSHIFTJIS
+    set guifont=Inconsolata:h12:cSHIFTJIS
     set ambiwidth=double
     " set guifont=HGｺﾞｼｯｸM:h11:cSHIFTJIS
   " window を半透明にする
