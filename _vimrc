@@ -1,5 +1,7 @@
 " joe 用の設定 "
 syntax on
+set modeline
+set fileencodings=sjis,utf-8,euc-jp
 
 " =========== 基本設定 =========== "{{{
     " 行数を表示"{{{
@@ -110,17 +112,17 @@ syntax on
             \ }
         NeoBundleLazy "honza/vim-snippets",{
             \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh'],
+            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
             \    },
             \ }
         NeoBundleLazy "Shougo/neosnippet.vim",{
             \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh'],
+            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
             \    },
             \ }
         NeoBundleLazy "Shougo/neosnippet-snippets", {
             \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh'],
+            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
             \    },
             \ }
         NeoBundle "kana/vim-submode"
@@ -147,6 +149,11 @@ syntax on
         NeoBundle 'tyru/caw.vim'
         NeoBundle 'osyo-manga/unite-fold'
         NeoBundle 'thinca/vim-qfreplace'
+		NeoBundleLazy 'Rip-Rip/clang_complete',{
+            \ "autoload": {
+            \   'filetypes' : ['c', 'cpp'],
+            \ },
+            \}
     "}}}
 
     " syntastic"{{{
@@ -158,6 +165,19 @@ syntax on
         " let g:syntastic_python_flake8_args = '--ignore="E501,E302"'
         let g:syntastic_python_flake8_args = '--ignore="E501"'
     "}}}
+
+	" clang
+    if neobundle#is_sourced("clang_complete")
+	    let g:clang_complete_auto = 1
+	    let g:clang_use_library = 1
+	    let g:clang_library_path = '/usr/share/clang'
+	    let g:clang_user_options = '2>/dev/null || exit 0'
+
+	    if !exists('g:neocomplcache_force_omni_patterns')
+	    		let g:neocomplcache_force_omni_patterns = {}
+	    endif
+	    let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->)\|\h\w*::'
+    endif
 
     " gundo.vim"{{{
         nnoremap <Leader>un :GundoToggle<CR>
@@ -598,6 +618,15 @@ augroup myLaTeXGroup
         " au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
+augroup END
+augroup myCppGroup
+		autocmd!
+		autocmd FileType cpp set tabstop=4
+		au FileType cpp  set tabstop=4
+		au FileType cpp  set autoindent
+		au FileType cpp  set expandtab
+		au FileType cpp  set shiftwidth=4
+		au FileType cpp  set foldmethod=marker
 augroup END
 "}}}
 " vim:set comentstrings=" %s
