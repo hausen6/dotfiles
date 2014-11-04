@@ -574,17 +574,11 @@ augroup myPythonGroup
         au!
         " jedi-vim自 動選択をoff にする"
         au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
-        " class view を設定"
-        " au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
 		au BufEnter *.py set tabstop=4
 		au BufEnter *.py set autoindent
-		au BufEnter *.py set expandtab
 		au BufEnter *.py set shiftwidth=4
-        " ファイル末尾のスペースなどを取り除くスクリプトだけど、なぜか保存時に最後の行まで飛んで
-        " うざいのでコメント
-        " au BufWritePre *.py :%s/\s*$//
         au FileType python set modeline
         au FileType python set foldmethod=marker
         au FileType python setlocal completeopt-=preview
@@ -626,6 +620,8 @@ augroup myLaTeXGroup
         " au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
+		au FileType tex set tabstop=4
+		au FileType tex set autoindent
 augroup END
 augroup myCppGroup
 		autocmd!
