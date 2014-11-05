@@ -268,7 +268,7 @@ set fileencodings=sjis,utf-8,euc-jp
 						let correntFile = expand('%:p')
 						let texPdfFilename = correntDir . '/main.pdf'
 						let linenum=line('.')
-						let g:TexPdfViewCommand = "!".
+						let g:TexPdfViewCommand = "silent !".
 									\             "/Applications/Skim.app/Contents/SharedSupport/displayline " .
 									\			  string(linenum) . ' ' .
 									\             texPdfFilename . ' ' .
@@ -548,7 +548,6 @@ function! g:SetQuickrunConfig()
 			\ 'split' : 'vertical',
 		\ },
 	\}
-	echo g:quickrun_config
 endfunction
 "  **************** vim 用の自動設定 **************** "{{{
 augroup myVimrcGroup
