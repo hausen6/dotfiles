@@ -249,23 +249,28 @@ set fileencodings=sjis,utf-8,euc-jp
                     call watchdogs#setup(s:config)
                     "}}}
                 function! s:TexPdfView()
-                    let texPdfFilename = expand('%:r')
-					let synctex = expand('%')
-					let texPdfFilename = fnamemodify(texPdfFilename, ':h') . '\main.pdf'
-                    " let texPdfFilename = expand('%:r').'.pdf'
-                    " if exists("g:quickrun_config['tex']['srcfile']")
-                    "     let texPdfFilename = fnamemodify(g:quickrun_config['tex']['srcfile'], ':.:r') . '.pdf'
-                    " endif
-					echo texPdfFilename
                     if has('win32')
-                        let g:TexPdfViewCommand = 'silent !start '.
-                                    \ '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance "' . 
-                                    \ texPdfFilename .
+						let texPdfFilename = expand('%:r')
+						let synctex = expand('%')
+						let texPdfFilename = fnamemodify(texPdfFilename, ':h') . '\main.pdf'
+						echo texPdfFilename
+							let g:TexPdfViewCommand = 'silent !start '.
+									\ '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance "' . 
+									\ texPdfFilename .
 									\ '" -forward-search "' .
 									\ synctex . '" ' .
 									\ line('.')
-                    endif
-                    if has('unix')
+					elseif has('mac') || has('macunix')
+						let correntDir = expand('%:p:h')
+						let correntFile = expand('%:p')
+						let texPdfFilename = correntDir . '/main.pdf'
+						let linenum=line('.')
+						let g:TexPdfViewCommand = "!".
+									\             "/Applications/Skim.app/Contents/SharedSupport/displayline " .
+									\			  string(linenum) . ' ' .
+									\             texPdfFilename . ' ' .
+									\             correntFile
+                    elseif has('unix')
                         let g:TexPdfViewCommand = '! '.
                                     \             'evince '.
                                     \             texPdfFilename
@@ -304,7 +309,6 @@ set fileencodings=sjis,utf-8,euc-jp
 
     " python class browser"{{{
     nnoremap <Leader>t :TagbarToggle<CR>"}}}
-
 
     " neocomplete"{{{
         " if_luaが有効ならneocompleteを使う
@@ -395,12 +399,12 @@ nnoremap dw diw
 nnoremap cw ciw
 "}}}
 " jkでの移動"{{{
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-" nnoremap <C-f> <C-f>zz
-" nnoremap <C-b> <C-b>zz
+nnoremap j gjzz
+nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
 "}}}
 " 検索での移動を画面中心に"{{{
 nnoremap <c-o> <c-o>zz
@@ -409,10 +413,13 @@ nnoremap <c-]> <c-]>zz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
-"}}}
-" ジャンプしたときに画面を中心に"{{{
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
+" File を開いたら画面中心に
+augroup OpenCentralGroup
+	" this one is which you're most likely to use?
+	au!
+	autocmd VimEnter zz
+	autocmd VimEnter zz
+augroup end
 "}}}
 " 簡単にページを閉じる"{{{
 nnoremap <Leader>q :tabc<CR>
@@ -516,6 +523,30 @@ function! Capture(cmd)
   1,2delete _
 endfunction
 " }}}
+
+function! g:SetQuickrunConfig()
+	g:quickrun_config = {
+		\ '_': {
+			\ "hook/close_buffer/" : 1,
+			\ "hook/inu/enable" : 1,
+			\ "hook/inu/wait" : 20,
+			\ "runner" : "vimproc",
+			\ 'runner/vimproc/updatetime' : 10,
+			\ 'hook/time/enable' : 1,
+		\},
+		\ 'tex': {
+			\ 'command' : 'latexmk',
+			\ 'cmdopt' : '-c',
+			\ 'outputter': 'quickfix',
+			\ 'outputter/error/error': 'quickfix',
+			\ 'exec' : ["%c %s"],
+		\},
+		\ 'python': {
+			\ 'cmdopt' : '-u',
+			\ 'split' : 'vertical',
+		\ },
+	\}
+endfunction
 "  **************** vim 用の自動設定 **************** "{{{
 augroup myVimrcGroup
         au!
@@ -569,8 +600,10 @@ function! PythonFoldText(lnum)"{{{
 endfunction"}}}
 augroup myPythonGroup
         au!
-        " jedi-vim自 動選択をoff にする"
+        " jedi-vim自動選択をoff にする"
         au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
+		" jedi-vim のpop out を解除
+		au FileType python setlocal completeopt-=preview
         " class view を設定"
         " au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
@@ -579,43 +612,39 @@ augroup myPythonGroup
 		au BufEnter *.py set autoindent
 		au BufEnter *.py set expandtab
 		au BufEnter *.py set shiftwidth=4
-        au BufWritePre *.py :%s/\s*$//
+        " au BufWritePre *.py :%s/\s*$//
         " au BufEnter *.py set foldmethod=expr foldexpr=PythonFoldSetting(v:lnum) foldtext=PythonFoldText(v:lnum)
 augroup END
 "}}}
 
 "  **************** latex 用の自動設定 ****************"{{{
 function! s:SetLaTeXMainSource() " latex 用関数{{{
-    let currentFileDirectory = expand('%:p:h').'\'
-    let latexmain = currentFileDirectory.'main.tex' " glob(currentFileDirectory.'*.latexmain')
-    let g:quickrun_config['tex']['srcfile'] = latexmain "fnamemodify(latexmain, ':r')
-    if latexmain == ''
-        unlet g:quickrun_config['tex']['srcfile']
-    endif
+	let currentFileDirectory = expand('%:p:h')
+	if has('win32') || has('win64')
+    	let latexmain = currentFileDirectory .'\main.tex' 
+		if has_key(g:quickrun_config, 'tex')
+			let g:quickrun_config['tex']['srcfile'] = latexmain
+		else
+			g:SetQuickrunConfig()
+			let g:quickrun_config['tex']['srcfile'] = latexmain
+		endif
+    	let g:quickrun_config['tex']['srcfile'] = latexmain 
+	elseif has('unix')
+		let latexmain = currentFileDirectory . '/main.tex'
+		if has_key(g:quickrun_config, 'tex')
+    		let g:quickrun_config['tex']['srcfile'] = latexmain 
+		else
+			g:SetQuickrunConfig()
+			let g:quickrun_config['tex']['srcfile'] = latexmain
+		endif
+	endif
 endfunction " }}}
-" function! s:SetLatexQuickrun()"{{{
-" 	if has('win32')
-" 		let g:quickrun_config['tex'] = {
-" 		\	'command' : '~/pdfplatex.bat',
-" 		\	'outputter': 'error',
-" 		\	'outputter/error/error': 'quickfix',
-" 		\ }
-" 	endif
-" 	if has('unix')
-" 		let g:quickrun_config['tex'] = {
-" 		\	'command' : '~/pdfplatex.sh',
-" 		\	'outputter': 'error',
-" 		\	'outputter/error/error': 'quickfix',
-" 	\}
-" 	endif
-" endfunction"}}}
 augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
-        au BufEnter,BufWrite *.tex call <SID>SetLaTeXMainSource()
-        " au BufEnter,BufWrite *.tex call <SID>SetLatexQuickrun()
+        au BufRead *.tex call <SID>SetLaTeXMainSource()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
 augroup END
