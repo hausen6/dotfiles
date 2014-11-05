@@ -7,6 +7,9 @@ set fileencodings=sjis,utf-8,euc-jp
     " 行数を表示"{{{
     :set number
     "}}}
+    " backspace で文字を消す"{{{
+    set backspace=indent,eol,start
+    "}}}
     " クリップボード共有"{{{
     set clipboard=autoselect,unnamed
     "}}}
@@ -234,8 +237,8 @@ set fileencodings=sjis,utf-8,euc-jp
                 " vim-watchdogs"{{{
                     "  保存時自動書き込み
                     let g:watchdogs_check_BufWritePost_enables = {
-                        \ "python": 1,
-                        \ "python3": 1,
+                        \ "python": 0,
+                        \ "python3": 0,
                     \}
                     " flake8 を使ったシンタックスチェック
                     let s:config = {
@@ -610,10 +613,9 @@ augroup myPythonGroup
         au BufEnter *.py :IndentLinesEnable
 		au BufEnter *.py set tabstop=4
 		au BufEnter *.py set autoindent
-		au BufEnter *.py set expandtab
 		au BufEnter *.py set shiftwidth=4
-        " au BufWritePre *.py :%s/\s*$//
-        " au BufEnter *.py set foldmethod=expr foldexpr=PythonFoldSetting(v:lnum) foldtext=PythonFoldText(v:lnum)
+        au FileType python set modeline
+        au FileType python set foldmethod=marker
 augroup END
 "}}}
 
@@ -647,6 +649,8 @@ augroup myLaTeXGroup
         au BufRead *.tex call <SID>SetLaTeXMainSource()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
+		au FileType tex set tabstop=4
+		au FileType tex set autoindent
 augroup END
 augroup myCppGroup
 		autocmd!
