@@ -3,19 +3,19 @@ set background=light
 "colorscheme hybrid
 colorscheme solarized
 
-" ŠÂ‹«ˆË‘¶‚Ìİ’è
+" ç’°å¢ƒä¾å­˜ã®è¨­å®š
 if has('win32')
-  " windows ‚Ìİ’è
+  " windows ã®è¨­å®š
   au GUIEnter * simalt ~x
-    " font ‚Ìİ’è
-    " ƒtƒHƒ“ƒg–¼‚É“ú–{Œê–¼‚ğg‚¤‚Ì‚ÅAˆê“I‚É•¶šƒR[ƒh‚ğ•Ï‚¦‚é
-    " Osaka font‚ğg‚¤Dg—p‚É‚ÍƒCƒ“ƒXƒg[ƒ‹ -> ƒtƒHƒ“ƒgƒtƒHƒ‹ƒ_‚É“ü‚ê‚é ‚Æ ‚¢‚Á‚½‘€ì‚ª•K—v
+    " font ã®è¨­å®š
+    " ãƒ•ã‚©ãƒ³ãƒˆåã«æ—¥æœ¬èªåã‚’ä½¿ã†ã®ã§ã€ä¸€æ™‚çš„ã«æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’å¤‰ãˆã‚‹
+    " Osaka fontã‚’ä½¿ã†ï¼ä½¿ç”¨ã«ã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ« -> ãƒ•ã‚©ãƒ³ãƒˆãƒ•ã‚©ãƒ«ãƒ€ã«å…¥ã‚Œã‚‹ ã¨ ã„ã£ãŸæ“ä½œãŒå¿…è¦
     set encoding=cp932
-    " set guifont=Osaka|“™•:h11
+    " set guifont=Osakaâˆ’ç­‰å¹…:h11
     set guifont=Inconsolata:h12:cSHIFTJIS
     set ambiwidth=double
-    " set guifont=HGºŞ¼¯¸M:h11:cSHIFTJIS
-  " window ‚ğ”¼“§–¾‚É‚·‚é
+    " set guifont=HGã‚´ã‚·ãƒƒã‚¯M:h11:cSHIFTJIS
+  " window ã‚’åŠé€æ˜ã«ã™ã‚‹
   gui
   set transparency=255
 else
@@ -24,7 +24,7 @@ else
   au GUIEnter * set columns=190
   nnoremap <Leader>w :set transparency=15<CR>
 endif
-" GUI ‚ğFullScreen‚É‚·‚é
+" GUI ã‚’FullScreenã«ã™ã‚‹
 if has("gui_running")
   if has("mac_kaoriya")
       set fuoptions=maxvert,maxhorz
@@ -32,9 +32,9 @@ if has("gui_running")
   endif
 endif
 
-" ƒJ[ƒ\ƒ‹sƒnƒCƒ‰ƒCƒg
+" ã‚«ãƒ¼ã‚½ãƒ«è¡Œãƒã‚¤ãƒ©ã‚¤ãƒˆ
 set cursorline
-"" ƒJƒŒƒ“ƒgƒEƒCƒ“ƒhƒE‚Ì‚İ‚ğƒnƒCƒ‰ƒCƒg
+"" ã‚«ãƒ¬ãƒ³ãƒˆã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ã¿ã‚’ãƒã‚¤ãƒ©ã‚¤ãƒˆ
 "augroup cch
 "autocmd! cch
 "autocmd WinLeave * set nocursorline
@@ -42,7 +42,7 @@ set cursorline
 "augroup END
 "hi clear CursorLine
 "hi CursorLine gui=underline
-"" ESC ESC ‚ÅƒnƒCƒ‰ƒCƒgƒLƒƒƒ“ƒZƒ‹
+"" ESC ESC ã§ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚­ãƒ£ãƒ³ã‚»ãƒ«
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<CR>
 
 source $MYVIMRC

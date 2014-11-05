@@ -1,66 +1,66 @@
-" joe —p‚Ìİ’è "
+" joe ç”¨ã®è¨­å®š "
 syntax on
 set modeline
 set fileencodings=sjis,utf-8,euc-jp
 
-" =========== Šî–{İ’è =========== "{{{
-    " s”‚ğ•\¦"{{{
+" =========== åŸºæœ¬è¨­å®š =========== "{{{
+    " è¡Œæ•°ã‚’è¡¨ç¤º"{{{
     :set number
     "}}}
-    " backspace ‚Å•¶š‚ğÁ‚·"{{{
+    " backspace ã§æ–‡å­—ã‚’æ¶ˆã™"{{{
     set backspace=indent,eol,start
     "}}}
-    " ƒNƒŠƒbƒvƒ{[ƒh‹¤—L"{{{
+    " ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰å…±æœ‰"{{{
     set clipboard=autoselect,unnamed
     "}}}
-    " ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`on"{{{
+    " ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒon"{{{
     set incsearch
     set ic
     "}}}
-    " İ’èƒtƒ@ƒCƒ‹‚ÌƒpƒXİ’è"{{{
+    " è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹è¨­å®š"{{{
     let $MYVIMRC='~/_vimrc'
     let $MYGVIMRC='~/_gvimrc'
     "}}}
-    " ƒoƒbƒNƒAƒbƒvƒtƒ@ƒCƒ‹‚Ìì¬êŠ•ÏX"{{{
+    " ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆå ´æ‰€å¤‰æ›´"{{{
     set directory=~/.vim/vimbackup/
     set backupdir=~/.vim/vimbackup/
     set undodir=~/.vim/vimbackup/
     "}}}
-    " ©“®‰üsOFF"{{{
+    " è‡ªå‹•æ”¹è¡ŒOFF"{{{
     set formatoptions=q
     " set tw=0
     "}}}
-    "“ú–{Œê‚Ìs‚Ì˜AŒ‹‚É‚Í‹ó”’‚ğ“ü—Í‚µ‚È‚¢B"{{{
+    "æ—¥æœ¬èªã®è¡Œã®é€£çµæ™‚ã«ã¯ç©ºç™½ã‚’å…¥åŠ›ã—ãªã„ã€‚"{{{
     set formatoptions+=mM
     "}}}
-    " ‚â›‚Ì•¶š‚ª‚ ‚Á‚Ä‚àƒJ[ƒ\ƒ‹ˆÊ’u‚ª‚¸‚ê‚È‚¢‚æ‚¤‚É‚·‚éB"{{{
+    "â–¡ã‚„â—‹ã®æ–‡å­—ãŒã‚ã£ã¦ã‚‚ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ãŒãšã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚"{{{
     set ambiwidth=double
     "}}}
-    "‰æ–ÊÅŒã‚Ìs‚ğ‚Å‚«‚éŒÀ‚è•\¦‚·‚éB"{{{
+    "ç”»é¢æœ€å¾Œã®è¡Œã‚’ã§ãã‚‹é™ã‚Šè¡¨ç¤ºã™ã‚‹ã€‚"{{{
     set display+=lastline
     set tabstop=4
     "}}}
-    " ƒ‚[ƒhƒ‰ƒCƒ“‚ğon"{{{
+    " ãƒ¢ãƒ¼ãƒ‰ãƒ©ã‚¤ãƒ³ã‚’on"{{{
     set modeline
     "}}}
-    " c‚É˜A”Ô‚Ì”Ô†‚ğ co ‚Å“ü—Í‚·‚é"{{{
+    " ç¸¦ã«é€£ç•ªã®ç•ªå·ã‚’ co ã§å…¥åŠ›ã™ã‚‹"{{{
         nnoremap <silent> co :ContinuousNumber <C-a><CR>
         vnoremap <silent> co :ContinuousNumber <C-a><CR>
         command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
     "}}}
-    " Ctrl-P‚ÅŠJ‚¢‚Ä‚¢‚éPython ƒXƒNƒŠƒvƒg‚ğÀs"{{{
+    " Ctrl-Pã§é–‹ã„ã¦ã„ã‚‹Python ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å®Ÿè¡Œ"{{{
         function! s:Exec()
             exe "!" . &ft . " %"
         :endfunction
         command! Exec call <SID>Exec()
         map <silent> <C-P> :call <SID>Exec()<CR>
     "}}}
-    " ¡“ú‚Ì“ú•t‚ğ‘}“ü"{{{
+    " ä»Šæ—¥ã®æ—¥ä»˜ã‚’æŒ¿å…¥"{{{
         nnoremap <F6> <ESC>i<C-R>=strftime("%Y/%m/%d")<CR><CR>
     "}}}
 "}}}
 
-" =========== NeoBundle‚Ìİ’è ============="{{{
+" =========== NeoBundleã®è¨­å®š ============="{{{
     let g:neobundle_default_git_protocol='https'
     set nocompatible
     filetype off
@@ -77,7 +77,7 @@ set fileencodings=sjis,utf-8,euc-jp
       echomsg 'Please execute ":NeoBundleInstall" command.'
       "finish
     endif
-    " ‚±‚±‚ÉƒCƒ“ƒXƒg[ƒ‹‚µ‚½‚¢ƒvƒ‰ƒOƒCƒ“‚ÌƒŠƒXƒg‚ğ‘‚­"{{{
+    " ã“ã“ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ãŸã„ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãƒªã‚¹ãƒˆã‚’æ›¸ã"{{{
         NeoBundleFetch 'Shougo/neobundle.vim'
         NeoBundle 'Shougo/vimproc', {
               \ 'build' : {
@@ -161,10 +161,10 @@ set fileencodings=sjis,utf-8,euc-jp
 
     " syntastic"{{{
         let g:syntastic_python_checkers = ['flake8']
-        " •¡”w’è‚·‚éê‡‚ÍƒJƒ“ƒ}‹æØ‚è
+        " è¤‡æ•°æŒ‡å®šã™ã‚‹å ´åˆã¯ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š
         " e.g ) let g:flake8_ignore = 'E501,W293'
         let g:flake8_ignore = 'E501'
-        " •¡”w’è‚·‚éê‡‚ÍƒJƒ“ƒ}‹æØ‚è
+        " è¤‡æ•°æŒ‡å®šã™ã‚‹å ´åˆã¯ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š
         " let g:syntastic_python_flake8_args = '--ignore="E501,E302"'
         let g:syntastic_python_flake8_args = '--ignore="E501"'
     "}}}
@@ -188,17 +188,17 @@ set fileencodings=sjis,utf-8,euc-jp
     "}}}
 
     " easymotion"{{{
-        " “ú–{Œê‚É—LŒø‚É‚·‚é
+        " æ—¥æœ¬èªã«æœ‰åŠ¹ã«ã™ã‚‹
         let g:EasyMotion_use_migemo = 1
     "}}}
 
-    ""VimFiler‚Ìİ’è"{{{
+    ""VimFilerã®è¨­å®š"{{{
         let g:vimfiler_as_default_explorer = 1
-        " VimFilerg—p‚ÌƒL[ƒ}ƒbƒv
+        " VimFilerä½¿ç”¨ã®ã‚­ãƒ¼ãƒãƒƒãƒ—
         nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
-        " e ‚Åƒ^ƒuƒI[ƒvƒ“‚É‚·‚é
+        " e ã§ã‚¿ãƒ–ã‚ªãƒ¼ãƒ—ãƒ³ã«ã™ã‚‹
         let g:vimfiler_edit_action = 'tabopen'
-        " ©“®‚Åcd‚·‚é
+        " è‡ªå‹•ã§cdã™ã‚‹
         let g:vimfiler_enable_auto_cd = 1
         let g:vimfiler_safe_mode_by_default = 0
         call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
@@ -231,16 +231,16 @@ set fileencodings=sjis,utf-8,euc-jp
 						\ 'outputter/error/error': 'quickfix',
 						\ 'exec' : ["%c %s"],
 				\}
-                " ‰¡•ªŠ„‚Í‰º‚ÖCc•ªŠ„‚Í‰E‚ÖV‚µ‚¢ƒEƒCƒ“ƒhƒE‚ª¶¬‚³‚ê‚é
+                " æ¨ªåˆ†å‰²æ™‚ã¯ä¸‹ã¸ï¼Œç¸¦åˆ†å‰²æ™‚ã¯å³ã¸æ–°ã—ã„ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãŒç”Ÿæˆã•ã‚Œã‚‹
                 set splitbelow
                 set splitright
                 " vim-watchdogs"{{{
-                    "  •Û‘¶©“®‘‚«‚İ
+                    "  ä¿å­˜æ™‚è‡ªå‹•æ›¸ãè¾¼ã¿
                     let g:watchdogs_check_BufWritePost_enables = {
                         \ "python": 0,
                         \ "python3": 0,
                     \}
-                    " flake8 ‚ğg‚Á‚½ƒVƒ“ƒ^ƒbƒNƒXƒ`ƒFƒbƒN
+                    " flake8 ã‚’ä½¿ã£ãŸã‚·ãƒ³ã‚¿ãƒƒã‚¯ã‚¹ãƒã‚§ãƒƒã‚¯
                     let s:config = {
                         \ "python/watchdogs_checker": {
                             \ "type": "watchdogs_checker/flake8",
@@ -287,19 +287,19 @@ set fileencodings=sjis,utf-8,euc-jp
     " jedi-vim"{{{
         let s:hooks = neobundle#get_hooks("jedi-vim")
         function! s:hooks.on_source(bundle)
-                " jedi‚Évim‚Ìİ’è‚ğ”C‚¹‚é‚Æ'completeopt+=preview'‚·‚é‚Ì‚Å
-                " ©“®İ’è‹@”\‚ğOFF‚É‚µè“®‚Åİ’è‚ğs‚¤
+                " jediã«vimã®è¨­å®šã‚’ä»»ã›ã‚‹ã¨'completeopt+=preview'ã™ã‚‹ã®ã§
+                " è‡ªå‹•è¨­å®šæ©Ÿèƒ½ã‚’OFFã«ã—æ‰‹å‹•ã§è¨­å®šã‚’è¡Œã†
                 let g:jedi#auto_vim_configuration = 0
-                " •âŠ®‚ÌÅ‰‚Ì€–Ú‚ª‘I‘ğ‚³‚ê‚½ó‘Ô‚¾‚Æg‚¢‚É‚­‚¢‚½‚ßƒIƒt‚É‚·‚é
+                " è£œå®Œã®æœ€åˆã®é …ç›®ãŒé¸æŠã•ã‚ŒãŸçŠ¶æ…‹ã ã¨ä½¿ã„ã«ãã„ãŸã‚ã‚ªãƒ•ã«ã™ã‚‹
                 let g:jedi#popup_select_first     = 0
-                " quickrun‚Æ”í‚é‚½‚ß‘å•¶š‚É•ÏX
+                " quickrunã¨è¢«ã‚‹ãŸã‚å¤§æ–‡å­—ã«å¤‰æ›´
 
           let g:jedi#rename_command = '<Leader>R'
-          " gundo‚Æ”í‚é‚½‚ß‘å•¶š‚É•ÏX (2013-06-24 10:00 ’Ç‹Lj
+          " gundoã¨è¢«ã‚‹ãŸã‚å¤§æ–‡å­—ã«å¤‰æ›´ (2013-06-24 10:00 è¿½è¨˜ï¼‰
           "let g:jedi#goto_command = '<Leader>G'
         endfunction
         function! g:SetPopOnJediOff()
-                " ‘I‘ğŒó•â‚ªí‚É‘I‘ğ‚³‚ê‚Ä‚µ‚Ü‚¤–â‘è‚Ì‘Îˆ?
+                " é¸æŠå€™è£œãŒå¸¸ã«é¸æŠã•ã‚Œã¦ã—ã¾ã†å•é¡Œã®å¯¾å‡¦?
                 let s:save_cpo = &cpo
                 set cpo&vim
                 if g:jedi#popup_select_first == 0
@@ -314,9 +314,9 @@ set fileencodings=sjis,utf-8,euc-jp
     nnoremap <Leader>t :TagbarToggle<CR>"}}}
 
     " neocomplete"{{{
-        " if_lua‚ª—LŒø‚È‚çneocomplete‚ğg‚¤
+        " if_luaãŒæœ‰åŠ¹ãªã‚‰neocompleteã‚’ä½¿ã†
         if neobundle#is_installed('neocomplete')
-            " neocomplete—pİ’è
+            " neocompleteç”¨è¨­å®š
             let g:neocomplete#enable_at_startup  = 1
             let g:neocomplete#enable_ignore_case = 1
             let g:neocomplete#enable_smart_case  = 1
@@ -325,7 +325,7 @@ set fileencodings=sjis,utf-8,euc-jp
             endif
             let g:neocomplete#keyword_patterns._ = '\h\w*'
         elseif neobundle#is_installed('neocomplcache')
-            " neocomplcache—pİ’è
+            " neocomplcacheç”¨è¨­å®š
             let g:neocomplcache_enable_at_startup  = 1
             let g:neocomplcache_enable_ignore_case = 1
             let g:neocomplcache_enable_smart_case  = 1
@@ -340,7 +340,7 @@ set fileencodings=sjis,utf-8,euc-jp
         inoremap <expr><S-TAB> pumvisible() ? "\<C
     "}}}
 
-    " jedi-vim ‚Æ neocomplete ‚Ì˜AŒg"{{{
+    " jedi-vim ã¨ neocomplete ã®é€£æº"{{{
         autocmd FileType python setlocal omnifunc=jedi#completions
 
         if !exists('g:neocomplete#force_omni_input_patterns')
@@ -348,7 +348,7 @@ set fileencodings=sjis,utf-8,euc-jp
         endif
     "}}}
 
-    " ƒXƒjƒyƒbƒg‚Ìİ’è"{{{
+    " ã‚¹ãƒ‹ãƒšãƒƒãƒˆã®è¨­å®š"{{{
         let s:hooks = neobundle#get_hooks("neosnippet.vim")
         " Plugin key-mappings.
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -368,40 +368,40 @@ set fileencodings=sjis,utf-8,euc-jp
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
     "}}}
 
-    " submode‚Ìİ’è"{{{
-        " window size ‚Ì’²®‚ğ˜A‘±ƒL[‚Å‚â‚é
+    " submodeã®è¨­å®š"{{{
+        " window size ã®èª¿æ•´ã‚’é€£ç¶šã‚­ãƒ¼ã§ã‚„ã‚‹
         call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
         call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
         call submode#map('winsize', 'n', '', '>', '<C-w>>')
         call submode#map('winsize', 'n', '', '<', '<C-w><')
         call submode#map('winsize', 'n', '', '+', '<C-w>-')
         call submode#map('winsize', 'n', '', '-', '<C-w>+')
-        " ƒ^ƒu‘JˆÚ‚ğ˜A‘±‚Ås‚¤
+        " ã‚¿ãƒ–é·ç§»ã‚’é€£ç¶šã§è¡Œã†
         call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
         call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
         call submode#map('changetab', 'n', '', 't', 'gt')
         call submode#map('changetab', 'n', '', 'T', 'gT')
     "}}}
 
-    " Neobundle I‚í‚è
+    " Neobundle çµ‚ã‚ã‚Š
 " ========================================="}}}
 
-" =========== ƒL[ƒ}ƒbƒv ========= "{{{
+" =========== ã‚­ãƒ¼ãƒãƒƒãƒ— ========= "{{{
 let mapleader=" "
-" <ESC> ‚ğ C-g ‚ÉŠ„‚è“–‚Ä‚é"{{{
+" <ESC> ã‚’ C-g ã«å‰²ã‚Šå½“ã¦ã‚‹"{{{
 inoremap <C-j> <ESC>
 vnoremap <C-j> <ESC>
 nnoremap <C-j> <ESC>
 "}}}
-" $ ‚Æ ^‚ªg‚¢‚Ã‚ç‚¢‚Ì‚Å•ÏX"{{{
+" $ ã¨ ^ãŒä½¿ã„ã¥ã‚‰ã„ã®ã§å¤‰æ›´"{{{
 noremap <Leader>h ^
 noremap <Leader>l $
 "}}}
-" ’PŒêíœ‚È‚Ç"{{{
+" å˜èªå‰Šé™¤ãªã©"{{{
 nnoremap dw diw
 nnoremap cw ciw
 "}}}
-" jk‚Å‚ÌˆÚ“®"{{{
+" jkã§ã®ç§»å‹•"{{{
 nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
@@ -409,14 +409,14 @@ vnoremap k gkzz
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
 "}}}
-" ŒŸõ‚Å‚ÌˆÚ“®‚ğ‰æ–Ê’†S‚É"{{{
+" æ¤œç´¢ã§ã®ç§»å‹•ã‚’ç”»é¢ä¸­å¿ƒã«"{{{
 nnoremap <c-o> <c-o>zz
 nnoremap <c-i> <c-i>zz
 nnoremap <c-]> <c-]>zz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
-" File ‚ğŠJ‚¢‚½‚ç‰æ–Ê’†S‚É
+" File ã‚’é–‹ã„ãŸã‚‰ç”»é¢ä¸­å¿ƒã«
 augroup OpenCentralGroup
 	" this one is which you're most likely to use?
 	au!
@@ -424,19 +424,19 @@ augroup OpenCentralGroup
 	autocmd VimEnter zz
 augroup end
 "}}}
-" ŠÈ’P‚Éƒy[ƒW‚ğ•Â‚¶‚é"{{{
+" ç°¡å˜ã«ãƒšãƒ¼ã‚¸ã‚’é–‰ã˜ã‚‹"{{{
 nnoremap <Leader>q :tabc<CR>
 nnoremap <Leader>w :write!<CR>
 "}}}
-" .vimrc‚â.gvimrc‚ğ•ÒW‚·‚é‚½‚ß‚ÌKey-mapping‚ğ’è‹`‚·‚é"{{{
+" .vimrcã‚„.gvimrcã‚’ç·¨é›†ã™ã‚‹ãŸã‚ã®Key-mappingã‚’å®šç¾©ã™ã‚‹"{{{
 nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>tabedit $MYGVIMRC<CR>
 "}}}
-" .vimrc‚â.gvimrc‚Ì•ÏX‚ğ”½‰f‚·‚é‚½‚ß‚ÌKey-mapping‚ğ’è‹`‚·‚é"{{{
+" .vimrcã‚„.gvimrcã®å¤‰æ›´ã‚’åæ˜ ã™ã‚‹ãŸã‚ã®Key-mappingã‚’å®šç¾©ã™ã‚‹"{{{
 nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
 "}}}
-" ‰æ–Ê•ªŠ„"{{{
+" ç”»é¢åˆ†å‰²"{{{
 nnoremap s <Nop>
 nnoremap <silent>ss :split<CR>
 nnoremap <silent>sv :vsplit<CR>
@@ -454,31 +454,31 @@ nnoremap <Leader>uo       : <C-u>Unite outline<CR>
 nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
 "}}}
-" caw.vim ‚Ì keymapping"{{{
+" caw.vim ã® keymapping"{{{
 nmap <Leader>c <Plug>(caw:i:toggle)
 vmap <Leader>c <Plug>(caw:i:toggle)
 "}}}
-" ŒŸõ‚ğŠÈ’P‚É³‹K•\Œ»‚É"{{{
+" æ¤œç´¢ã‚’ç°¡å˜ã«æ­£è¦è¡¨ç¾ã«"{{{
 nnoremap / /\v
 "}}}
-" vim Ü‚è‚½‚½‚İŠÖ˜A"{{{
-" Ü‚è‚½‚½‚İˆÚ“®‚Ì‹““®:
-"    Œ»İ‚ÌÜ‚è‚½‚½‚İ‚ğ•Â‚¶‚é -> ˆÚ“® -> ŠJ‚­ -> Ü‚è‚½‚½‚İ‚Ìæ“ª‚ÉˆÚ“® -> ‰æ–Ê’†S‚É
+" vim æŠ˜ã‚ŠãŸãŸã¿é–¢é€£"{{{
+" æŠ˜ã‚ŠãŸãŸã¿ç§»å‹•æ™‚ã®æŒ™å‹•:
+"    ç¾åœ¨ã®æŠ˜ã‚ŠãŸãŸã¿ã‚’é–‰ã˜ã‚‹ -> ç§»å‹• -> é–‹ã -> æŠ˜ã‚ŠãŸãŸã¿ã®å…ˆé ­ã«ç§»å‹• -> ç”»é¢ä¸­å¿ƒã«
 nnoremap zj zczjzozz
 nnoremap zk zczkzo[zzz
-" ¡‚ÌƒJ[ƒ\ƒ‹‚Ì‚ ‚éÜ‚è‚½‚½‚İˆÈŠO‚Í•Â‚¶‚é
+" ä»Šã®ã‚«ãƒ¼ã‚½ãƒ«ã®ã‚ã‚‹æŠ˜ã‚ŠãŸãŸã¿ä»¥å¤–ã¯é–‰ã˜ã‚‹
 nnoremap <Leader>z zMzvzz
-" Ü‚è‚½‚½‚İ‚ÌÅ‰,ÅŒã‚Ö
+" æŠ˜ã‚ŠãŸãŸã¿ã®æœ€åˆ,æœ€å¾Œã¸
 nnoremap zp [z
 nnoremap zn ]z
 " reload
 nnoremap re :e!<CR><Leader>z<CR>
-" joe —p‚Ìİ’è "
+" joe ç”¨ã®è¨­å®š "
 syntax on
 "}}}
 " }}}
 
-"  ************ ƒtƒ@ƒCƒ‹ì¬‚ÉƒfƒBƒŒƒNƒgƒŠ‚àì¬‚·‚é *************"{{{
+"  ************ ãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆæ™‚ã«ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚‚ä½œæˆã™ã‚‹ *************"{{{
 augroup vimrc-auto-mkdir
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
@@ -491,7 +491,7 @@ augroup vimrc-auto-mkdir
 augroup END
 "}}}
 
-"  **************** Ü‚è‚½‚½‚İ —p‚Ì©“®İ’è ****************"{{{
+"  **************** æŠ˜ã‚ŠãŸãŸã¿ ç”¨ã®è‡ªå‹•è¨­å®š ****************"{{{
 augroup foldmethod-expr
     autocmd!
     autocmd InsertEnter * if &l:foldmethod ==# 'expr'
@@ -528,7 +528,7 @@ endfunction
 " }}}
 
 function! g:SetQuickrunConfig()
-	g:quickrun_config = {
+	let g:quickrun_config = {
 		\ '_': {
 			\ "hook/close_buffer/" : 1,
 			\ "hook/inu/enable" : 1,
@@ -539,7 +539,6 @@ function! g:SetQuickrunConfig()
 		\},
 		\ 'tex': {
 			\ 'command' : 'latexmk',
-			\ 'cmdopt' : '-c',
 			\ 'outputter': 'quickfix',
 			\ 'outputter/error/error': 'quickfix',
 			\ 'exec' : ["%c %s"],
@@ -549,8 +548,9 @@ function! g:SetQuickrunConfig()
 			\ 'split' : 'vertical',
 		\ },
 	\}
+	echo g:quickrun_config
 endfunction
-"  **************** vim —p‚Ì©“®İ’è **************** "{{{
+"  **************** vim ç”¨ã®è‡ªå‹•è¨­å®š **************** "{{{
 augroup myVimrcGroup
         au!
 		au QuickFixCmdPost vimgrep cw
@@ -560,20 +560,20 @@ augroup myVimrcGroup
 augroup END
 "}}}
 
-"  **************** python —p‚Ì©“®İ’è ****************"{{{
+"  **************** python ç”¨ã®è‡ªå‹•è¨­å®š ****************"{{{
 function! PythonFoldSetting(lnum)"{{{
-    " foldlevel‚Í3‚Ü‚Å
+    " foldlevelã¯3ã¾ã§
     set foldnestmax=3
 
-    " Œ»İ‚Ìs
+    " ç¾åœ¨ã®è¡Œ
     let line = getline(a:lnum)
     let ind  = indent(a:lnum)
     let flev = foldlevel(a:lnum)
 
-    " Ÿ‚Ìs
+    " æ¬¡ã®è¡Œ
     let line1 = getline(a:lnum + 1)
 
-    " Ÿ‚Ì”ñ‹ós
+    " æ¬¡ã®éç©ºè¡Œ
     let nind = indent( nextnonblank(a:lnum + 1) )
 
     " Classes and functions get their own folds
@@ -603,11 +603,11 @@ function! PythonFoldText(lnum)"{{{
 endfunction"}}}
 augroup myPythonGroup
         au!
-        " jedi-vim©“®‘I‘ğ‚ğoff ‚É‚·‚é"
+        " jedi-vimè‡ªå‹•é¸æŠã‚’off ã«ã™ã‚‹"
         au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
-		" jedi-vim ‚Ìpop out ‚ğ‰ğœ
+		" jedi-vim ã®pop out ã‚’è§£é™¤
 		au FileType python setlocal completeopt-=preview
-        " class view ‚ğİ’è"
+        " class view ã‚’è¨­å®š"
         " au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
@@ -619,26 +619,17 @@ augroup myPythonGroup
 augroup END
 "}}}
 
-"  **************** latex —p‚Ì©“®İ’è ****************"{{{
-function! s:SetLaTeXMainSource() " latex —pŠÖ”{{{
+"  **************** latex ç”¨ã®è‡ªå‹•è¨­å®š ****************"{{{
+function! g:SetLaTeXMainSource() " latex ç”¨é–¢æ•°{{{
 	let currentFileDirectory = expand('%:p:h')
 	if has('win32') || has('win64')
     	let latexmain = currentFileDirectory .'\main.tex' 
-		if has_key(g:quickrun_config, 'tex')
-			let g:quickrun_config['tex']['srcfile'] = latexmain
-		else
-			g:SetQuickrunConfig()
-			let g:quickrun_config['tex']['srcfile'] = latexmain
-		endif
-    	let g:quickrun_config['tex']['srcfile'] = latexmain 
+		call g:SetQuickrunConfig()
+		let g:quickrun_config['tex']['srcfile'] = latexmain
 	elseif has('unix')
 		let latexmain = currentFileDirectory . '/main.tex'
-		if has_key(g:quickrun_config, 'tex')
-    		let g:quickrun_config['tex']['srcfile'] = latexmain 
-		else
-			g:SetQuickrunConfig()
-			let g:quickrun_config['tex']['srcfile'] = latexmain
-		endif
+		call g:SetQuickrunConfig()
+		let g:quickrun_config['tex']['srcfile'] = latexmain
 	endif
 endfunction " }}}
 augroup myLaTeXGroup
@@ -646,7 +637,7 @@ augroup myLaTeXGroup
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
         au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
-        au BufRead *.tex call <SID>SetLaTeXMainSource()
+        au BufEnter *.tex call g:SetLaTeXMainSource()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
 		au FileType tex set tabstop=4
