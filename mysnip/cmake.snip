@@ -1,0 +1,51 @@
+snippet     mathexpression
+alias       $
+abbr        $ expression $
+    $${1:#:expression}$${2}
+
+snippet     new_CMakeLists
+alias       new
+    cmake_minimum_required(VERSION 2.8)	
+    project(${1: PROJECT_NAME})
+
+    # frag for Release
+    set(CMAKE_C_FRAGS_RELEASE "-Wall -O2")
+    # frag for Debug
+    set(CMAKE_C_FRAGS_RELEASE "-g")
+    # Build Type
+    set(CMAKE_BUILD_TYPE Release)
+
+    include_directories()
+
+    link_directories()
+    add_executable(
+            ${2: PROGRAM_NAME}
+            ${3: PROGRAM_SOURCE}
+            )
+    target_link_libraries()
+
+snippet     add_executable
+alias       add_executable add executable exe
+    add_executable(
+    ${1: PROGRAM_NAME}
+    ${2: PROGRAM_SOURCE}
+    )
+
+snippet     include_directories
+alias       include_directories include inc incdir
+    include_directories(
+    ${1: DIRECTORY}
+    )
+
+snippet     link_directories
+alias       link_directories link linkdir
+    link_directories(
+    ${1: DIRECTORY}
+    )
+
+snippet     target_link_libraries
+alias       target_link_libraries target targetlink targetlinkdir targetdir
+    target_link_libraries(
+    ${1: PROGRAM_NAME}
+    ${2: LINK_LIB_NAME}
+    )

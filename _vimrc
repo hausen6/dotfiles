@@ -417,12 +417,12 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 " File を開いたら画面中心に
-augroup OpenCentralGroup
-	" this one is which you're most likely to use?
-	au!
-	autocmd VimEnter zz
-	autocmd VimEnter zz
-augroup end
+" augroup OpenCentralGroup
+" 	" this one is which you're most likely to use?
+" 	au!
+" 	autocmd VimEnter zz
+" 	autocmd VimEnter zz
+" augroup end
 "}}}
 " 簡単にページを閉じる"{{{
 nnoremap <Leader>q :tabc<CR>
@@ -642,6 +642,9 @@ augroup myLaTeXGroup
 		au FileType tex set tabstop=4
 		au FileType tex set autoindent
 augroup END
+" }}}
+
+" C++ 用
 augroup myCppGroup
 		autocmd!
 		autocmd FileType cpp set tabstop=4
@@ -650,6 +653,7 @@ augroup myCppGroup
 		au FileType cpp  set expandtab
 		au FileType cpp  set shiftwidth=4
 		au FileType cpp  set foldmethod=marker
+		au BufEnter CMakeLists.txt :NeoSnippetSource ~/.vim/mysnip/cmake.snip
 augroup END
 "}}}
 " vim:set comentstrings=" %s
