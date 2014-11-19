@@ -125,7 +125,7 @@ set fileencodings=sjis,utf-8,euc-jp
             \ }
         NeoBundleLazy "Shougo/neosnippet-snippets", {
             \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
+            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp", "txt"],
             \    },
             \ }
         NeoBundle "kana/vim-submode"
@@ -173,7 +173,8 @@ set fileencodings=sjis,utf-8,euc-jp
     if neobundle#is_sourced("clang_complete")
 	    let g:clang_complete_auto = 1
 	    let g:clang_use_library = 1
-	    let g:clang_library_path = '/usr/share/clang'
+	    " let g:clang_library_path = '/usr/share/clang'
+		let g:clang_exec='/usr/bin/clang'
 	    let g:clang_user_options = '2>/dev/null || exit 0'
 
 	    if !exists('g:neocomplcache_force_omni_patterns')
@@ -476,6 +477,10 @@ nnoremap re :e!<CR><Leader>z<CR>
 " joe 用の設定 "
 syntax on
 "}}}
+" Mac だと\がAlt+¥しないとでないのでmappingを変更
+if has("mac")
+	inoremap ¥ \
+endif
 " }}}
 
 "  ************ ファイル作成時にディレクトリも作成する *************"{{{
