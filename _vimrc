@@ -152,11 +152,9 @@ set fileencodings=sjis,utf-8,euc-jp
         NeoBundle 'tyru/caw.vim'
         NeoBundle 'osyo-manga/unite-fold'
         NeoBundle 'thinca/vim-qfreplace'
-		NeoBundleLazy 'Rip-Rip/clang_complete',{
-            \ "autoload": {
-            \   'filetypes' : ['c', 'cpp'],
-            \ },
-            \}
+		NeoBundle 'osyo-manga/vim-marching'
+		NeoBundle 'osyo-manga/vim-reunions'
+		NeoBundle 'taketwo/vim-ros'
     "}}}
 
     " syntastic"{{{
@@ -169,19 +167,19 @@ set fileencodings=sjis,utf-8,euc-jp
         let g:syntastic_python_flake8_args = '--ignore="E501"'
     "}}}
 
-	" clang
-    if neobundle#is_sourced("clang_complete")
-	    let g:clang_complete_auto = 1
-	    let g:clang_use_library = 1
-	    " let g:clang_library_path = '/usr/share/clang'
-		let g:clang_exec='/usr/bin/clang'
-	    let g:clang_user_options = '2>/dev/null || exit 0'
-
+		" marching"{{{
+		let g:marching_clang_command = "clang++"
+		let g:marching_clang_command_option = "-std=c++11"
+		let g:marching_include_paths = [
+								\ "/usr/include/",
+								\ "/usr/local/include/",
+								\ "/opt/ros/hydro/include/ros",
+								\]
+		let g:marching_enable_neocomplete = 1
 	    if !exists('g:neocomplcache_force_omni_patterns')
 	    		let g:neocomplcache_force_omni_patterns = {}
 	    endif
-	    let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->)\|\h\w*::'
-    endif
+	    let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->)\|\h\w*::'"}}}
 
     " gundo.vim"{{{
         nnoremap <Leader>un :GundoToggle<CR>
@@ -410,6 +408,14 @@ vnoremap k gkzz
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
 "}}}
+" insert mode時に emacs 風キーバインド"{{{
+inoremap <C-f> <ESC>lli
+inoremap <C-b> <ESC>i
+inoremap <C-e> <ESC><S-a>
+inoremap <C-a> <ESC><S-i>
+inoremap <C-d> <DEL>
+inoremap <C-h> <BS>
+"}}}
 " 検索での移動を画面中心に"{{{
 nnoremap <c-o> <c-o>zz
 nnoremap <c-i> <c-i>zz
@@ -532,7 +538,7 @@ function! Capture(cmd)
 endfunction
 " }}}
 
-function! g:SetQuickrunConfig()
+function! g:SetQuickrunConfig()"{{{
 	let g:quickrun_config = {
 		\ '_': {
 			\ "hook/close_buffer/" : 1,
@@ -554,6 +560,7 @@ function! g:SetQuickrunConfig()
 		\ },
 	\}
 endfunction
+"}}}
 "  **************** vim 用の自動設定 **************** "{{{
 augroup myVimrcGroup
         au!
@@ -658,7 +665,6 @@ augroup myCppGroup
 		au FileType cpp  set expandtab
 		au FileType cpp  set shiftwidth=4
 		au FileType cpp  set foldmethod=marker
-		au BufEnter CMakeLists.txt :NeoSnippetSource ~/.vim/mysnip/cmake.snip
 augroup END
 "}}}
 " vim:set comentstrings=" %s
