@@ -39,6 +39,7 @@ set fileencodings=sjis,utf-8,euc-jp
     "画面最後の行をできる限り表示する。"{{{
     set display+=lastline
     set tabstop=4
+    set shiftwidth=4
     "}}}
     " モードラインをon"{{{
     set modeline
@@ -152,7 +153,11 @@ set fileencodings=sjis,utf-8,euc-jp
         NeoBundle 'tyru/caw.vim'
         NeoBundle 'osyo-manga/unite-fold'
         NeoBundle 'thinca/vim-qfreplace'
-		NeoBundle 'osyo-manga/vim-marching'
+		NeoBundleLazy 'osyo-manga/vim-marching', {
+			\ "autoload": {
+				\ "filetypes": ["c", "cpp"],
+			\ },
+		\}
 		NeoBundle 'osyo-manga/vim-reunions'
 		NeoBundle 'taketwo/vim-ros'
     "}}}
@@ -175,11 +180,21 @@ set fileencodings=sjis,utf-8,euc-jp
 								\ "/usr/local/include/",
 								\ "/opt/ros/hydro/include/ros",
 								\]
-		let g:marching_enable_neocomplete = 1
-	    if !exists('g:neocomplcache_force_omni_patterns')
-	    		let g:neocomplcache_force_omni_patterns = {}
-	    endif
-	    let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->)\|\h\w*::'"}}}
+        let g:marching_enable_neocomplete = 1
+        if neobundle#is_installed("neocomplete")
+            if !exists('g:neocomplete#force_omni_input_patterns')
+                let g:neocomplcache_force_omni_patterns = {}
+            endif
+            let g:neocomplete#force_omni_input_patterns.cpp =
+                    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+        else 
+            if !exists('g:neocomplcache_force_omni_patterns')
+                let g:neocomplcache_force_omni_patterns = {}
+            endif
+            let g:neocomplcache_force_omni_patterns.cpp = 
+                    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+        endif
+        "}}}
 
     " gundo.vim"{{{
         nnoremap <Leader>un :GundoToggle<CR>
@@ -409,8 +424,8 @@ nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
 "}}}
 " insert mode時に emacs 風キーバインド"{{{
-inoremap <C-f> <ESC>lli
-inoremap <C-b> <ESC>i
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
 inoremap <C-e> <ESC><S-a>
 inoremap <C-a> <ESC><S-i>
 inoremap <C-d> <DEL>
@@ -656,7 +671,7 @@ augroup myLaTeXGroup
 augroup END
 " }}}
 
-" C++ 用
+" C++ 用"{{{
 augroup myCppGroup
 		autocmd!
 		autocmd FileType cpp set tabstop=4
@@ -665,7 +680,7 @@ augroup myCppGroup
 		au FileType cpp  set expandtab
 		au FileType cpp  set shiftwidth=4
 		au FileType cpp  set foldmethod=marker
-augroup END
-"}}}
+        au FileType cpp inoremap <C-Space> <Plug>(marcing_start_omni_complete)
+augroup END"}}}
 " vim:set comentstrings=" %s
 " vim:set foldmethod=marker: "
