@@ -183,7 +183,7 @@ set fileencodings=sjis,utf-8,euc-jp
         let g:marching_enable_neocomplete = 1
         if neobundle#is_installed("neocomplete")
             if !exists('g:neocomplete#force_omni_input_patterns')
-                let g:neocomplcache_force_omni_patterns = {}
+                let g:neocomplete#force_omni_input_patterns = {}
             endif
             let g:neocomplete#force_omni_input_patterns.cpp =
                     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
@@ -194,6 +194,7 @@ set fileencodings=sjis,utf-8,euc-jp
             let g:neocomplcache_force_omni_patterns.cpp = 
                     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
         endif
+        imap <C-x><C-o> <Plug>(marching_force_start_omni_complete)
         "}}}
 
     " gundo.vim"{{{
