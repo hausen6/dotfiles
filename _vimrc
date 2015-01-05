@@ -433,11 +433,6 @@ inoremap <C-a> <ESC><S-i>
 inoremap <C-d> <DEL>
 inoremap <C-h> <BS>
 "}}}
-" コマンドラインに移動するのをマクロをデフォルトにする"{{{
-nnoremap <silent>: q:a
-nnoremap <silent>Q :
-nnoremap <silent>q :q
-"}}}
 " 検索での移動を画面中心に"{{{
 nnoremap <c-o> <c-o>zz
 nnoremap <c-i> <c-i>zz
