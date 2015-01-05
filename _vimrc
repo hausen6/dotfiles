@@ -90,8 +90,9 @@ set fileencodings=sjis,utf-8,euc-jp
               \ }
         NeoBundle 'Shougo/vimshell.vim'
         NeoBundle 'Shougo/unite.vim'
-        NeoBundle 'h1mesuke/unite-outline'
+        NeoBundle 'Shougo/unite-outline'
         NeoBundle 'Shougo/vimfiler.vim'
+		NeoBundle 'kmnk/vim-unite-giti'
         NeoBundle 'altercation/vim-colors-solarized'
         NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
         NeoBundle 'Lokaltog/vim-easymotion'
@@ -432,6 +433,11 @@ inoremap <C-a> <ESC><S-i>
 inoremap <C-d> <DEL>
 inoremap <C-h> <BS>
 "}}}
+" コマンドラインに移動するのをマクロをデフォルトにする"{{{
+nnoremap <silent>: q:a
+nnoremap <silent>Q :
+nnoremap <silent>q :q
+"}}}
 " 検索での移動を画面中心に"{{{
 nnoremap <c-o> <c-o>zz
 nnoremap <c-i> <c-i>zz
@@ -446,10 +452,6 @@ nnoremap * *zz
 " 	autocmd VimEnter zz
 " 	autocmd VimEnter zz
 " augroup end
-"}}}
-" 簡単にページを閉じる"{{{
-nnoremap <Leader>q :tabc<CR>
-nnoremap <Leader>w :write!<CR>
 "}}}
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する"{{{
 nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
@@ -476,6 +478,8 @@ nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
 nnoremap <Leader>uo       : <C-u>Unite outline<CR>
 nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
+nnoremap <Leader>ugb	  : <C-u>Unite giti/branch<CR>
+nnoremap <Leader>ugs	  : <C-u>Unite giti/status<CR>
 "}}}
 " caw.vim の keymapping"{{{
 nmap <Leader>c <Plug>(caw:i:toggle)
@@ -499,9 +503,9 @@ nnoremap re :e!<CR><Leader>z<CR>
 " joe 用の設定 "
 syntax on
 "}}}
-" Mac だと\がAlt+¥しないとでないのでmappingを変更
+" Mac だと\がAlt+\しないとでないのでmappingを変更
 if has("mac")
-	inoremap ¥ \
+	inoremap \ \
 endif
 " }}}
 
