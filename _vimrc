@@ -1,7 +1,7 @@
 " joe 用の設定 "
 syntax on
 set modeline
-set fileencodings=sjis,utf-8,euc-jp
+set fileencodings=utf-8,sjis
 
 " =========== 基本設定 =========== "{{{
     " 行数を表示"{{{
@@ -109,7 +109,7 @@ set fileencodings=sjis,utf-8,euc-jp
         NeoBundle 'Yggdroot/indentLine'
         NeoBundleLazy 'majutsushi/tagbar', {
             \ "autoload": {
-            \   'filetypes': ['python', 'python3'],
+            \   'filetypes': ['python', 'python3', 'cpp', 'c'],
             \   },
             \ "build": {
             \   "mac": "brew install ctags",
@@ -573,6 +573,9 @@ function! g:SetQuickrunConfig()"{{{
 			\ 'cmdopt' : '-u',
 			\ 'split' : 'vertical',
 		\ },
+        \ 'cpp': {
+            \ 'command': 'easy_catkin_make',
+        \},
 	\}
 endfunction
 "}}}
