@@ -1,7 +1,8 @@
 " joe 用の設定 "
 syntax on
 set modeline
-set fileencodings=sjis,utf-8,euc-jp
+set fenc=utf-8
+set fileencodings=utf-8,sjis
 
 " =========== 基本設定 =========== "{{{
     " 行数を表示"{{{
