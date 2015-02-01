@@ -162,6 +162,11 @@ set fileencodings=utf-8,sjis
 		\}
 		NeoBundle 'osyo-manga/vim-reunions'
 		NeoBundle 'taketwo/vim-ros'
+		NeoBundle 'plasticboy/vim-markdown.git'
+		NeoBundle 'mattn/webapi-vim'
+		NeoBundle 'tyru/open-browser.vim'
+		NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
+		NeoBundle 'kannokanno/previm'
     "}}}
 
     " syntastic"{{{
@@ -574,6 +579,10 @@ function! g:SetQuickrunConfig()"{{{
 			\ 'cmdopt' : '-u',
 			\ 'split' : 'vertical',
 		\ },
+		\ 'markdown': {
+			\ 'type': 'markdown/gfm',
+			\ 'outputter': 'browser',
+		\},
 	\}
 endfunction
 "}}}
@@ -669,6 +678,9 @@ augroup myLaTeXGroup
 		au BufEnter *.tex set commentstring=\%\%s
 		au FileType tex set tabstop=4
 		au FileType tex set autoindent
+		if has("mac")
+			au FileType tex inoremap ¥ \
+		endif
 augroup END
 " }}}
 
@@ -682,6 +694,12 @@ augroup myCppGroup
 		au FileType cpp  set shiftwidth=4
 		au FileType cpp  set foldmethod=marker
         au FileType cpp inoremap <C-Space> <Plug>(marcing_start_omni_complete)
+augroup END"}}}
+
+augroup MyMarkdownGroup"{{{
+	autocmd!
+	autocmd BufRead,BufWrite *.md set filetype=markdown
+	au BufRead,BufWrite call g:SetQuickrunConfig()
 augroup END"}}}
 " vim:set comentstrings=" %s
 " vim:set foldmethod=marker: "
