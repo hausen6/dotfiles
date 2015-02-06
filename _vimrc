@@ -1,6 +1,7 @@
 " joe 用の設定 "
 syntax on
 set modeline
+set fenc=utf-8
 set fileencodings=utf-8,sjis
 
 " =========== 基本設定 =========== "{{{
@@ -640,9 +641,10 @@ augroup myPythonGroup
         " au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
-		au BufEnter *.py set tabstop=4
-		au BufEnter *.py set autoindent
-		au BufEnter *.py set shiftwidth=4
+		au FileType python set tabstop=4
+		au FileType python set autoindent
+		au FileType python set expandtab
+		au FileType python set shiftwidth=4
         au FileType python set modeline
         au FileType python set foldmethod=marker
 augroup END
