@@ -162,6 +162,9 @@ set fileencodings=utf-8,sjis
 		\}
 		NeoBundle 'osyo-manga/vim-reunions'
 		NeoBundle 'taketwo/vim-ros'
+		NeoBundle 'rcmdnk/vim-markdown'
+		NeoBundle 'kannokanno/previm'
+		NeoBundle 'tryu/open-browser.vim'
     "}}}
 
     " syntastic"{{{
@@ -471,7 +474,7 @@ nnoremap <Leader>u<Space> :Unite<Space>
 nnoremap <Leader>uf       :UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       :Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
-nnoremap <Leader>uo       : <C-u>Unite outline<CR>
+nnoremap <Leader>uo       : <C-u>Unite -vertical -winwidth=30 -no-quit outline<CR>
 nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
 nnoremap <Leader>ugb	  : <C-u>Unite giti/branch<CR>
@@ -683,5 +686,11 @@ augroup myCppGroup
 		au FileType cpp  set foldmethod=marker
         au FileType cpp inoremap <C-Space> <Plug>(marcing_start_omni_complete)
 augroup END"}}}
+
+augroup myMarkdown
+	autocmd!
+	autocmd BufRead,BufWrite *.md set filetype=markdown
+augroup END
+
 " vim:set comentstrings=" %s
 " vim:set foldmethod=marker: "
