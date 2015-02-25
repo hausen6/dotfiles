@@ -110,7 +110,7 @@ set fileencodings=utf-8,sjis
         NeoBundle 'Yggdroot/indentLine'
         NeoBundleLazy 'majutsushi/tagbar', {
             \ "autoload": {
-            \   'filetypes': ['python', 'python3'],
+            \   'filetypes': ['python', 'python3', 'cpp', 'c'],
             \   },
             \ "build": {
             \   "mac": "brew install ctags",
@@ -476,7 +476,7 @@ nnoremap <Leader>u<Space> :Unite<Space>
 nnoremap <Leader>uf       :UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       :Unite bookmark<CR>
 nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
-nnoremap <Leader>uo       : <C-u>Unite outline<CR>
+nnoremap <Leader>uo       : <C-u>Unite -vertical -winwidth=30 -no-quit outline<CR>
 nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
 nnoremap <Leader>ugb	  : <C-u>Unite giti/branch<CR>
@@ -647,9 +647,10 @@ augroup myPythonGroup
         " au BufNewFile,BufRead *.py :TagbarToggle
         au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
-		au BufEnter *.py set tabstop=4
-		au BufEnter *.py set autoindent
-		au BufEnter *.py set shiftwidth=4
+		au FileType python set tabstop=4
+		au FileType python set autoindent
+		au FileType python set expandtab
+		au FileType python set shiftwidth=4
         au FileType python set modeline
         au FileType python set foldmethod=marker
 augroup END
@@ -679,7 +680,7 @@ augroup myLaTeXGroup
 		au FileType tex set tabstop=4
 		au FileType tex set autoindent
 		if has("mac")
-			au FileType tex inoremap ¥ \
+			au FileType tex inoremap \ \
 		endif
 augroup END
 " }}}

@@ -35,6 +35,47 @@ alias       \documentclass
     ${4:TARGET}
     \end{document}
 
+snippet		beamer
+alias 		beamer
+	\documentclass[dvipdfmx,11pt,notheorems]{beamer}
+	%%%% 和文用 %%%%%
+	\usepackage{bxdpx-beamer}
+	\usepackage{pxjahyper}
+	\usepackage{minijs}%和文用
+	\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
+
+	%%%% スライドの見た目 %%%%%
+	\usetheme{Madrid}
+	\usefonttheme{professionalfonts}
+	\setbeamertemplate{frametitle}[default][center]
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamercovered{transparent}%好みに応じてどうぞ）
+	\setbeamertemplate{footline}[page number]
+	\setbeamerfont{footline}{size=\normalsize,series=\bfseries}
+	\setbeamercolor{footline}{fg=black,bg=black}
+	%%%%
+
+	%%%%% フォント基本設定 %%%%%
+	\usepackage[T1]{fontenc}%8bit フォント
+	\usepackage{textcomp}%欧文フォントの追加
+	\usepackage[utf8]{inputenc}%文字コードをUTF-8
+	\usepackage{otf}%otfパッケージ
+	\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
+	\usepackage{bm}%数式太字
+	%%%%%%%%%%
+	 
+	\title[${1: SHORT TITLE}]{${2: TITLE}}             % [略タイトル]{タイトル}
+	\author[${3: SHORT AUTHOR}]{${4: AUTOR}}           % [略名前]{名前}
+	\institute[${5: SHORT INSTITUTE}]{${6: INSTITUTE}} % [略所属]{所属}
+	\date{\today}                                      % 日付
+	\begin{document}
+
+	\begin{frame}[plain]\frametitle{}
+	\titlepage %表紙
+	\end{frame}
+
+	\end{document}
+
 snippet     figure
 alias         \bigin{figure} \figure
     %
