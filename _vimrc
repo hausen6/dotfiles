@@ -139,11 +139,11 @@ set fileencodings=utf-8,sjis
               \ "autoload": {
               \   "commands": ['GundoToggle'],
               \}}
-        " NeoBundleLazy "scrooloose/syntastic",{
-        "     \ "autoload": {
-        "     \   'filetypes': ['python', 'python3'],
-        "     \    },
-        "     \ }
+        NeoBundleLazy "scrooloose/syntastic",{
+            \ "autoload": {
+            \   'filetypes': ['python', 'python3'],
+            \    },
+            \ }
         NeoBundleLazy "osyo-manga/vim-watchdogs", {
             \ "autoload": {
                 \ 'filetypes': ['python', 'python3'],
