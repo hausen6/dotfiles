@@ -69,7 +69,8 @@ set fileencodings=utf-8,sjis
     if has('vim_starting')
       set runtimepath+=C:\Users\joe/.vim/bundle/neobundle.vim
       set runtimepath+=~/.vim/bundle/neobundle.vim
-      call neobundle#rc(expand('~/.vim/bundle'))
+      " call neobundle#rc(expand('~/.vim/bundle'))
+      call neobundle#begin(expand('~/.vim/bundle'))
     endif
     filetype plugin indent on
     " Installation check.
@@ -144,11 +145,6 @@ set fileencodings=utf-8,sjis
             \   'filetypes': ['python', 'python3'],
             \    },
             \ }
-        NeoBundleLazy "osyo-manga/vim-watchdogs", {
-            \ "autoload": {
-                \ 'filetypes': ['python', 'python3'],
-                \ },
-            \}
         NeoBundle "jceb/vim-hier"
         NeoBundle "git://github.com/osyo-manga/unite-quickfix.git"
         NeoBundle 'osyo-manga/shabadou.vim'
@@ -162,12 +158,15 @@ set fileencodings=utf-8,sjis
 		\}
 		NeoBundle 'osyo-manga/vim-reunions'
 		NeoBundle 'taketwo/vim-ros'
-		NeoBundle 'plasticboy/vim-markdown.git'
+		NeoBundle 'rcmdnk/vim-markdown.git'
 		NeoBundle 'mattn/webapi-vim'
 		NeoBundle 'tyru/open-browser.vim'
 		NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
 		NeoBundle 'kannokanno/previm'
     "}}}
+    "
+    NeoBundleCheck
+    call neobundle#end()
 
     " syntastic"{{{
         let g:syntastic_python_checkers = ['flake8']
@@ -256,23 +255,6 @@ set fileencodings=utf-8,sjis
                 " 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
                 set splitbelow
                 set splitright
-                " vim-watchdogs"{{{
-                    "  保存時自動書き込み
-                    let g:watchdogs_check_BufWritePost_enables = {
-                        \ "python": 0,
-                        \ "python3": 0,
-                    \}
-                    " flake8 を使ったシンタックスチェック
-                    let s:config = {
-                        \ "python/watchdogs_checker": {
-                            \ "type": "watchdogs_checker/flake8",
-                        \},
-                        \ "watchdogs_checker/_": {
-                            \'outputter/quickfix/open_cmd': '',
-                        \},
-                    \}
-                    call watchdogs#setup(s:config)
-                    "}}}
                 function! s:TexPdfView()
                     if has('win32')
 						let texPdfFilename = expand('%:r')
