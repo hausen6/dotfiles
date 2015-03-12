@@ -168,6 +168,9 @@ set fileencodings=utf-8,sjis
     NeoBundleCheck
     call neobundle#end()
 
+    " markdown
+    let g:vim_markdown_folding_disabled=1
+
     " syntastic"{{{
         let g:syntastic_python_checkers = ['flake8']
         " 複数指定する場合はカンマ区切り
