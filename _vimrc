@@ -107,6 +107,11 @@ set fileencodings=utf-8,sjis
             \              "mac": "pip install jedi",
             \              "unix": "pip install jedi",
             \ }}
+        NeoBundleLazy "jmcantrell/vim-virtualenv", {
+            \ "autoload": {
+                \ "filetypes": ["python", "python3", "djangohtml"],
+                \ },
+            \ }
         NeoBundle 'Yggdroot/indentLine'
         NeoBundleLazy 'majutsushi/tagbar', {
             \ "autoload": {
