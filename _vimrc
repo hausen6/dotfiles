@@ -192,7 +192,7 @@ set fileencodings=utf-8,sjis
 		let g:marching_include_paths = [
 								\ "/usr/include/",
 								\ "/usr/local/include/",
-								\ "/opt/ros/hydro/include/ros",
+								\ "/opt/ros/indigo/include/ros",
 								\]
         let g:marching_enable_neocomplete = 1
         if neobundle#is_installed("neocomplete")
@@ -297,29 +297,37 @@ set fileencodings=utf-8,sjis
     ""}}}
 
     " jedi-vim"{{{
-        let s:hooks = neobundle#get_hooks("jedi-vim")
-        function! s:hooks.on_source(bundle)
-                " jediにvimの設定を任せると'completeopt+=preview'するので
-                " 自動設定機能をOFFにし手動で設定を行う
-                let g:jedi#auto_vim_configuration = 0
-                " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-                let g:jedi#popup_select_first     = 0
-                " quickrunと被るため大文字に変更
+		let g:jedi#completions_enable = 0
+		let g:jedi#popup_select_first = 1
+		let g:jedi#auto_vim_configuration = 0
+		if !exists('g:neocomplete#force_omni_input_patterns')
+			let g:neocomplete#force_omni_input_patterns = {}
+		endif
 
-          let g:jedi#rename_command = '<Leader>R'
-          " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-          "let g:jedi#goto_command = '<Leader>G'
-        endfunction
-        function! g:SetPopOnJediOff()
-                " 選択候補が常に選択されてしまう問題の対処?
-                let s:save_cpo = &cpo
-                set cpo&vim
-                if g:jedi#popup_select_first == 0
-                inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
-                endif
-                let &cpo = s:save_cpo
-                unlet s:save_cpo
-        endfunction
+		let g:neocomplete#force_omni_input_patterns.python = "\h\w*/|[^. \t]\.\w*"
+        " let s:hooks = neobundle#get_hooks("jedi-vim")
+        " function! s:hooks.on_source(bundle)
+        "         " jediにvimの設定を任せると'completeopt+=preview'するので
+        "         " 自動設定機能をOFFにし手動で設定を行う
+        "         let g:jedi#auto_vim_configuration = 0
+        "         " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+        "         let g:jedi#popup_select_first     = 0
+        "         " quickrunと被るため大文字に変更
+								"
+        "   let g:jedi#rename_command = '<Leader>R'
+        "   " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
+        "   "let g:jedi#goto_command = '<Leader>G'
+        " endfunction
+        " function! g:SetPopOnJediOff()
+        "         " 選択候補が常に選択されてしまう問題の対処?
+        "         let s:save_cpo = &cpo
+        "         set cpo&vim
+        "         if g:jedi#popup_select_first == 0
+        "         inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
+        "         endif
+        "         let &cpo = s:save_cpo
+        "         unlet s:save_cpo
+        " endfunction
     "}}}
 
     " python class browser"{{{
@@ -630,12 +638,13 @@ endfunction"}}}
 augroup myPythonGroup
         au!
         " jedi-vim自動選択をoff にする"
-        au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
+        " au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
 		" jedi-vim のpop out を解除
 		au FileType python setlocal completeopt-=preview
+        au FileType python setlocal omnifunc=jedi#completions
         " class view を設定"
         " au BufNewFile,BufRead *.py :TagbarToggle
-        au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
+        " au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
 		au FileType python set tabstop=4
 		au FileType python set autoindent
