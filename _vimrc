@@ -4,65 +4,65 @@ set modeline
 set fenc=utf-8
 set fileencodings=utf-8,sjis
 
-" =========== 基本設定 =========== "{{{
-    " 行数を表示"{{{
+" =========== 基本設定 =========== 
+    " 行数を表示
     :set number
-    "}}}
-    " backspace で文字を消す"{{{
+    
+    " backspace で文字を消す
     set backspace=indent,eol,start
-    "}}}
-    " クリップボード共有"{{{
+    
+    " クリップボード共有
     set clipboard=autoselect,unnamed
-    "}}}
-    " インクリメンタルサーチon"{{{
+    
+    " インクリメンタルサーチon
     set incsearch
     set ic
-    "}}}
-    " 設定ファイルのパス設定"{{{
+    
+    " 設定ファイルのパス設定
     let $MYVIMRC='~/_vimrc'
     let $MYGVIMRC='~/_gvimrc'
-    "}}}
-    " バックアップファイルの作成場所変更"{{{
+    
+    " バックアップファイルの作成場所変更
     set directory=~/.vim/vimbackup/
     set backupdir=~/.vim/vimbackup/
     set undodir=~/.vim/vimbackup/
-    "}}}
-    " 自動改行OFF"{{{
+    
+    " 自動改行OFF
     set formatoptions=q
     " set tw=0
-    "}}}
-    "日本語の行の連結時には空白を入力しない。"{{{
+    
+    "日本語の行の連結時には空白を入力しない。
     set formatoptions+=mM
-    "}}}
-    "□や○の文字があってもカーソル位置がずれないようにする。"{{{
+    
+    "□や○の文字があってもカーソル位置がずれないようにする。
     set ambiwidth=double
-    "}}}
-    "画面最後の行をできる限り表示する。"{{{
+    
+    "画面最後の行をできる限り表示する。
     set display+=lastline
     set tabstop=4
     set shiftwidth=4
-    "}}}
-    " モードラインをon"{{{
+    
+    " モードラインをon
     set modeline
-    "}}}
-    " 縦に連番の番号を co で入力する"{{{
+    
+    " 縦に連番の番号を co で入力する
         nnoremap <silent> co :ContinuousNumber <C-a><CR>
         vnoremap <silent> co :ContinuousNumber <C-a><CR>
         command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-    "}}}
-    " Ctrl-Pで開いているPython スクリプトを実行"{{{
+    
+    " Ctrl-Pで開いているPython スクリプトを実行
         function! s:Exec()
             exe "!" . &ft . " %"
         :endfunction
         command! Exec call <SID>Exec()
         map <silent> <C-P> :call <SID>Exec()<CR>
-    "}}}
-    " 今日の日付を挿入"{{{
+    
+    " 今日の日付を挿入
         nnoremap <F6> <ESC>i<C-R>=strftime("%Y/%m/%d")<CR><CR>
-    "}}}
-"}}}
+    
 
-" =========== NeoBundleの設定 ============="{{{
+
+" =========== NeoBundleの設定 =============
     let g:neobundle_default_git_protocol='https'
     set nocompatible
     filetype off
@@ -80,7 +80,7 @@ set fileencodings=utf-8,sjis
       echomsg 'Please execute ":NeoBundleInstall" command.'
       "finish
     endif
-    " ここにインストールしたいプラグインのリストを書く"{{{
+    " ここにインストールしたいプラグインのリストを書く
         NeoBundleFetch 'Shougo/neobundle.vim'
         NeoBundle 'Shougo/vimproc', {
               \ 'build' : {
@@ -163,7 +163,44 @@ set fileencodings=utf-8,sjis
 		NeoBundle 'tyru/open-browser.vim'
 		NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
 		NeoBundle 'kannokanno/previm'
-    "}}}
+		NeoBundle 'thinca/vim-singleton'
+        " html/css/javascripts
+        NeoBundleLazy 'mattn/emmet-vim', {
+            \ "autoload": {
+                \ "filetype": ["html", "css"],
+                \}
+        \}
+        NeoBundleLazy 'hail2u/vim-css3-syntax', {
+            \ "autoload": {
+                \ "filetype": ["html", "css"],
+                \}
+        \}
+        NeoBundleLazy 'pangloss/vim-javascript', {
+            \ "autoload": {
+                \ "filetype": ["html", "css", "javascript"],
+                \}
+        \}
+        NeoBundleLazy 'taichouchou2/html5.vim', {
+            \ "autoload": {
+                \ "filetype": ["html", "css", "js"],
+                \}
+        \}
+        NeoBundleLazy 'marijnh/tern_for_vim', {
+            \ "autoload": {
+                \ "filetype": ["html", "css", "js"],
+                \}
+        \}
+        NeoBundleLazy 'lilydjwg/colorizer', {
+            \ "autoload": {
+                \ "filetype": ["html", "css", "js"],
+                \}
+        \}
+        NeoBundleLazy 'pasela/unite-webcolorname', {
+            \ "autoload": {
+                \ "filetype": ["html", "css", "js"],
+                \}
+        \}
+    
     "
     NeoBundleCheck
     call neobundle#end()
@@ -171,7 +208,7 @@ set fileencodings=utf-8,sjis
     " markdown
     let g:vim_markdown_folding_disabled=1
 
-    " syntastic"{{{
+    " syntastic
         let g:syntastic_python_checkers = ['flake8']
         " 複数指定する場合はカンマ区切り
         " e.g ) let g:flake8_ignore = 'E501,W293'
@@ -179,9 +216,9 @@ set fileencodings=utf-8,sjis
         " 複数指定する場合はカンマ区切り
         " let g:syntastic_python_flake8_args = '--ignore="E501,E302"'
         let g:syntastic_python_flake8_args = '--ignore="E501"'
-    "}}}
+    
 
-		" marching"{{{
+		" marching
 		let g:marching_clang_command = "clang++"
 		let g:marching_clang_command_option = "-std=c++11"
 		let g:marching_include_paths = [
@@ -203,20 +240,19 @@ set fileencodings=utf-8,sjis
             let g:neocomplcache_force_omni_patterns.cpp = 
                     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
         endif
-        imap <C-x><C-o> <Plug>(marching_force_start_omni_complete)
-        "}}}
+        
 
-    " gundo.vim"{{{
+    " gundo.vim
         nnoremap <Leader>un :GundoToggle<CR>
         let g:gundo_auto_preview = 0
-    "}}}
+    
 
-    " easymotion"{{{
+    " easymotion
         " 日本語に有効にする
         let g:EasyMotion_use_migemo = 1
-    "}}}
+    
 
-    ""VimFilerの設定"{{{
+    ""VimFilerの設定
         let g:vimfiler_as_default_explorer = 1
         " VimFiler使用のキーマップ
         nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
@@ -226,13 +262,13 @@ set fileencodings=utf-8,sjis
         let g:vimfiler_enable_auto_cd = 1
         let g:vimfiler_safe_mode_by_default = 0
         call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    "}}}
+    
 
-    " unite"{{{
+    " unite
         let g:unite_source_history_yank_enable = 1
-    "}}}
+    
 
-    " quickrun"{{{
+    " quickrun
         let s:hooks = neobundle#get_hooks("vim-quickrun")
         let g:quickrun_config = {}
         function! s:hooks.on_source(bundle)
@@ -258,7 +294,7 @@ set fileencodings=utf-8,sjis
                 " 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
                 set splitbelow
                 set splitright
-                function! s:TexPdfView()
+                function! g:TexPdfView()
                     if has('win32')
 						let texPdfFilename = expand('%:r')
 						let synctex = expand('%')
@@ -289,9 +325,9 @@ set fileencodings=utf-8,sjis
                 endfunction
         endfunction
         nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-    ""}}}
+    "
 
-    " jedi-vim"{{{
+    " jedi-vim
         let s:hooks = neobundle#get_hooks("jedi-vim")
         function! s:hooks.on_source(bundle)
                 " jediにvimの設定を任せると'completeopt+=preview'するので
@@ -315,12 +351,12 @@ set fileencodings=utf-8,sjis
                 let &cpo = s:save_cpo
                 unlet s:save_cpo
         endfunction
-    "}}}
+    
 
-    " python class browser"{{{
-    nnoremap <Leader>t :TagbarToggle<CR>"}}}
+    " python class browser
+    nnoremap <Leader>t :TagbarToggle<CR>
 
-    " neocomplete"{{{
+    " neocomplete
         " if_luaが有効ならneocompleteを使う
         if neobundle#is_installed('neocomplete')
             " neocomplete用設定
@@ -345,17 +381,17 @@ set fileencodings=utf-8,sjis
         endif
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
         inoremap <expr><S-TAB> pumvisible() ? "\<C
-    "}}}
+    
 
-    " jedi-vim と neocomplete の連携"{{{
+    " jedi-vim と neocomplete の連携
         autocmd FileType python setlocal omnifunc=jedi#completions
 
         if !exists('g:neocomplete#force_omni_input_patterns')
                 let g:neocomplete#force_omni_input_patterns = {}
         endif
-    "}}}
+    
 
-    " スニペットの設定"{{{
+    " スニペットの設定
         let s:hooks = neobundle#get_hooks("neosnippet.vim")
         " Plugin key-mappings.
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -373,9 +409,9 @@ set fileencodings=utf-8,sjis
           set conceallevel=2 concealcursor=i
         endif
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
-    "}}}
+    
 
-    " submodeの設定"{{{
+    " submodeの設定
         " window size の調整を連続キーでやる
         call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
         call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
@@ -388,43 +424,43 @@ set fileencodings=utf-8,sjis
         call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
         call submode#map('changetab', 'n', '', 't', 'gt')
         call submode#map('changetab', 'n', '', 'T', 'gT')
-    "}}}
+    
 
     " Neobundle 終わり
-" ========================================="}}}
+" =========================================
 
-" =========== キーマップ ========= "{{{
+" =========== キーマップ ========= 
 let mapleader=" "
-" <ESC> を C-g に割り当てる"{{{
+" <ESC> を C-g に割り当てる
 inoremap <C-j> <ESC>
 vnoremap <C-j> <ESC>
 nnoremap <C-j> <ESC>
-"}}}
-" $ と ^が使いづらいので変更"{{{
+
+" $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
-"}}}
-" 単語削除など"{{{
+
+" 単語削除など
 nnoremap dw diw
 nnoremap cw ciw
-"}}}
-" jkでの移動"{{{
+
+" jkでの移動
 nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
-"}}}
-" insert mode時に emacs 風キーバインド"{{{
+
+" insert mode時に emacs 風キーバインド
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 inoremap <C-e> <ESC><S-a>
 inoremap <C-a> <ESC><S-i>
 inoremap <C-d> <DEL>
 inoremap <C-h> <BS>
-"}}}
-" 検索での移動を画面中心に"{{{
+
+" 検索での移動を画面中心に
 nnoremap <c-o> <c-o>zz
 nnoremap <c-i> <c-i>zz
 nnoremap <c-]> <c-]>zz
@@ -438,16 +474,16 @@ nnoremap * *zz
 " 	autocmd VimEnter zz
 " 	autocmd VimEnter zz
 " augroup end
-"}}}
-" .vimrcや.gvimrcを編集するためのKey-mappingを定義する"{{{
+
+" .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>tabedit $MYGVIMRC<CR>
-"}}}
-" .vimrcや.gvimrcの変更を反映するためのKey-mappingを定義する"{{{
+
+" .vimrcや.gvimrcの変更を反映するためのKey-mappingを定義する
 nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
-"}}}
-" 画面分割"{{{
+
+" 画面分割
 nnoremap s <Nop>
 nnoremap <silent>ss :split<CR>
 nnoremap <silent>sv :vsplit<CR>
@@ -455,8 +491,8 @@ nnoremap <silent>sh <C-w>h
 nnoremap <silent>sj <C-w>j
 nnoremap <silent>sk <C-w>k
 nnoremap <silent>sl <C-w>l
-"}}}
-" unite"{{{
+
+" unite
 nnoremap <Leader>u<Space> :Unite<Space>
 nnoremap <Leader>uf       :UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <Leader>us       :Unite bookmark<CR>
@@ -466,15 +502,15 @@ nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
 nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
 nnoremap <Leader>ugb	  : <C-u>Unite giti/branch<CR>
 nnoremap <Leader>ugs	  : <C-u>Unite giti/status<CR>
-"}}}
-" caw.vim の keymapping"{{{
+
+" caw.vim の keymapping
 nmap <Leader>c <Plug>(caw:i:toggle)
 vmap <Leader>c <Plug>(caw:i:toggle)
-"}}}
-" 検索を簡単に正規表現に"{{{
+
+" 検索を簡単に正規表現に
 nnoremap / /\v
-"}}}
-" vim 折りたたみ関連"{{{
+
+" vim 折りたたみ関連
 " 折りたたみ移動時の挙動:
 "    現在の折りたたみを閉じる -> 移動 -> 開く -> 折りたたみの先頭に移動 -> 画面中心に
 nnoremap zj zczjzozz
@@ -488,14 +524,14 @@ nnoremap zn ]z
 nnoremap re :e!<CR><Leader>z<CR>
 " joe 用の設定 "
 syntax on
-"}}}
+
 " Mac だと\がAlt+\しないとでないのでmappingを変更
 if has("mac")
 	inoremap \ \
 endif
-" }}}
+" 
 
-"  ************ ファイル作成時にディレクトリも作成する *************"{{{
+"  ************ ファイル作成時にディレクトリも作成する *************
 augroup vimrc-auto-mkdir
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
@@ -506,9 +542,9 @@ augroup vimrc-auto-mkdir
     endif
   endfunction
 augroup END
-"}}}
 
-"  **************** 折りたたみ 用の自動設定 ****************"{{{
+
+"  **************** 折りたたみ 用の自動設定 ****************
 augroup foldmethod-expr
     autocmd!
     autocmd InsertEnter * if &l:foldmethod ==# 'expr'
@@ -519,8 +555,8 @@ augroup foldmethod-expr
     \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
     \                   | endif
 augroup END
-"  }}}
-" Capture {{{
+"  
+" Capture 
 command!
       \ -nargs=1
       \ -complete=command
@@ -542,9 +578,9 @@ function! Capture(cmd)
   silent put =result
   1,2delete _
 endfunction
-" }}}
+" 
 
-function! g:SetQuickrunConfig()"{{{
+function! g:SetQuickrunConfig()
 	let g:quickrun_config = {
 		\ '_': {
 			\ "hook/close_buffer/" : 1,
@@ -570,8 +606,8 @@ function! g:SetQuickrunConfig()"{{{
 		\},
 	\}
 endfunction
-"}}}
-"  **************** vim 用の自動設定 **************** "{{{
+
+"  **************** vim 用の自動設定 **************** 
 augroup myVimrcGroup
         au!
 		au QuickFixCmdPost vimgrep cw
@@ -579,10 +615,10 @@ augroup myVimrcGroup
         au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
         " au BufWritePre * :%s/\s\+$//e
 augroup END
-"}}}
 
-"  **************** python 用の自動設定 ****************"{{{
-function! PythonFoldSetting(lnum)"{{{
+
+"  **************** python 用の自動設定 ****************
+function! PythonFoldSetting(lnum)
     " foldlevelは3まで
     set foldnestmax=3
 
@@ -610,8 +646,8 @@ function! PythonFoldSetting(lnum)"{{{
         return '='
     endif
 endfunction
-"}}}
-function! PythonFoldText(lnum)"{{{
+
+function! PythonFoldText(lnum)
     let line = getline(v:foldstart)
     let nline = getline(v:foldstart + 1)
     let ind = indent(a:lnum)
@@ -621,7 +657,7 @@ function! PythonFoldText(lnum)"{{{
     endfor
     let sub = substitute(line, '^(\s\*)', dstind, 'g')
     return v:folddashes . sub.nline
-endfunction"}}}
+endfunction
 augroup myPythonGroup
         au!
         " jedi-vim自動選択をoff にする"
@@ -639,10 +675,10 @@ augroup myPythonGroup
         au FileType python set modeline
         au FileType python set foldmethod=marker
 augroup END
-"}}}
 
-"  **************** latex 用の自動設定 ****************"{{{
-function! g:SetLaTeXMainSource() " latex 用関数{{{
+
+"  **************** latex 用の自動設定 ****************
+function! g:SetLaTeXMainSource() " latex 用関数
 	let currentFileDirectory = expand('%:p:h')
 	if has('win32') || has('win64')
     	let latexmain = currentFileDirectory .'\main.tex' 
@@ -653,12 +689,12 @@ function! g:SetLaTeXMainSource() " latex 用関数{{{
 		call g:SetQuickrunConfig()
 		let g:quickrun_config['tex']['srcfile'] = latexmain
 	endif
-endfunction " }}}
+endfunction
 augroup myLaTeXGroup
         au!
         au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
         au BufNewFile,BufRead *.tex filetype plugin indent off
-        au BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
+        au BufEnter *.tex nnoremap <Leader>v :call <SID>:TexPdfView()<CR>
         au BufEnter *.tex call g:SetLaTeXMainSource()
 		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
 		au BufEnter *.tex set commentstring=\%\%s
@@ -668,9 +704,8 @@ augroup myLaTeXGroup
 			au FileType tex inoremap \ \
 		endif
 augroup END
-" }}}
 
-" C++ 用"{{{
+" C++ 用
 augroup myCppGroup
 		autocmd!
 		autocmd FileType cpp set tabstop=4
@@ -680,12 +715,18 @@ augroup myCppGroup
 		au FileType cpp  set shiftwidth=4
 		au FileType cpp  set foldmethod=marker
         au FileType cpp inoremap <C-Space> <Plug>(marcing_start_omni_complete)
-augroup END"}}}
+augroup END
 
-augroup MyMarkdownGroup"{{{
+augroup MyMarkdownGroup
 	autocmd!
 	autocmd BufRead,BufWrite *.md set filetype=markdown
 	au BufRead,BufWrite call g:SetQuickrunConfig()
-augroup END"}}}
+augroup END
+
+augroup myJSGroup
+	autocmd!
+	autocmd FileType html setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup END
 " vim:set comentstrings=" %s
 " vim:set foldmethod=marker: "
