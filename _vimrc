@@ -108,6 +108,11 @@ set fileencodings=utf-8,sjis
             \              "mac": "pip install jedi",
             \              "unix": "pip install jedi",
             \ }}
+        NeoBundleLazy "jmcantrell/vim-virtualenv", {
+            \ "autoload": {
+                \ "filetypes": ["python", "python3", "djangohtml"],
+                \ },
+            \ }
         NeoBundle 'Yggdroot/indentLine'
         NeoBundleLazy 'majutsushi/tagbar', {
             \ "autoload": {
@@ -224,7 +229,7 @@ set fileencodings=utf-8,sjis
 		let g:marching_include_paths = [
 								\ "/usr/include/",
 								\ "/usr/local/include/",
-								\ "/opt/ros/hydro/include/ros",
+								\ "/opt/ros/indigo/include/ros",
 								\]
         let g:marching_enable_neocomplete = 1
         if neobundle#is_installed("neocomplete")
@@ -351,7 +356,6 @@ set fileencodings=utf-8,sjis
                 let &cpo = s:save_cpo
                 unlet s:save_cpo
         endfunction
-    
 
     " python class browser
     nnoremap <Leader>t :TagbarToggle<CR>
@@ -661,12 +665,13 @@ endfunction
 augroup myPythonGroup
         au!
         " jedi-vim自動選択をoff にする"
-        au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
+        " au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
 		" jedi-vim のpop out を解除
 		au FileType python setlocal completeopt-=preview
+        au FileType python setlocal omnifunc=jedi#completions
         " class view を設定"
         " au BufNewFile,BufRead *.py :TagbarToggle
-        au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
+        " au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
 		au FileType python set tabstop=4
 		au FileType python set autoindent

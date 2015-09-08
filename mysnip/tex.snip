@@ -5,145 +5,166 @@ abbr        $ expression $
 
 # ========== ENVIRONMENT ==========
 snippet     documentclass, dc
-alias       \documentclass
-    \documentclass[11pt, a4paper]{jsarticle}
-    % ******* ƒvƒŠƒAƒ“ƒuƒ‹ ********
-    \usepackage{amsmath}
-    \usepackage{graphicx}
-    \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
-    \usepackage{enumitem}
+alias       Â¥documentclass
+    Â¥documentclass[11pt, a4paper]{jsarticle}
+    % ******* ãƒ—ãƒªã‚¢ãƒ³ãƒ–ãƒ« ********
+    Â¥usepackage{amsmath}
+    Â¥usepackage{graphicx}
+    Â¥usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+    Â¥usepackage{enumitem}
 
-    % Še’è‹`
-    \renewcommand{\figurename}{Fig.}
-    \renewcommand{\tablename}{Table.}
-    \def\eqref#1{Eq.(\ref{#1})}
-    \def\figref#1{Fig.\ref{#1}}
-    \def\tabref#1{Table.\ref{#1}}
-    \def\algref#1{Algorithm.\ref{#1}}
-    \def\argmax{\mathop{\rm argmax}}
+    % å„å®šç¾©
+    Â¥renewcommand{Â¥figurename}{Fig.}
+    Â¥renewcommand{Â¥tablename}{Table.}
+    Â¥defÂ¥eqref#1{Eq.(Â¥ref{#1})}
+    Â¥defÂ¥figref#1{Fig.Â¥ref{#1}}
+    Â¥defÂ¥tabref#1{Table.Â¥ref{#1}}
+    Â¥defÂ¥algref#1{Algorithm.Â¥ref{#1}}
+    Â¥defÂ¥argmax{Â¥mathop{Â¥rm argmax}}
     %
     % ***********************
     % ******* Title *********
-    \title{${1:TARGET}}
-    \author{${2:TARGET}}
-    \date{${3:TARGET}}
+    Â¥title{${1:TARGET}}
+    Â¥author{${2:TARGET}}
+    Â¥date{${3:TARGET}}
     %
     % ***********************
-    \begin{document}
-    \maketitle
+    Â¥begin{document}
+    Â¥maketitle
     %
     ${4:TARGET}
-    \end{document}
+    Â¥end{document}
 
 snippet		beamer
 alias 		beamer
-	\documentclass[dvipdfmx,11pt,notheorems]{beamer}
-	%%%% ˜a•¶—p %%%%%
-	\usepackage{bxdpx-beamer}
-	\usepackage{pxjahyper}
-	\usepackage{minijs}%˜a•¶—p
-	\renewcommand{\kanjifamilydefault}{\gtdefault}%˜a•¶—p
+	Â¥documentclass[dvipdfmx,11pt,notheorems]{beamer}
+	%%%% å’Œæ–‡ç”¨ %%%%%
+	Â¥usepackage{bxdpx-beamer}
+	Â¥usepackage{pxjahyper}
+	Â¥usepackage{minijs}                            % å’Œæ–‡ç”¨
+	Â¥renewcommand{Â¥kanjifamilydefault}{Â¥gtdefault} % å’Œæ–‡ç”¨
+	\usepackage{color}
+	\usepackage{listings, jlisting}
+	\renewcommand{\lstlistingname}{Code}
+	% codeè¡¨ç¤ºè¨­å®š
+	\lstset{language=python,%
+			basicstyle=\footnotesize,%
+			commentstyle=\color{green}\itshape,
+			stringstyle=\color{red},
+			keywordstyle=\color{blue}\bfseries,
+			frame=single,framesep=2pt,
+			showstringspaces=false,
+			tabsize=4,
+		}%
 
-	%%%% ƒXƒ‰ƒCƒh‚ÌŒ©‚½–Ú %%%%%
+	%%%% ã‚¹ãƒ©ã‚¤ãƒ‰ã®è¦‹ãŸç›® %%%%%
 	\usetheme{Madrid}
 	\usefonttheme{professionalfonts}
 	\setbeamertemplate{frametitle}[default][center]
 	\setbeamertemplate{navigation symbols}{}
-	\setbeamercovered{transparent}%D‚İ‚É‰‚¶‚Ä‚Ç‚¤‚¼j
+	\setbeamercovered{transparent} % éš ã™overlayã®é€æ˜åº¦
+	\setbeamertemplate{items}[default]
 	\setbeamertemplate{footline}[page number]
-	\setbeamerfont{footline}{size=\normalsize,series=\bfseries}
-	\setbeamercolor{footline}{fg=black,bg=black}
+	% ãƒ˜ãƒƒãƒ€ã«ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã®ãƒŠãƒ“ã‚²ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã¤ã‘ã‚‹
+	\setbeamertemplate{headline}{
+	\leavevmode       
+	  \hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}%
+		\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+		\end{beamercolorbox}%
+	  }
+	}
 	%%%%
 
-	%%%%% ƒtƒHƒ“ƒgŠî–{İ’è %%%%%
-	\usepackage[T1]{fontenc}%8bit ƒtƒHƒ“ƒg
-	\usepackage{textcomp}%‰¢•¶ƒtƒHƒ“ƒg‚Ì’Ç‰Á
-	\usepackage[utf8]{inputenc}%•¶šƒR[ƒh‚ğUTF-8
-	\usepackage{otf}%otfƒpƒbƒP[ƒW
-	\usepackage{lxfonts}%”®E‰p•¶ƒ[ƒ}ƒ“‘Ì‚ğ Lxfont ‚É‚·‚é
-	\usepackage{bm}%”®‘¾š
+	%%%%% ãƒ•ã‚©ãƒ³ãƒˆåŸºæœ¬è¨­å®š %%%%%
+	Â¥usepackage[T1]{fontenc}%8bit ãƒ•ã‚©ãƒ³ãƒˆ
+	Â¥usepackage{textcomp}%æ¬§æ–‡ãƒ•ã‚©ãƒ³ãƒˆã®è¿½åŠ 
+	Â¥usepackage[utf8]{inputenc}%æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’UTF-8
+	Â¥usepackage{otf}%otfãƒ‘ãƒƒã‚±ãƒ¼ã‚¸
+	Â¥usepackage{lxfonts}%æ•°å¼ãƒ»è‹±æ–‡ãƒ­ãƒ¼ãƒãƒ³ä½“ã‚’ Lxfont ã«ã™ã‚‹
+	Â¥usepackage{bm}%æ•°å¼å¤ªå­—
 	%%%%%%%%%%
 	 
-	\title[${1: SHORT TITLE}]{${2: TITLE}}             % [—ªƒ^ƒCƒgƒ‹]{ƒ^ƒCƒgƒ‹}
-	\author[${3: SHORT AUTHOR}]{${4: AUTOR}}           % [—ª–¼‘O]{–¼‘O}
-	\institute[${5: SHORT INSTITUTE}]{${6: INSTITUTE}} % [—ªŠ‘®]{Š‘®}
-	\date{\today}                                      % “ú•t
-	\begin{document}
+	Â¥title[${1: SHORT TITLE}]{${2: TITLE}}             % [ç•¥ã‚¿ã‚¤ãƒˆãƒ«]{ã‚¿ã‚¤ãƒˆãƒ«}
+	Â¥author[${3: SHORT AUTHOR}]{${4: AUTOR}}           % [ç•¥åå‰]{åå‰}
+	Â¥institute[${5: SHORT INSTITUTE}]{${6: INSTITUTE}} % [ç•¥æ‰€å±]{æ‰€å±}
+	Â¥date{Â¥today}                                      % æ—¥ä»˜
+	Â¥begin{document}
 
-	\begin{frame}[plain]\frametitle{}
-	\titlepage %•\†
-	\end{frame}
+	Â¥begin{frame}[plain]Â¥frametitle{}
+	Â¥titlepage %è¡¨ç´™
+	Â¥end{frame}
 
-	\end{document}
+	Â¥end{document}
 
 snippet     figure
-alias         \bigin{figure} \figure
+alias         Â¥bigin{figure} Â¥figure
     %
     % *** fig ***
-    \begin{figure}
-    \centering
-    \includegraphics[${1:size}]{${2:FIGURE}}
-    \caption{${3:CAPTION}}
-    \label{${4:LABEL}}
-    \end{figure}
+    Â¥begin{figure}
+    Â¥centering
+    Â¥includegraphics[${1:size}]{${2:FIGURE}}
+    Â¥caption{${3:CAPTION}}
+    Â¥label{${4:LABEL}}
+    Â¥end{figure}
     % *** fig ***
     %
 
 
 snippet     myenumerate
-alias       \begin{enumerate} \enumerate
+alias       Â¥begin{enumerate} Â¥enumerate
     %
     % *** enu ***
-    \begin{enumerate}
-        \vspace{-10pt}
-        \item {${1:TARGET}}
-        \vspace{-10pt}
-    \end{enumerate}
+    Â¥begin{enumerate}
+        Â¥vspace{-10pt}
+        Â¥item {${1:TARGET}}
+        Â¥vspace{-10pt}
+    Â¥end{enumerate}
     % *** enu ***
     %
 
 snippet     mydescription
-alias       \begin{description} \enumerate
+alias       Â¥begin{description} Â¥enumerate
     % 
     % *** des ***
-    \begin{description}
-        \vspace{-10pt}
-        \item {${1:TARGET}}
-        \vspace{-10pt}
-    \end{description}
+    Â¥begin{description}
+        Â¥vspace{-10pt}
+        Â¥item {${1:TARGET}}
+        Â¥vspace{-10pt}
+    Â¥end{description}
     % *** des ***
     %
 
 snippet     myitemize
-alias       \begin{itemize} \enumerate
+alias       Â¥begin{itemize} Â¥enumerate
     % 
     % *** item ***
-    \begin{itemize}
-        \vspace{-10pt}
-        \item {${1:TARGET}}
-        \vspace{-10pt}
-    \end{itemize}
+    Â¥begin{itemize}
+        Â¥vspace{-10pt}
+        Â¥item {${1:TARGET}}
+        Â¥vspace{-10pt}
+    Â¥end{itemize}
     % *** item ***
     %
 
 snippet        minipage
-alias        \begin{minipage} \minipage
+alias        Â¥begin{minipage} Â¥minipage
     %
     % *** fig ***
-    \begin{figure}
-        \centering
-        \begin{minipage}{0.5\hsize}
-            \includegraphics[width=80mm]{${1:TARGET}}
-            \caption{${2:TARGET}}
-            \label{${3:TARGET}}
-        \end{minipage}
+    Â¥begin{figure}
+        Â¥centering
+        Â¥begin{minipage}{0.5Â¥hsize}
+            Â¥includegraphics[width=80mm]{${1:TARGET}}
+            Â¥caption{${2:TARGET}}
+            Â¥label{${3:TARGET}}
+        Â¥end{minipage}
 
-        \begin{minipage}{0.5\hsize}
-            \includegraphics[width=80mm]{${4:TARGET}}
-            \caption{${5:TARGET}}
-            \label{${6:TARGET}}
-        \end{minipage}
-    \end{figure}
+        Â¥begin{minipage}{0.5Â¥hsize}
+            Â¥includegraphics[width=80mm]{${4:TARGET}}
+            Â¥caption{${5:TARGET}}
+            Â¥label{${6:TARGET}}
+        Â¥end{minipage}
+    Â¥end{figure}
     % *** fig ***
     %
 
@@ -153,23 +174,23 @@ alias        $ $$
 
 snippet     bold
 alias        bf bold
-    \mbox{\boldmath $${1:TARGET}$}${2:TARGET}
+    Â¥mbox{Â¥boldmath $${1:TARGET}$}${2:TARGET}
 
 snippet     frac
 alias       frac
-    \frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
+    Â¥frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
 
 snippet     align
 alias         align
     % 
     % *** align ***
-    \begin{align}
-        \label{eq:${1:TARGET}}
+    Â¥begin{align}
+        Â¥label{eq:${1:TARGET}}
         ${2:TARGET}
-    \end{align}
+    Â¥end{align}
     % *** align ***
     %
 
 snippet        label
-alias       \lebel label
-    \label{${1:TARGET}} ${2:TARGET}
+alias       Â¥lebel label
+    Â¥label{${1:TARGET}} ${2:TARGET}
