@@ -333,29 +333,10 @@ set fileencodings=utf-8,sjis
     "
 
     " jedi-vim
-        let s:hooks = neobundle#get_hooks("jedi-vim")
-        function! s:hooks.on_source(bundle)
-                " jediにvimの設定を任せると'completeopt+=preview'するので
-                " 自動設定機能をOFFにし手動で設定を行う
-                let g:jedi#auto_vim_configuration = 0
-                " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-                let g:jedi#popup_select_first     = 0
-                " quickrunと被るため大文字に変更
-
-          let g:jedi#rename_command = '<Leader>R'
-          " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-          "let g:jedi#goto_command = '<Leader>G'
-        endfunction
-        function! g:SetPopOnJediOff()
-                " 選択候補が常に選択されてしまう問題の対処?
-                let s:save_cpo = &cpo
-                set cpo&vim
-                if g:jedi#popup_select_first == 0
-                inoremap <buffer> . .<C-R>=jedi#complete_opened() ? "" : "\<lt>C-X>\<lt>C-O>\<lt>C-P>"<CR>
-                endif
-                let &cpo = s:save_cpo
-                unlet s:save_cpo
-        endfunction
+      let g:jedi#auto_vim_configuration = 0
+      let g:jedi#popup_select_first     = 0
+      let g:jedi#popup_on_dot = 0
+      let g:jedi#completions_enabled = 1
 
     " python class browser
     nnoremap <Leader>t :TagbarToggle<CR>
@@ -622,56 +603,12 @@ augroup END
 
 
 "  **************** python 用の自動設定 ****************
-function! PythonFoldSetting(lnum)
-    " foldlevelは3まで
-    set foldnestmax=3
-
-    " 現在の行
-    let line = getline(a:lnum)
-    let ind  = indent(a:lnum)
-    let flev = foldlevel(a:lnum)
-
-    " 次の行
-    let line1 = getline(a:lnum + 1)
-
-    " 次の非空行
-    let nind = indent( nextnonblank(a:lnum + 1) )
-
-    " Classes and functions get their own folds
-    if line =~ '^\s*\(class\|def\)\s'
-        return '>'. (ind / &sw + 1)
-    elseif ind > nind && empty(line1) && (nind / &sw + 1) == 1
-        return '<'.1
-    elseif ind > nind && empty(line1) && (nind / &sw + 1) == 2
-        return '<2'
-    elseif ind > nind && empty(line1) && (nind / &sw + 1) == 3
-        return '<3'
-    else
-        return '='
-    endif
-endfunction
-
-function! PythonFoldText(lnum)
-    let line = getline(v:foldstart)
-    let nline = getline(v:foldstart + 1)
-    let ind = indent(a:lnum)
-    let dstind = ''
-    for i in range(ind)
-        let dstind = dstind.'-- '
-    endfor
-    let sub = substitute(line, '^(\s\*)', dstind, 'g')
-    return v:folddashes . sub.nline
-endfunction
 augroup myPythonGroup
         au!
-        " jedi-vim自動選択をoff にする"
-        " au BufEnter,BufNewFile,BufRead *.py call g:SetPopOnJediOff()
 		" jedi-vim のpop out を解除
 		au FileType python setlocal completeopt-=preview
         au FileType python setlocal omnifunc=jedi#completions
         " class view を設定"
-        " au BufNewFile,BufRead *.py :TagbarToggle
-        " au BufNewFile,BufRead *.py :NeoSnippetSource ~/.vim/mysnip/python.snip
         au BufEnter *.py :IndentLinesEnable
 		au FileType python set tabstop=4
 		au FileType python set autoindent
