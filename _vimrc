@@ -333,10 +333,14 @@ set fileencodings=utf-8,sjis
     "
 
     " jedi-vim
+      let g:jedi#completions_enabled = 0
       let g:jedi#auto_vim_configuration = 0
+	  if !exists('g:neocomplete#force_omni_input_patterns')
+		  let g:neocomplete#force_omni_input_patterns = {}
+	  endif
+	  let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
       let g:jedi#popup_select_first     = 0
       let g:jedi#popup_on_dot = 0
-      let g:jedi#completions_enabled = 1
 
     " python class browser
     nnoremap <Leader>t :TagbarToggle<CR>
@@ -607,7 +611,7 @@ augroup myPythonGroup
         au!
 		" jedi-vim のpop out を解除
 		au FileType python setlocal completeopt-=preview
-        au FileType python setlocal omnifunc=jedi#completions
+        " au FileType python setlocal omnifunc=jedi#completions
         " class view を設定"
         au BufEnter *.py :IndentLinesEnable
 		au FileType python set tabstop=4
