@@ -61,6 +61,7 @@ set fileencodings=utf-8,sjis
         nnoremap <F6> <ESC>i<C-R>=strftime("%Y/%m/%d")<CR><CR>
     
 
+    let $PATH = "~/.pyenv/shims:".$PATH
 
 " =========== NeoBundleの設定 =============
     let g:neobundle_default_git_protocol='https'
@@ -203,8 +204,14 @@ set fileencodings=utf-8,sjis
         NeoBundleLazy 'pasela/unite-webcolorname', {
             \ "autoload": {
                 \ "filetype": ["html", "css", "js"],
-                \}
-        \}
+                \},
+            \}
+      NeoBundleLazy "lambdalisue/vim-pyenv", {
+      \ "depends": ['davidhalter/jedi-vim'],
+      \ "autoload": {
+          \"filetypes": ["python", "python3"],
+          \},
+      \}
     
     "
     NeoBundleCheck
