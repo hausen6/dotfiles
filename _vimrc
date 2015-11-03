@@ -96,6 +96,7 @@ set fileencodings=utf-8,sjis
         NeoBundle 'Shougo/unite-outline'
         NeoBundle 'Shougo/vimfiler.vim'
 		NeoBundle 'kmnk/vim-unite-giti'
+		NeoBundle 'kmnk/vim-unite-svn'
         NeoBundle 'altercation/vim-colors-solarized'
         NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
         NeoBundle 'Lokaltog/vim-easymotion'
