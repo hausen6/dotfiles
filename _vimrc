@@ -71,8 +71,8 @@ set fileencodings=utf-8,sjis
       set runtimepath+=C:\Users\joe/.vim/bundle/neobundle.vim
       set runtimepath+=~/.vim/bundle/neobundle.vim
       " call neobundle#rc(expand('~/.vim/bundle'))
-      call neobundle#begin(expand('~/.vim/bundle'))
     endif
+    call neobundle#begin(expand('~/.vim/bundle'))
     filetype plugin indent on
     " Installation check.
     if neobundle#exists_not_installed_bundles()
@@ -472,6 +472,8 @@ nnoremap * *zz
 " 	autocmd VimEnter zz
 " 	autocmd VimEnter zz
 " augroup end
+"
+nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 
 " .vimrcや.gvimrcを編集するためのKey-mappingを定義する
 nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
