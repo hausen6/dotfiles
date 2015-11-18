@@ -116,6 +116,9 @@ fi
 # bash setting
 alias edbash="vim ~/.bashrc"
 alias rebash="source ~/.bashrc"
+# tmuxinator
+export SHELL="bash"
+export EDITOR="vim"
 
 # python
 if [ -d ~/.pyenv ]; then
