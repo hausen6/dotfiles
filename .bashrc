@@ -112,3 +112,25 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# bash setting
+alias edbash="vim ~/.bashrc"
+alias rebash="source ~/.bashrc"
+
+# python
+if [ -d ~/.pyenv ]; then
+	export PATH="$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH"
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+fi
+
+# ros
+source /opt/ros/indigo/setup.bash
+source $HOME/catkin_ws/devel/setup.bash
+export ROS_WORK_SPACE="$HOME/catkin_ws"
+# baxter
+function baxter_mode()
+{
+	cd $ROS_WORK_SPACE
+	bash baxter.sh
+}
