@@ -154,7 +154,6 @@ set fileencodings=utf-8,sjis
             \    },
             \ }
         NeoBundle "jceb/vim-hier"
-        NeoBundle "git://github.com/osyo-manga/unite-quickfix.git"
         NeoBundle 'osyo-manga/shabadou.vim'
         NeoBundle 'tyru/caw.vim'
         NeoBundle 'osyo-manga/unite-fold'
