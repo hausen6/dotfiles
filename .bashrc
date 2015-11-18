@@ -117,6 +117,7 @@ fi
 alias edbash="vim ~/.bashrc"
 alias rebash="source ~/.bashrc"
 # tmuxinator
+source $HOME/.tmuxinator/tmuxinator.bash
 export SHELL="bash"
 export EDITOR="vim"
 
