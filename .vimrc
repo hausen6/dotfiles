@@ -19,8 +19,8 @@ set fileencodings=utf-8,sjis
     set ic
     
     " 設定ファイルのパス設定
-    let $MYVIMRC='~/_vimrc'
-    let $MYGVIMRC='~/_gvimrc'
+    let $MYVIMRC='~/.vimrc'
+    let $MYGVIMRC='~/.gvimrc'
     
     " バックアップファイルの作成場所変更
     set directory=~/.vim/vimbackup/

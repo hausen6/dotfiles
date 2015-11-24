@@ -1,0 +1,4 @@
+# ignore case in bash (e.g a / A
+set completion-ignore-case on
+# ONLY 1 time push <TAB> -> completion
+set show-all-if-ambiguous on
