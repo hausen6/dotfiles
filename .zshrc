@@ -165,3 +165,6 @@ case ${OSTYPE} in
 esac
 
 # vim:set ft=zsh:
+
+# settings for joe
+source $HOME/.zshrc.*
