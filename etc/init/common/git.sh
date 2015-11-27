@@ -13,11 +13,13 @@ fi
 # osx
 if has "brew"; then
 	log_echo "git install with brew"
-	brew install git
+	brew install git && log_pass "git successfully installed" && exit 
 fi
 
 # ubuntu
 if has "apt-get"; then
 	log_echo "git install with apt-get"
-	sudo apt-get install git
+	sudo apt-get -y install git && log_pass "git successfully installed" && exit 
 fi
+
+log_fail "ERROR: failed to install git"
