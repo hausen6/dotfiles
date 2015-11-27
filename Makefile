@@ -12,5 +12,8 @@ deploy:
 osx:
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh osx
 
+linux:
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh linux
+
 clean:
 	@$(foreach file, $(DOTFILES_FILES), rm -f $(HOME_DIR)/$(file);)
