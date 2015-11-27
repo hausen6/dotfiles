@@ -44,7 +44,7 @@ fi
 
 # tpm
 if [ -e $HOME/.tmux/plugins/tpm ]; then
-	log_pass "already tmux-plugin-manager installed"
+	log_echo "already tmux-plugin-manager installed"
 	PLUGIN_SUCCESS=1
 else
 	if has "git"; then

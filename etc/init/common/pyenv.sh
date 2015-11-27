@@ -7,7 +7,9 @@ set -eu
 
 
 clone (){
-	if [ ! -e $2 ]; then
+	if [ -e $2 ]; then
+		log_echo "already installed $2"
+	else
 		git clone https://github.com/yyuu/$1 $2
 	fi
 }

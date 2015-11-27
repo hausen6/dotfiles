@@ -10,9 +10,13 @@ if ! has "brew"; then
 	exit 1
 fi
 
-brew install rcmdnk/file/brew-file
+if [ -e `brew --prefix`/etx/brew-wrap ]; then
+	brew install rcmdnk/file/brew-file
+	log_echo "already installed brew-file"
+fi
+
 if [ $? -eq 0 ]; then
-	export HOMEBREW_BREWFILE=$(cd $(dirname $0) && pwd)/brew_file.txt
+	brew file install
 else
 	log_fail "brew-file cloud not install"
 	exit 1

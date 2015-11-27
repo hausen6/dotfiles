@@ -8,7 +8,7 @@ trap 'echo ERROR: $0: $LINENO' SIGINT SIGTERM
 if has "git"; then
 	# ソースのクローン
 	if [ -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
-		log_pass "already download zprezto"
+		log_echo "already download zprezto"
 	else
 		git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 	fi
