@@ -15,6 +15,7 @@ brew gdbm
 brew libevent
 brew openssl
 brew pcre
+brew peco
 brew ssh-copy-id
 brew tmux
 brew tree
