@@ -152,7 +152,7 @@ log_echo() {
 
 has (){
 	# コマンドの存在を調べるための関数
-	type $1 > /dev/null 2>$1
+	type $1 > /dev/null 2>&1
 }
 
 
