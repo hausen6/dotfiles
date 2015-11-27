@@ -1,0 +1,29 @@
+
+# tap repositories and their packages
+
+## homebrew/bundle
+tap homebrew/bundle
+
+## rcmdnk/file
+tap rcmdnk/file
+brew brew-file
+
+# Other Homebrew packages
+brew ack
+brew colordiff
+brew gdbm
+brew libevent
+brew openssl
+brew pcre
+brew ssh-copy-id
+brew tmux
+brew tree
+brew zsh
+brew zsh-completions
+
+# Cask applications
+cask mactex
+cask xquartz
+
+# App Store applications
+appstore Keynote
