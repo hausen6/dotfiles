@@ -10,8 +10,7 @@ deploy:
 	@$(foreach file, $(DOTFILES_FILES), ln -svf $(abspath $(file)) $(HOME_DIR)/$(file);)
 
 osx:
-	@DOTPATH=$(DOTPATH) 
-	bash $(DOTPATH)/etc/init/init.sh osx
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh osx
 
 clean:
 	@$(foreach file, $(DOTFILES_FILES), rm -f $(HOME_DIR)/$(file);)
