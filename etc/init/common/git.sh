@@ -6,7 +6,7 @@ set -eu
 . "$DOTPATH"/etc/lib/utils.sh
 
 if has "git"; then
-	log_pass "already installed git"
+	log_echo "already installed git"
 	exit
 fi
 

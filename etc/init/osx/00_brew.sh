@@ -7,7 +7,7 @@ set -eu
 source "$DOTPATH"/etc/lib/utils.sh
 
 if has "brew"; then
-	log_pass "already installed brew"
+	log_echo "already installed brew"
 	exit
 fi
 

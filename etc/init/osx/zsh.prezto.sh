@@ -1,0 +1,1 @@
+../common/zsh.prezto.sh

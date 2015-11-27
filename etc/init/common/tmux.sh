@@ -10,7 +10,7 @@ TMUX_SUCCESS=0
 PLUGIN_SUCCESS=0
 
 if has "tmux"; then
-	log_pass "already installed tmux"
+	log_echo "already installed tmux"
 	TMUX_SUCCESS=1
 fi
 
