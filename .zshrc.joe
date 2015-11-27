@@ -3,8 +3,14 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 	source ~/.zprezto/init.zsh
 fi
 
+# homebrew
+# brew-file
+if [ -e "$(brew --prefix)/etc/brew-wrap" ]; then
+	source "$(brew --prefix)/etc/brew-wrap"
+	export HOMEBREW_BREWFILE="~/dotfiles/etc/init/osx/brew_file.txt"
+fi
+
 # alias
 alias edshell="vim $HOME/.zshrc.joe"
 alias reshell="exec $SHELL"
 
-# python
