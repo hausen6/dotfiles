@@ -16,6 +16,12 @@ fi
 if [ -e $HOME/catkin_ws/baxter.sh ]; then
 	baxter_mode()
 	{
-		zsh $HOME/catkin_ws/baxter.sh
+		export ROS_MASTER_URI=http://baxter.local:11311
+		export ROS_HOSTNAME=$(hostname).local
+	}
+
+	nomal_mode(){
+		export ROS_MASTER_URI=http://localhost:11311
+		export ROS_HOSTNAME=$(hostname).local
 	}
 fi
