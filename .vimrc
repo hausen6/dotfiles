@@ -132,7 +132,7 @@ set fileencodings=utf-8,sjis
             \ }
         NeoBundleLazy "Shougo/neosnippet.vim",{
             \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
+            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp", "zsh"],
             \    },
             \ }
         NeoBundleLazy "Shougo/neosnippet-snippets", {

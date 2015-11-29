@@ -167,4 +167,13 @@ esac
 # vim:set ft=zsh:
 
 # settings for joe
+# os による場合分け
+case $OSTYPE in
+	darwin*)
+		source $HOME/.zshrc.mac
+		;;
+	linux*)
+		source $HOME/.zshrc.ros
+		;;
+esac
 source $HOME/.zshrc.*

@@ -1,0 +1,21 @@
+# ros-pass
+if [ -e /opt/ros/indigo/setup.zsh ]; then
+	source /opt/ros/indigo/setup.zsh
+else
+	echo not found
+fi
+
+# my packages
+if [ -e $HOME/catkin_ws/devel/setup.zsh ]; then
+	source $HOME/catkin_ws/devel/setup.zsh
+else
+	echo "not found"
+fi
+
+# baxter setting
+if [ -e $HOME/catkin_ws/baxter.sh ]; then
+	baxter_mode()
+	{
+		zsh $HOME/catkin_ws/baxter.sh
+	}
+fi
