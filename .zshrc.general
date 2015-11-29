@@ -4,6 +4,6 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 fi
 
 # alias
-alias edshell="vim $HOME/.zshrc.joe"
+alias edshell="vim $0"
 alias reshell="exec $SHELL"
 

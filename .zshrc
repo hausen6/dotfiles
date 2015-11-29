@@ -176,4 +176,4 @@ case $OSTYPE in
 		source $HOME/.zshrc.ros
 		;;
 esac
-source $HOME/.zshrc.*
+source $HOME/.zshrc.general
