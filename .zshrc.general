@@ -7,23 +7,20 @@ fi
 alias edshell="vim $0"
 alias reshell="exec $SHELL"
 
+# cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
 # peco
-# history のインクリメンタルサーチ
-function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(\history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+# peco-anyframe
+fpath=($HOME/.zsh/anyframe(N-/) $fpath)
+autoload -Uz anyframe-init
+anyframe-init
+# peco anyframe keybind
+bindkey "^r" anyframe-widget-put-history
+bindkey "^x" anyframe-widget-cdr
+bindkey "^x^b" anyframe-widget-checkout-git-branch
+bindkey "^x^k" anyframe-widget-kill
+bindkey "^xk" anyframe-widget-kill
 
 # go-lang
 if [ -x "$(which go)" ]; then
