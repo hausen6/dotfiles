@@ -15,5 +15,10 @@ osx:
 linux:
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh linux
 
+update:
+	git pull origin master
+	git submodule init
+	git submodule update --recursive
+
 clean:
 	@$(foreach file, $(DOTFILES_FILES), rm -f $(HOME_DIR)/$(file);)
