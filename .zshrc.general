@@ -3,6 +3,9 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 	source ~/.zprezto/init.zsh
 fi
 
+# svn
+export SVN_EDITOR=vim
+
 # alias
 alias edshell="vim $0"
 alias reshell="exec $SHELL"
