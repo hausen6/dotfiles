@@ -13,18 +13,31 @@ else
 fi
 
 # baxter setting
-if [ -e $HOME/catkin_ws/baxter.sh ]; then
-    DEFAULT_PROMPT=$PROMPT
-	baxter_mode()
-	{
-        PROMPT="%F{red} [baxter.local]$PROMPT"
-		export ROS_MASTER_URI=http://baxter.local:11311
-		export ROS_HOSTNAME=$(hostname).local
-	}
+DEFAULT_PROMPT=$PROMPT
+baxter_mode()
+{
+    PROMPT="%F{red} [baxter.local]$PROMPT"
+    export ROS_MASTER_URI=http://baxter.local:11311
+    export ROS_HOSTNAME=$(hostname).local
+}
 
-	nomal_mode(){
-        PROMPT=$DEFAULT_PROMPT
-		export ROS_MASTER_URI=http://localhost:11311
-		export ROS_HOSTNAME=$(hostname).local
-	}
-fi
+nomal_mode(){
+    PROMPT=$DEFAULT_PROMPT
+    export ROS_MASTER_URI=http://localhost:11311
+    export ROS_HOSTNAME=$(hostname).local
+}
+nomal_mode
+
+# attribute
+export ROS_WORKSPACE="$HOME/catkin_ws"
+
+# alias
+everywhere_catkin_make()
+{
+    CWD=$(pwd)
+    echo $ROS_WORKSPACE
+    builtin cd $ROS_WORKSPACE
+    catkin_make $@
+    builtin cd $CWD
+}
+
