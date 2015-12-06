@@ -3,6 +3,9 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 	source ~/.zprezto/init.zsh
 fi
 
+# tmuxinator
+export EDITOR=vim
+
 # svn
 export SVN_EDITOR=vim
 
