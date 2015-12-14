@@ -168,6 +168,7 @@ esac
 
 # settings for joe
 # os による場合分け
+source $HOME/.zshrc.general
 case $OSTYPE in
 	darwin*)
 		source $HOME/.zshrc.mac
@@ -176,4 +177,3 @@ case $OSTYPE in
 		source $HOME/.zshrc.ros
 		;;
 esac
-source $HOME/.zshrc.general

@@ -1,3 +1,19 @@
+snippet     #!
+alias       #!
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+    from __future__ import print_function, ${1:FUTURE_IMPORT}
+    ${2:START_CODING}
+
+
+snippet     try
+alias       try
+    try:
+        ${1:pass}
+    except (${2:Exception}):
+        ${3:pass}
+
+
 snippet     new
 alias       new
     # -*- coding: ${1:TARGET} -*-
