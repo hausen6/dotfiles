@@ -1,6 +1,12 @@
 
 # tap repositories and their packages
 
+## caskroom/cask
+tap caskroom/cask
+brew brew-cask
+cask mactex
+cask xquartz
+
 ## homebrew/bundle
 tap homebrew/bundle
 
@@ -10,21 +16,22 @@ brew brew-file
 
 # Other Homebrew packages
 brew ack
+brew arp-scan
+brew cmake
 brew colordiff
 brew gdbm
 brew libevent
+brew lua
 brew openssl
 brew pcre
 brew peco
+brew python3
 brew ssh-copy-id
 brew tmux
 brew tree
 brew zsh
 brew zsh-completions
 
-# Cask applications
-cask mactex
-cask xquartz
-
 # App Store applications
+appstore iMovie
 appstore Keynote
