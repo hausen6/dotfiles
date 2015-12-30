@@ -214,6 +214,16 @@ set fileencodings=utf-8,sjis
           \"filetypes": ["python", "python3"],
           \},
       \}
+	  NeoBundleLazy "vim-jp/vim-go-extra", {
+	  	\ 'autoload': {
+			\ 'filetypes': ["go"],
+			\}
+		\ }
+	  NeoBundleLazy "fatih/vim-go", {
+	  	\ 'autoload': {
+			\ 'filetypes': ["go"],
+			\}
+		\ }
     
     "
     NeoBundleCheck
@@ -234,7 +244,9 @@ set fileencodings=utf-8,sjis
 
 		" marching
 		let g:marching_clang_command = "clang++"
-		let g:marching_clang_command_option = "-std=c++11"
+        let g:marching#clang_command#options = {
+            \ "cpp": "-std=gnu++1y"
+        \}
 		let g:marching_include_paths = [
 								\ "/usr/include/",
 								\ "/usr/local/include/",
@@ -522,6 +534,9 @@ nnoremap zp [z
 nnoremap zn ]z
 " reload
 nnoremap re :e!<CR><Leader>z<CR>
+" omni func 
+inoremap <C-N> <C-x><C-o>
+inoremap <C-@> <C-Space>
 " joe 用の設定 "
 syntax on
 
