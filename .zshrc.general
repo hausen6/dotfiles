@@ -45,6 +45,7 @@ bindkey "^xk" anyframe-widget-kill
 if [ -x "$(which go)" ]; then
 	export GOPATH="$HOME/.go"
 	export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+	source $GOROOT/misc/zsh/go
 fi
 
 # 重複pathの削除
