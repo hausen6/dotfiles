@@ -570,7 +570,9 @@ augroup foldmethod-expr
     \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
     \                   | endif
 augroup END
-"  
+" 便利関数など
+nnoremap <silent><Leader>cd :cd %:h<CR>
+
 " Capture 
 command!
       \ -nargs=1
@@ -593,7 +595,7 @@ function! Capture(cmd)
   silent put =result
   1,2delete _
 endfunction
-" 
+ 
 
 function! g:SetQuickrunConfig()
 	let g:quickrun_config = {
