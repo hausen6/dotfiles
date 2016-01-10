@@ -1,5 +1,5 @@
 # latexmk
-$latex         = 'platex -kanji=utf8 -synctex=1 -guess-input-enc -interaction=nonstopmode %O %S';
+$latex         = 'uplatex -synctex=1 -guess-input-enc -interaction=nonstopmode %O %S';
 $dvipdf = 'dvipdfmx %O -o %D %S';
 $bibtex        = 'pbibtex -kanji=utf8 %B';
 $pdf_mode       = 3;
