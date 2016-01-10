@@ -7,7 +7,7 @@ HOME_DIR       := $(abspath $(HOME))
 all: deploy
 
 deploy:
-	@$(foreach file, $(DOTFILES_FILES), ln -svf $(abspath $(file)) $(HOME_DIR)/$(file);)
+	@$(foreach file, $(DOTFILES_FILES), ln -snvf $(abspath $(file)) $(HOME_DIR)/$(file);)
 
 osx:
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh osx
