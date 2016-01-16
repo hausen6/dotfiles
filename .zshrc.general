@@ -3,15 +3,17 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 	source ~/.zprezto/init.zsh
 fi
 
+# alias
+alias edshell="vim $0"
+alias reshell="exec $SHELL"
+# path
+export PATH=$PATH:$HOME/dotfiles/scripts/
+
 # tmuxinator
 export EDITOR=vim
 
 # svn
 export SVN_EDITOR=vim
-
-# alias
-alias edshell="vim $0"
-alias reshell="exec $SHELL"
 
 # python
 # pip zsh completion start
