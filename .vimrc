@@ -674,6 +674,7 @@ augroup myLaTeXGroup
 		au BufEnter *.tex set commentstring=\%\%s
 		au FileType tex set tabstop=4
 		au FileType tex set autoindent
+		au FileType tex let g:tex_conceal = ""
 		if has("mac")
 			au FileType tex inoremap \ \
 		endif
