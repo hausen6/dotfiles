@@ -5,44 +5,44 @@ abbr        $ expression $
 
 # ========== ENVIRONMENT ==========
 snippet     documentclass, dc
-alias       ¥documentclass
-    ¥documentclass[11pt, a4paper]{jsarticle}
+alias       \documentclass
+    \documentclass[11pt, a4paper]{jsarticle}
     % ******* プリアンブル ********
-    ¥usepackage{amsmath}
-    ¥usepackage{graphicx}
-    ¥usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
-    ¥usepackage{enumitem}
+    \usepackage{amsmath}
+    \usepackage{graphicx}
+    \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+    \usepackage{enumitem}
 
     % 各定義
-    ¥renewcommand{¥figurename}{Fig.}
-    ¥renewcommand{¥tablename}{Table.}
-    ¥def¥eqref#1{Eq.(¥ref{#1})}
-    ¥def¥figref#1{Fig.¥ref{#1}}
-    ¥def¥tabref#1{Table.¥ref{#1}}
-    ¥def¥algref#1{Algorithm.¥ref{#1}}
-    ¥def¥argmax{¥mathop{¥rm argmax}}
+    \renewcommand{\figurename}{Fig.}
+    \renewcommand{\tablename}{Table.}
+    \def\eqref#1{Eq.(\ref{#1})}
+    \def\figref#1{Fig.\ref{#1}}
+    \def\tabref#1{Table.\ref{#1}}
+    \def\algref#1{Algorithm.\ref{#1}}
+    \def\argmax{\mathop{\rm argmax}}
     %
     % ***********************
     % ******* Title *********
-    ¥title{${1:TARGET}}
-    ¥author{${2:TARGET}}
-    ¥date{${3:TARGET}}
+    \title{${1:TARGET}}
+    \author{${2:TARGET}}
+    \date{${3:TARGET}}
     %
     % ***********************
-    ¥begin{document}
-    ¥maketitle
+    \begin{document}
+    \maketitle
     %
     ${4:TARGET}
-    ¥end{document}
+    \end{document}
 
 snippet		beamer
 alias 		beamer
-	¥documentclass[dvipdfmx,11pt,notheorems]{beamer}
+	\documentclass[dvipdfmx,11pt,notheorems]{beamer}
 	%%%% 和文用 %%%%%
-	¥usepackage{bxdpx-beamer}
-	¥usepackage{pxjahyper}
-	¥usepackage{minijs}                            % 和文用
-	¥renewcommand{¥kanjifamilydefault}{¥gtdefault} % 和文用
+	\usepackage{bxdpx-beamer}
+	\usepackage{pxjahyper}
+	\usepackage{minijs}                            % 和文用
+	\renewcommand{\kanjifamilydefault}{\gtdefault} % 和文用
 	\usepackage{color}
 	\usepackage{listings, jlisting}
 	\renewcommand{\lstlistingname}{Code}
@@ -77,94 +77,94 @@ alias 		beamer
 	%%%%
 
 	%%%%% フォント基本設定 %%%%%
-	¥usepackage[T1]{fontenc}%8bit フォント
-	¥usepackage{textcomp}%欧文フォントの追加
-	¥usepackage[utf8]{inputenc}%文字コードをUTF-8
-	¥usepackage{otf}%otfパッケージ
-	¥usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
-	¥usepackage{bm}%数式太字
+	\usepackage[T1]{fontenc}%8bit フォント
+	\usepackage{textcomp}%欧文フォントの追加
+	\usepackage[utf8]{inputenc}%文字コードをUTF-8
+	\usepackage{otf}%otfパッケージ
+	\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
+	\usepackage{bm}%数式太字
 	%%%%%%%%%%
 	 
-	¥title[${1: SHORT TITLE}]{${2: TITLE}}             % [略タイトル]{タイトル}
-	¥author[${3: SHORT AUTHOR}]{${4: AUTOR}}           % [略名前]{名前}
-	¥institute[${5: SHORT INSTITUTE}]{${6: INSTITUTE}} % [略所属]{所属}
-	¥date{¥today}                                      % 日付
-	¥begin{document}
+	\title[${1: SHORT TITLE}]{${2: TITLE}}             % [略タイトル]{タイトル}
+	\author[${3: SHORT AUTHOR}]{${4: AUTOR}}           % [略名前]{名前}
+	\institute[${5: SHORT INSTITUTE}]{${6: INSTITUTE}} % [略所属]{所属}
+	\date{\today}                                      % 日付
+	\begin{document}
 
-	¥begin{frame}[plain]¥frametitle{}
-	¥titlepage %表紙
-	¥end{frame}
+	\begin{frame}[plain]\frametitle{}
+	\titlepage %表紙
+	\end{frame}
 
-	¥end{document}
+	\end{document}
 
 snippet     figure
-alias         ¥bigin{figure} ¥figure
+alias         \bigin{figure} \figure
     %
     % *** fig ***
-    ¥begin{figure}
-    ¥centering
-    ¥includegraphics[${1:size}]{${2:FIGURE}}
-    ¥caption{${3:CAPTION}}
-    ¥label{${4:LABEL}}
-    ¥end{figure}
+    \begin{figure}
+    \centering
+    \includegraphics[${1:size}]{${2:FIGURE}}
+    \caption{${3:CAPTION}}
+    \label{${4:LABEL}}
+    \end{figure}
     % *** fig ***
     %
 
 
 snippet     myenumerate
-alias       ¥begin{enumerate} ¥enumerate
+alias       \begin{enumerate} \enumerate
     %
     % *** enu ***
-    ¥begin{enumerate}
-        ¥vspace{-10pt}
-        ¥item {${1:TARGET}}
-        ¥vspace{-10pt}
-    ¥end{enumerate}
+    \begin{enumerate}
+        \vspace{-10pt}
+        \item {${1:TARGET}}
+        \vspace{-10pt}
+    \end{enumerate}
     % *** enu ***
     %
 
 snippet     mydescription
-alias       ¥begin{description} ¥enumerate
+alias       \begin{description} \enumerate
     % 
     % *** des ***
-    ¥begin{description}
-        ¥vspace{-10pt}
-        ¥item {${1:TARGET}}
-        ¥vspace{-10pt}
-    ¥end{description}
+    \begin{description}
+        \vspace{-10pt}
+        \item {${1:TARGET}}
+        \vspace{-10pt}
+    \end{description}
     % *** des ***
     %
 
 snippet     myitemize
-alias       ¥begin{itemize} ¥enumerate
+alias       \begin{itemize} \enumerate
     % 
     % *** item ***
-    ¥begin{itemize}
-        ¥vspace{-10pt}
-        ¥item {${1:TARGET}}
-        ¥vspace{-10pt}
-    ¥end{itemize}
+    \begin{itemize}
+        \vspace{-10pt}
+        \item {${1:TARGET}}
+        \vspace{-10pt}
+    \end{itemize}
     % *** item ***
     %
 
 snippet        minipage
-alias        ¥begin{minipage} ¥minipage
+alias        \begin{minipage} \minipage
     %
     % *** fig ***
-    ¥begin{figure}
-        ¥centering
-        ¥begin{minipage}{0.5¥hsize}
-            ¥includegraphics[width=80mm]{${1:TARGET}}
-            ¥caption{${2:TARGET}}
-            ¥label{${3:TARGET}}
-        ¥end{minipage}
+    \begin{figure}
+        \centering
+        \begin{minipage}{0.5\hsize}
+            \includegraphics[width=80mm]{${1:TARGET}}
+            \caption{${2:TARGET}}
+            \label{${3:TARGET}}
+        \end{minipage}
 
-        ¥begin{minipage}{0.5¥hsize}
-            ¥includegraphics[width=80mm]{${4:TARGET}}
-            ¥caption{${5:TARGET}}
-            ¥label{${6:TARGET}}
-        ¥end{minipage}
-    ¥end{figure}
+        \begin{minipage}{0.5\hsize}
+            \includegraphics[width=80mm]{${4:TARGET}}
+            \caption{${5:TARGET}}
+            \label{${6:TARGET}}
+        \end{minipage}
+    \end{figure}
     % *** fig ***
     %
 
@@ -174,23 +174,23 @@ alias        $ $$
 
 snippet     bold
 alias        bf bold
-    ¥mbox{¥boldmath $${1:TARGET}$}${2:TARGET}
+    \mbox{\boldmath $${1:TARGET}$}${2:TARGET}
 
 snippet     frac
 alias       frac
-    ¥frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
+    \frac{${1:TARGET}}{${2:TARGET}}${3:TARGET}
 
 snippet     align
 alias         align
     % 
     % *** align ***
-    ¥begin{align}
-        ¥label{eq:${1:TARGET}}
+    \begin{align}
+        \label{eq:${1:TARGET}}
         ${2:TARGET}
-    ¥end{align}
+    \end{align}
     % *** align ***
     %
 
 snippet        label
-alias       ¥lebel label
-    ¥label{${1:TARGET}} ${2:TARGET}
+alias       \lebel label
+    \label{${1:TARGET}} ${2:TARGET}
