@@ -1,0 +1,67 @@
+[[plugins]]
+repository = 'cespare/vim-toml'
+filetypes = 'toml'
+
+[[plugins]]
+repository = "scrooloose/syntastic"
+filetypes = ['python', 'python3', "go"]
+
+# python {{{
+[[plugins]]
+repository =  "davidhalter/jedi-vim"
+filetypes = ["python", "python3"]
+[[plugins.build]]
+mac = "pip install jedi"
+unix = "pip install jedi"
+
+[[plugins]]
+repository = 'jmcantrell/vim-virtualenv'
+filetypes = ["python", "python3"]
+
+[[plugins]]
+repository = "lambdalisue/vim-pyenv"
+depends = ['davidhalter/jedi-vim']
+filetypes = ["python", "python3"]
+# }}}
+
+# golang {{{
+[[plugins]]
+repository = "vim-jp/vim-go-extra"
+filetypes = "go"
+
+[[plugins]]
+repository = "fatih/vim-go"
+filetypes = "go"
+# }}}
+
+# html / css {{{
+[[plugins]]
+repository = 'mattn/emmet-vim'
+filetypes = ["html", "css"]
+
+[[plugins]]
+repository = 'pasela/unite-webcolorname'
+filetypes = ["html", "css", "js"]
+# }}}
+
+# snippets {{{
+[[plugins]]
+repository = 'honza/vim-snippets'
+filetypes = ["vim", "python", "python3", "tex", "bat", "sh", "zsh", "cpp"]
+
+[[plugins]]
+repository = "Shougo/neosnippet.vim""
+filetypes = ["vim", "python", "python3", "tex", "bat", "sh", "cpp", "zsh"]
+
+[[plugins]]
+repository = "Shougo/neosnippet-snippets"
+filetypes = ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp", "txt"]
+# }}}
+
+[[plugins]]
+repository = 'majutsushi/tagbar'
+filetypes = ["python", "python3"]
+[[plugins.build]]
+mac = "brew install ctags"
+
+# vim: foldmethod=marker

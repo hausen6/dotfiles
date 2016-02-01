@@ -74,121 +74,13 @@ set fileencodings=utf-8,sjis
     endif
     call neobundle#begin(expand('~/.vim/bundle'))
     filetype plugin indent on
-    " Installation check.
-    if neobundle#exists_not_installed_bundles()
-      echomsg 'Not installed bundles : ' .
-            \ string(neobundle#get_not_installed_bundle_names())
-      echomsg 'Please execute ":NeoBundleInstall" command.'
-      "finish
-    endif
-    " ここにインストールしたいプラグインのリストを書く
+	if neobundle#load_cache()
         NeoBundleFetch 'Shougo/neobundle.vim'
-        NeoBundle 'Shougo/vimproc', {
-              \ 'build' : {
-              \     'windows' : 'make -f make_mingw32.mak',
-              \     'cygwin' : 'make -f make_cygwin.mak',
-              \     'mac' : 'make -f make_mac.mak',
-              \     'unix' : 'make -f make_unix.mak',
-              \    },
-              \ }
-        NeoBundle 'Shougo/vimshell.vim'
-        NeoBundle 'Shougo/unite.vim'
-        NeoBundle 'Shougo/unite-outline'
-		NeoBundle 'scrooloose/nerdtree'
-		NeoBundle 'kmnk/vim-unite-giti'
-		NeoBundle 'kmnk/vim-unite-svn'
-        NeoBundle 'altercation/vim-colors-solarized'
-        NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-        NeoBundle 'Lokaltog/vim-easymotion'
-        NeoBundle 'w0ng/vim-hybrid'
-        NeoBundle "thinca/vim-quickrun"
-        NeoBundleLazy "davidhalter/jedi-vim", {
-            \ "autoload": {
-            \              "filetypes": ["python", "python3", "djangohtml"],
-            \             },
-            \ "build": {
-            \              "mac": "pip install jedi",
-            \              "unix": "pip install jedi",
-            \ }}
-        NeoBundleLazy "jmcantrell/vim-virtualenv", {
-            \ "autoload": {
-                \ "filetypes": ["python", "python3", "djangohtml"],
-                \ },
-            \ }
-        NeoBundle 'Yggdroot/indentLine'
-        NeoBundleLazy 'majutsushi/tagbar', {
-            \ "autoload": {
-            \   'filetypes': ['python', 'python3', 'cpp', 'c'],
-            \   },
-            \ "build": {
-            \   "mac": "brew install ctags",
-            \   },
-            \ }
-        NeoBundleLazy "honza/vim-snippets",{
-            \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp"],
-            \    },
-            \ }
-        NeoBundleLazy "Shougo/neosnippet.vim",{
-            \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp", "zsh"],
-            \    },
-            \ }
-        NeoBundleLazy "Shougo/neosnippet-snippets", {
-            \ "autoload": {
-            \   'filetypes': ['vim', 'python', 'python3', 'tex', 'bat', 'sh', "cpp", "txt"],
-            \    },
-            \ }
-        NeoBundle "kana/vim-submode"
-        NeoBundle "tpope/vim-surround"
-        NeoBundle 'kana/vim-smartinput'
-        NeoBundle 'h1mesuke/vim-alignta'
-        NeoBundleLazy "scrooloose/syntastic",{
-            \ "autoload": {
-            \   'filetypes': ['python', 'python3'],
-            \    },
-            \ }
-        NeoBundle "jceb/vim-hier"
-        NeoBundle "osyo-manga/unite-quickfix.git"
-        NeoBundle 'osyo-manga/shabadou.vim'
-        NeoBundle 'tyru/caw.vim'
-        NeoBundle 'osyo-manga/unite-fold'
-        NeoBundle 'thinca/vim-qfreplace'
-		NeoBundle 'osyo-manga/vim-reunions'
-		NeoBundle 'taketwo/vim-ros'
-		NeoBundle 'rcmdnk/vim-markdown.git'
-		NeoBundle 'mattn/webapi-vim'
-		NeoBundle 'tyru/open-browser.vim'
-		NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
-		NeoBundle 'kannokanno/previm'
-		NeoBundle 'thinca/vim-singleton'
-        NeoBundleLazy 'mattn/emmet-vim', {
-            \ "autoload": {
-                \ "filetype": ["html", "css"],
-                \}
-        \}
-        NeoBundleLazy 'pasela/unite-webcolorname', {
-            \ "autoload": {
-                \ "filetype": ["html", "css", "js"],
-                \},
-            \}
-      NeoBundleLazy "lambdalisue/vim-pyenv", {
-      \ "depends": ['davidhalter/jedi-vim'],
-      \ "autoload": {
-          \"filetypes": ["python", "python3"],
-          \},
-      \}
-	  NeoBundleLazy "vim-jp/vim-go-extra", {
-	  	\ 'autoload': {
-			\ 'filetypes': ["go"],
-			\}
-		\ }
-	  NeoBundleLazy "fatih/vim-go", {
-	  	\ 'autoload': {
-			\ 'filetypes': ["go"],
-			\}
-		\ }
-    
+		call neobundle#load_toml("~/.vim/neobundle.toml")
+		call neobundle#load_toml("~/.vim/neobundlelazy.toml", {"lazy": 1})
+	endif
+    " ここにインストールしたいプラグインのリストを書く
+	  NeoBundle 'taketwo/vim-ros'
     "
     NeoBundleCheck
     call neobundle#end()

@@ -1,0 +1,102 @@
+[[plugins]]
+repository = 'Shougo/vimproc'
+[[plugins.build]]
+windows = "make -f make_mingw32.mak"
+cygwin = 'make -f make_cygwin.mak'
+mac = 'make -f make_mac.mak'
+unix = 'make -f make_unix.mak'
+
+# Unite {{{
+[[plugins]]
+repository = 'Shougo/unite.vim'
+
+[[plugins]]
+repository = 'Shougo/vimshell.vim'
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'kmnk/vim-unite-giti'
+
+[[plugins]]
+repository = 'kmnk/vim-unite-svn'
+
+[[plugins]]
+repository =  'osyo-manga/unite-fold'
+# }}}
+
+# utils {{{
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+
+[[plugins]]
+repository = "thinca/vim-quickrun"
+
+[[plugins]]
+repository = 'Lokaltog/vim-easymotion'
+
+[[plugins]]
+repository = 'Yggdroot/indentLine'
+
+[[plugins]]
+repository = "kana/vim-submode"
+
+[[plugins]]
+repository = "tpope/vim-surround"
+
+[[plugins]]
+repository = 'kana/vim-smartinput'
+
+[[plugins]]
+repository = 'h1mesuke/vim-alignta'
+
+[[plugins]]
+repository =  "jceb/vim-hier"
+
+[[plugins]]
+repository =  "osyo-manga/unite-quickfix.git"
+
+[[plugins]]
+repository =  'osyo-manga/shabadou.vim'
+
+[[plugins]]
+repository =  'tyru/caw.vim'
+
+[[plugins]]
+repository =  'thinca/vim-qfreplace'
+
+[[plugins]]
+repository = 'osyo-manga/vim-reunions'
+
+[[plugins]]
+repository = 'thinca/vim-singleton'
+# utils }}}
+
+# filer {{{
+[[plugins]]
+repository = 'scrooloose/nerdtree'
+# }}}
+
+# markdown {{{
+[[plugins]]
+repository =  'rcmdnk/vim-markdown.git'
+
+[[plugins]]
+repository =  'mattn/webapi-vim'
+
+[[plugins]]
+repository =  'tyru/open-browser.vim'
+
+[[plugins]]
+repository =  'superbrothers/vim-quickrun-markdown-gfm'
+
+[[plugins]]
+repository =  'kannokanno/previm'
+# }}}
+
+# color theme
+[[plugins]]
+repository = 'w0ng/vim-hybrid'
+
+# vim: foldmethod=marker
