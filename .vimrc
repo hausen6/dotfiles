@@ -94,7 +94,6 @@ set fileencodings=utf-8,sjis
         NeoBundle 'Shougo/vimshell.vim'
         NeoBundle 'Shougo/unite.vim'
         NeoBundle 'Shougo/unite-outline'
-        " NeoBundle 'Shougo/vimfiler.vim'
 		NeoBundle 'scrooloose/nerdtree'
 		NeoBundle 'kmnk/vim-unite-giti'
 		NeoBundle 'kmnk/vim-unite-svn'
@@ -144,10 +143,6 @@ set fileencodings=utf-8,sjis
         NeoBundle "tpope/vim-surround"
         NeoBundle 'kana/vim-smartinput'
         NeoBundle 'h1mesuke/vim-alignta'
-        NeoBundleLazy "sjl/gundo.vim", {
-              \ "autoload": {
-              \   "commands": ['GundoToggle'],
-              \}}
         NeoBundleLazy "scrooloose/syntastic",{
             \ "autoload": {
             \   'filetypes': ['python', 'python3'],
@@ -159,11 +154,6 @@ set fileencodings=utf-8,sjis
         NeoBundle 'tyru/caw.vim'
         NeoBundle 'osyo-manga/unite-fold'
         NeoBundle 'thinca/vim-qfreplace'
-		NeoBundleLazy 'osyo-manga/vim-marching', {
-			\ "autoload": {
-				\ "filetypes": ["c", "cpp"],
-			\ },
-		\}
 		NeoBundle 'osyo-manga/vim-reunions'
 		NeoBundle 'taketwo/vim-ros'
 		NeoBundle 'rcmdnk/vim-markdown.git'
@@ -172,35 +162,9 @@ set fileencodings=utf-8,sjis
 		NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
 		NeoBundle 'kannokanno/previm'
 		NeoBundle 'thinca/vim-singleton'
-        " html/css/javascripts
         NeoBundleLazy 'mattn/emmet-vim', {
             \ "autoload": {
                 \ "filetype": ["html", "css"],
-                \}
-        \}
-        NeoBundleLazy 'hail2u/vim-css3-syntax', {
-            \ "autoload": {
-                \ "filetype": ["html", "css"],
-                \}
-        \}
-        NeoBundleLazy 'pangloss/vim-javascript', {
-            \ "autoload": {
-                \ "filetype": ["html", "css", "javascript"],
-                \}
-        \}
-        NeoBundleLazy 'taichouchou2/html5.vim', {
-            \ "autoload": {
-                \ "filetype": ["html", "css", "js"],
-                \}
-        \}
-        NeoBundleLazy 'marijnh/tern_for_vim', {
-            \ "autoload": {
-                \ "filetype": ["html", "css", "js"],
-                \}
-        \}
-        NeoBundleLazy 'lilydjwg/colorizer', {
-            \ "autoload": {
-                \ "filetype": ["html", "css", "js"],
                 \}
         \}
         NeoBundleLazy 'pasela/unite-webcolorname', {
@@ -267,92 +231,13 @@ set fileencodings=utf-8,sjis
                     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
         endif
         
-
-    " gundo.vim
-        nnoremap <Leader>un :GundoToggle<CR>
-        let g:gundo_auto_preview = 0
-    
-
     " easymotion
         " 日本語に有効にする
         let g:EasyMotion_use_migemo = 1
-    
-
-    ""VimFilerの設定
-        let g:vimfiler_as_default_explorer = 1
-        " VimFiler使用のキーマップ
-        nnoremap <Leader>f :VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
-        " e でタブオープンにする
-        let g:vimfiler_edit_action = 'tabopen'
-        " 自動でcdする
-        let g:vimfiler_enable_auto_cd = 1
-        let g:vimfiler_safe_mode_by_default = 0
-        call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    
 
     " unite
         let g:unite_source_history_yank_enable = 1
     
-
-    " quickrun
-        let s:hooks = neobundle#get_hooks("vim-quickrun")
-        let g:quickrun_config = {}
-        function! s:hooks.on_source(bundle)
-                let g:quickrun_config['_'] = {
-					\ "hook/close_buffer/" : 1,
-					\ "hook/inu/enable" : 1,
-					\ "hook/inu/wait" : 20,
-					\ "runner" : "vimproc",
-					\ 'runner/vimproc/updatetime' : 10,
-					\ 'hook/time/enable' : 1,
-				\ }
-                let g:quickrun_config['python'] = {
-                    \ 'cmdopt' : '-u',
-                    \ 'split' : 'vertical'
-                    \ }
-				let g:quickrun_config['tex'] = {
-						\ 'command' : 'latexmk',
-						\ 'cmdopt' : '-c',
-						\ 'outputter': 'quickfix',
-						\ 'outputter/error/error': 'quickfix',
-						\ 'exec' : ["%c %s"],
-				\}
-                " 横分割時は下へ，縦分割時は右へ新しいウインドウが生成される
-                set splitbelow
-                set splitright
-                function! g:TexPdfView()
-                    if has('win32')
-						let texPdfFilename = expand('%:r')
-						let synctex = expand('%')
-						let texPdfFilename = fnamemodify(texPdfFilename, ':h') . '\main.pdf'
-						echo texPdfFilename
-							let g:TexPdfViewCommand = 'silent !start '.
-									\ '"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe" -reuse-instance "' . 
-									\ texPdfFilename .
-									\ '" -forward-search "' .
-									\ synctex . '" ' .
-									\ line('.')
-					elseif has('mac') || has('macunix')
-						let correntDir = expand('%:p:h')
-						let correntFile = expand('%:p')
-						let texPdfFilename = correntDir . '/main.pdf'
-						let linenum=line('.')
-						let g:TexPdfViewCommand = "silent !".
-									\             "/Applications/Skim.app/Contents/SharedSupport/displayline " .
-									\			  string(linenum) . ' ' .
-									\             texPdfFilename . ' ' .
-									\             correntFile
-                    elseif has('unix')
-                        let g:TexPdfViewCommand = '! '.
-                                    \             'evince '.
-                                    \             texPdfFilename
-                    endif
-                    execute g:TexPdfViewCommand
-                endfunction
-        endfunction
-        nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-    "
-
     " jedi-vim
       let g:jedi#completions_enabled = 0
       let g:jedi#auto_vim_configuration = 0
@@ -391,7 +276,6 @@ set fileencodings=utf-8,sjis
         endif
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
         inoremap <expr><S-TAB> pumvisible() ? "\<C
-    
 
     " jedi-vim と neocomplete の連携
         autocmd FileType python setlocal omnifunc=jedi#completions
@@ -400,7 +284,6 @@ set fileencodings=utf-8,sjis
                 let g:neocomplete#force_omni_input_patterns = {}
         endif
     
-
     " スニペットの設定
         let s:hooks = neobundle#get_hooks("neosnippet.vim")
         " Plugin key-mappings.
@@ -419,7 +302,6 @@ set fileencodings=utf-8,sjis
           set conceallevel=2 concealcursor=i
         endif
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
-    
 
     " submodeの設定
         " window size の調整を連続キーでやる
@@ -434,7 +316,6 @@ set fileencodings=utf-8,sjis
         call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
         call submode#map('changetab', 'n', '', 't', 'gt')
         call submode#map('changetab', 'n', '', 'T', 'gT')
-    
 
     " Neobundle 終わり
 " =========================================
