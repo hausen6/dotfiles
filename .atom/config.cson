@@ -13,6 +13,11 @@
   minimap:
     plugins:
       "git-diff": true
+  "terminal-plus":
+    core: {}
+    style: {}
+    toggles:
+      autoClose: true
   "vim-mode-plus": {}
   welcome:
     showOnStartup: false

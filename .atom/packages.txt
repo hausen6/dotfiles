@@ -6,6 +6,7 @@ git-projects@1.17.0
 minimap@4.19.0
 minimap-git-diff@4.1.8
 recent-projects@0.9.5
+terminal-plus@0.14.5
 tree-view-git-status@0.2.2
 vim-mode-plus@0.19.1
 
