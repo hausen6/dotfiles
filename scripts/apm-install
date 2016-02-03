@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+ATOM_ROOT=$HOME/.atom
+PACKAGES_FILE=packages.txt
+
+# download new packages
+apm install --packages-file $ATOM_ROOT/$PACKAGES_FILE

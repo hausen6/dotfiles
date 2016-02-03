@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# update apm-list command for apm
+ATOM_ROOT=$HOME/.atom
+PACKAGES_FILE=packages.txt
+
+# update
+apm list --installed --bare > $ATOM_ROOT/$PACKAGES_FILE
