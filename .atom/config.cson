@@ -2,8 +2,8 @@
   "atom-alignment": {}
   core:
     themes: [
-      "one-light-ui"
-      "solarized-dark-syntax"
+      "atom-light-ui"
+      "base16-tomorrow-light-theme"
     ]
   editor:
     fontFamily: "Ricty Diminished, Meiryo, helvetica, "
