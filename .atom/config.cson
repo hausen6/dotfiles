@@ -6,7 +6,11 @@
       "solarized-dark-syntax"
     ]
   editor:
+    fontFamily: "Ricty Diminished, Meiryo, helvetica, "
     invisibles: {}
+    showIndentGuide: true
+    showInvisibles: true
+    softWrap: true
   "exception-reporting":
     userId: "4e2d194b-75bc-05bd-459a-05c00ba666e9"
   "git-status": {}
