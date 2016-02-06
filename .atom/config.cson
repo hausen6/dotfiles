@@ -1,9 +1,12 @@
 "*":
   "atom-alignment": {}
+  "autocomplete-plus":
+    confirmCompletion: "enter"
   core:
+    destroyEmptyPanes: false
     themes: [
-      "atom-light-ui"
-      "base16-tomorrow-light-theme"
+      "one-dark-ui"
+      "duotone-dark-space-syntax"
     ]
   editor:
     fontFamily: "Ricty Diminished, Meiryo, helvetica, "
@@ -14,10 +17,14 @@
   "exception-reporting":
     userId: "4e2d194b-75bc-05bd-459a-05c00ba666e9"
   "git-status": {}
-  "go-plus": {}
+  "go-plus":
+    goInstallation: "~/.goroot/bin/go"
+    goPath: "~/.go"
+  "markdown-table-formatter": {}
   minimap:
     plugins:
       "git-diff": true
+  "one-light-ui": {}
   "terminal-plus":
     core: {}
     style: {}

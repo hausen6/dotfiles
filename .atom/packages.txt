@@ -2,13 +2,17 @@ atom-alignment@0.12.1
 autocomplete-go@0.1.1
 autocomplete-paths@1.0.2
 autocomplete-python@1.6.1
+duotone-dark-space-syntax@0.2.0
 environment@1.1.1
 file-icons@1.6.14
+git-control@0.4.0
 git-plus@5.12.3
 go-config@0.3.3
 go-plus@3.5.2
 language-latex@0.6.1
 latexer@0.2.7
+lazy-motion@0.3.0
+markdown-table-formatter@2.7.2
 minimap@4.19.0
 minimap-git-diff@4.1.8
 recent-projects@0.9.5
