@@ -5,11 +5,12 @@
   core:
     destroyEmptyPanes: false
     themes: [
-      "one-dark-ui"
-      "duotone-dark-space-syntax"
+      "material-ui"
+      "solarized-dark-syntax"
     ]
   editor:
-    fontFamily: "Ricty Diminished, Meiryo, helvetica, "
+    fontFamily: "Ricty Diminished Discord, Meiryo, helvetica, "
+    fontSize: 17
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
@@ -20,6 +21,8 @@
   "go-plus":
     goInstallation: "~/.goroot/bin/go"
     goPath: "~/.go"
+  "make-runner":
+    hidePane: true
   "markdown-table-formatter": {}
   minimap:
     plugins:

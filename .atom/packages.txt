@@ -12,7 +12,9 @@ go-plus@3.5.2
 language-latex@0.6.1
 latexer@0.2.7
 lazy-motion@0.3.0
+make-runner@1.1.12
 markdown-table-formatter@2.7.2
+material-ui@1.0.7
 minimap@4.19.0
 minimap-git-diff@4.1.8
 recent-projects@0.9.5
