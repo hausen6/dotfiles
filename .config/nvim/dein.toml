@@ -1,11 +1,31 @@
+# utils
+[[plugins]]  # plugin manager
+repo = 'Shougo/dein.vim'
+
+[[plugins]]  # 入力補完
+repo = 'Shougo/deoplete.nvim'
+
+
+# input support
+[[plugins]]  # 括弧文字操作
+repo = 'tpope/vim-surround'
+
+[[plugins]]  # 文字整形
+repo = 'h1mesuke/vim-alignta'
+
+[[plugins]]  # コメントアウト切り替え
+repo =  'tyru/caw.vim'
+
+
+# motion
 [[plugins]]
-repo = "Shougo/dein.vim"
+repo = 'Lokaltog/vim-easymotion'
+
+
+# visualization
+[[plugins]]  # インデント可視化
+repo = 'Yggdroot/indentLine'
 
 [[plugins]]
-repo = "Shougo/deoplete.nvim"
+repo = 'w0ng/vim-hybrid'
 
-
-# unite
-
-[[plugins]]
-repo = "Shougo/unite.vim"

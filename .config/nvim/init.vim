@@ -1,4 +1,4 @@
-"dein Scripts-----------------------------
+" === dein Scripts ===
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -30,14 +30,40 @@ call dein#end()
 filetype plugin indent on
 
 " If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
+" if dein#check_install()
+"   call dein#install()
+" endif
+ 
+" deoplete settings
+let g:deoplete#enable_at_startup = 1
+
+" neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
 endif
 
-"End dein Scripts-------------------------
+
+" colorscheme
+set background=dark
+colorscheme hybrid
+" === End dein Scripts ===
 
 
 " === 一般的な設定  ===
+" 変数宣言
+let $MYVIMRC = "~/.config/nvim/init.vim"
+
 
 " 行番号表示
 set number
@@ -61,6 +87,15 @@ set shiftwidth=4
 set expandtab
 set autoindent
 
+
+" === 自作関数 ===
+" 現在開いているバッファをカレントディレクトリにする
+command! Cd cd %:h
+
+" === KEY BINDING ===
+" Leader を変更
+let mapleader=" "
+
 " jkでの移動
 nnoremap j gj
 nnoremap k gk
@@ -78,22 +113,27 @@ nnoremap <silent>sj <C-w>j
 nnoremap <silent>sk <C-w>k
 nnoremap <silent>sl <C-w>l
 
-
-" === KEY BINDING ===
-
-" Leader を変更
-let mapleader=" "
-
-inoremap jj <ESC>
-vnoremap jj <ESC>
-
 " $ と ^が使いづらいので変更
 noremap <Leader>h ^
 noremap <Leader>l $
 
-" === VIM 用の自動設定 ===
-let $MYVIMRC = "~/.config/nvim/init.vim"
+" 設定ファイルの編集
+nnoremap <silent><Leader>ev :tabedit $MYVIMRC<CR>
 
+" unite
+nnoremap <Leader>uf :Unite file<CR>
+nnoremap <Leader>gs :Unite giti/status<CR>
+nnoremap <Leader>gl :Unite giti/log<CR>
+
+" vimfiler
+nnoremap <Leader>f :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
+
+
+" caw (コメントアウト切り替えプラグイン)
+nmap <Leader>c <Plug>(caw:i:toggle)
+
+
+" === VIM 用の自動設定 ===
 augroup MyVimGroup
     au!
     au BufWritePost *.vim source $MYVIMRC

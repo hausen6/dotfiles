@@ -1,5 +1,49 @@
-# syntax
+# unite
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
 
 [[plugins]]
-repo = "cespare/vim-toml"
-on_ft = ["toml"]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'kmnk/vim-unite-giti'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+on_path = '.*'
+
+
+# utils
+[[plugins]]  # スニペット
+repo = 'Shougo/neosnippet.vim'
+on_path = '.*[]'
+
+[[plugins]]  # スニペットソース
+repo = 'Shougo/neosnippet-snippets'
+on_source = ['neosnippet.vim']
+
+
+# motion
+[[plugins]]
+repo = 'Lokaltog/vim-easymotion'
+
+[[plugins]]
+repo = 'kana/vim-submode'
+
+[[plugins]]
+repo = 'alpaca-tc/auto-pairs'
+on_i = 1
+
+
+# syntax
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
