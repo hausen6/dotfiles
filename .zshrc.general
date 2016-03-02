@@ -3,6 +3,9 @@ if [[ -e ~/.zprezto/init.zsh ]]; then
 	source ~/.zprezto/init.zsh
 fi
 
+# xdg-config-home
+export XDG_CONFIG_HOME=$HOME/.config
+
 # alias
 alias edshell="vim $0"
 alias reshell="exec $SHELL"
@@ -47,7 +50,6 @@ bindkey "^xk" anyframe-widget-kill
 if [ -x "$(which go)" ]; then
 	export GOPATH="$HOME/.go"
 	export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
-	source $GOROOT/misc/zsh/go
 fi
 
 # 重複pathの削除

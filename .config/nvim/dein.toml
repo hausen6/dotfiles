@@ -1,0 +1,11 @@
+[[plugins]]
+repo = "Shougo/dein.vim"
+
+[[plugins]]
+repo = "Shougo/deoplete.nvim"
+
+
+# unite
+
+[[plugins]]
+repo = "Shougo/unite.vim"
