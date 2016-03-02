@@ -53,10 +53,13 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-
 " colorscheme
 set background=dark
 colorscheme hybrid
+
+" golang
+" vim-go
+let g:go_fmt_command='goimports'
 " === End dein Scripts ===
 
 
@@ -126,7 +129,7 @@ nnoremap <Leader>gs :Unite giti/status<CR>
 nnoremap <Leader>gl :Unite giti/log<CR>
 
 " vimfiler
-nnoremap <Leader>f :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
+nnoremap <Leader>f :VimFilerBufferDir -split -winwidth=30 -find -no-quit -simple<Cr>
 
 
 " caw (コメントアウト切り替えプラグイン)

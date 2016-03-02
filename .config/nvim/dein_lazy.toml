@@ -24,7 +24,7 @@ on_path = '.*'
 # utils
 [[plugins]]  # スニペット
 repo = 'Shougo/neosnippet.vim'
-on_path = '.*[]'
+on_path = '.*'
 
 [[plugins]]  # スニペットソース
 repo = 'Shougo/neosnippet-snippets'
@@ -38,12 +38,25 @@ repo = 'Lokaltog/vim-easymotion'
 [[plugins]]
 repo = 'kana/vim-submode'
 
-[[plugins]]
-repo = 'alpaca-tc/auto-pairs'
-on_i = 1
-
 
 # syntax
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
+
+
+# golang
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ["go"]
+
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+on_ft = ["go"]
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_ft = ['go']
+    [plugins.build]
+    unix = 'make'
+    osx = 'make'

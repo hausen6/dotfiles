@@ -7,6 +7,9 @@ repo = 'Shougo/deoplete.nvim'
 
 
 # input support
+[[plugins]]
+repo = 'kana/vim-smartinput'
+
 [[plugins]]  # 括弧文字操作
 repo = 'tpope/vim-surround'
 
