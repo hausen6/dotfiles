@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 tmpfile=`mktemp`
-trap "echo 'finished successfully'; rm -f $tmpfile; exit 0;" 0
-trap "echo 'remove tempfile'; rm -f $tmpfile; exit 1;" 1 2 3 15
+tmpfile2=`mktemp`
+trap "echo 'finished successfully'; rm -f $tmpfile $tmpfile2; exit 0;" 0
+trap "echo 'remove tempfile'; rm -f $tmpfile $tmpfile2; exit 1;" 1 2 3 15
 
 # define
 ATOM_ROOT=$HOME/.atom
@@ -10,8 +11,11 @@ PACKAGES_FILE=packages.txt
 
 # new packages check
 apm list -bi > $tmpfile
-diff $ATOM_ROOT/$PACKAGES_FILE $tmpfile | grep ">" | awk '{print $2}' > $tmpfile
+command diff $tmpfile $ATOM_ROOT/$PACKAGES_FILE | grep ">" | awk '{print $2}' > $tmpfile2
 echo "new packages"
+echo "----------------"
+cat $tmpfile2
+echo
 echo "----------------"
 echo "starting install ..."
 apm install --packages $tmpfile

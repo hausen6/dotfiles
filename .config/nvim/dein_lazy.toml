@@ -30,6 +30,10 @@ on_path = '.*'
 repo = 'Shougo/neosnippet-snippets'
 on_source = ['neosnippet.vim']
 
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+on_path = ".*"
+
 
 # motion
 [[plugins]]
@@ -60,3 +64,8 @@ on_ft = ['go']
     [plugins.build]
     unix = 'make'
     osx = 'make'
+
+# python
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python', 'python3']

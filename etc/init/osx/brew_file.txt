@@ -12,7 +12,6 @@ tap homebrew/bundle
 
 ## rcmdnk/file
 tap rcmdnk/file
-brew brew-file
 
 # Other Homebrew packages
 brew ack
@@ -21,6 +20,7 @@ brew cmake
 brew colordiff
 brew gdbm
 brew go
+brew htop
 brew libdnet
 brew libevent
 brew lua

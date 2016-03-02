@@ -33,7 +33,7 @@ filetype plugin indent on
 " if dein#check_install()
 "   call dein#install()
 " endif
- 
+
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
 
@@ -60,6 +60,10 @@ colorscheme hybrid
 " golang
 " vim-go
 let g:go_fmt_command='goimports'
+
+" python
+" jedi
+
 " === End dein Scripts ===
 
 
@@ -140,4 +144,11 @@ nmap <Leader>c <Plug>(caw:i:toggle)
 augroup MyVimGroup
     au!
     au BufWritePost *.vim source $MYVIMRC
+augroup END
+
+" === Pyhon 用の自動設置 ===
+augroup MyPythonGroup
+    au!
+    " 後ろのスペースを削除
+    au BufWritePre *.py :FixWhitespace
 augroup END
