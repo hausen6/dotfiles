@@ -52,5 +52,10 @@ if [ -x "$(which go)" ]; then
 	export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 fi
 
+# nvim
+if [ -x "$(which nvim)" ]; then
+	alias vim="nvim"
+fi
+
 # 重複pathの削除
 typeset -U path PATH
