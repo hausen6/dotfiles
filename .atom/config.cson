@@ -9,7 +9,7 @@
       "solarized-dark-syntax"
     ]
   editor:
-    fontFamily: "Ricty Diminished Discord, Meiryo, helvetica, "
+    fontFamily: "Ricty Diminished, Ricty Diminished Discord, Meiryo, helvetica, "
     fontSize: 17
     invisibles: {}
     showIndentGuide: true
