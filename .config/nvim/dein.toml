@@ -2,10 +2,6 @@
 [[plugins]]  # plugin manager
 repo = 'Shougo/dein.vim'
 
-[[plugins]]  # 入力補完
-repo = 'Shougo/deoplete.nvim'
-
-
 # input support
 [[plugins]]
 repo = 'kana/vim-smartinput'

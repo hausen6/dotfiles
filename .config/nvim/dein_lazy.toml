@@ -21,6 +21,22 @@ depends = 'unite.vim'
 on_path = '.*'
 
 
+# autocomplete
+[[plugins]]
+repo = 'Shougo/deoplete.vim'
+on_i = 1
+if = 'has("nvim")'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+on_i = 1
+if = 'has("lua")'
+
+[[plugins]]
+repo = 'Shougo/neocomplecache.vim'
+on_i = 1
+if = '!has("lua")'
+
 # utils
 [[plugins]]  # スニペット
 repo = 'Shougo/neosnippet.vim'
@@ -33,6 +49,10 @@ on_source = ['neosnippet.vim']
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 on_path = ".*"
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+on_i = 1
 
 
 # motion
@@ -61,6 +81,7 @@ on_ft = ["go"]
 [[plugins]]
 repo = 'zchee/deoplete-go'
 on_ft = ['go']
+if = 'has("nvim")'
     [plugins.build]
     unix = 'make'
     osx = 'make'
@@ -69,3 +90,4 @@ on_ft = ['go']
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
 on_ft = ['python', 'python3']
+if = 'has("nvim")'
