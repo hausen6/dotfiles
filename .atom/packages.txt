@@ -1,4 +1,5 @@
 atom-alignment@0.12.1
+atom-runner@2.5.2
 autocomplete-go@0.1.1
 autocomplete-paths@1.0.2
 autocomplete-python@1.6.1
@@ -7,9 +8,11 @@ environment@1.1.1
 file-icons@1.6.14
 git-control@0.4.0
 git-plus@5.12.3
+git-projects@1.17.0
 go-config@0.3.3
 go-plus@3.5.2
 language-latex@0.6.1
+language-restructuredtext@0.12.0
 latexer@0.2.7
 lazy-motion@0.3.0
 make-runner@1.1.12

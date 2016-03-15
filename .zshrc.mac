@@ -1,7 +1,4 @@
-# homebrew
-# brew-file
-if [ -e "$(brew --prefix)/etc/brew-wrap" ]; then
-	source "$(brew --prefix)/etc/brew-wrap"
-	export HOMEBREW_BREWFILE="$HOME/dotfiles/etc/init/osx/brew_file.txt"
+# python
+if [ -e $HOME/miniconda3/bin ]; then
+    export PATH=$PATH:$HOME/miniconda3/bin
 fi
-
