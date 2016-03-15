@@ -1,272 +1,174 @@
-" joe 用の設定 "
-syntax on
-set modeline
-set fenc=utf-8
-set fileencodings=utf-8,sjis
+" === dein Scripts ===
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-" =========== 基本設定 =========== 
-    " 行数を表示
-    :set number
-    
-    " backspace で文字を消す
-    set backspace=indent,eol,start
-    
-    " クリップボード共有
-    set clipboard=autoselect,unnamed
-    
-    " インクリメンタルサーチon
-    set incsearch
-    set ic
-    
-    " 設定ファイルのパス設定
-    let $MYVIMRC='~/.vimrc'
-    let $MYGVIMRC='~/.gvimrc'
-    
-    " バックアップファイルの作成場所変更
-    set directory=~/.vim/vimbackup/
-    set backupdir=~/.vim/vimbackup/
-    set undodir=~/.vim/vimbackup/
-    
-    " 自動改行OFF
-    set formatoptions=q
-    " set tw=0
-    
-    "日本語の行の連結時には空白を入力しない。
-    set formatoptions+=mM
-    
-    "□や○の文字があってもカーソル位置がずれないようにする。
-    set ambiwidth=double
-    
-    "画面最後の行をできる限り表示する。
-    set display+=lastline
-    set tabstop=4
-    set shiftwidth=4
-    
-    " モードラインをon
-    set modeline
-    
-    " 縦に連番の番号を co で入力する
-        nnoremap <silent> co :ContinuousNumber <C-a><CR>
-        vnoremap <silent> co :ContinuousNumber <C-a><CR>
-        command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-    
-    " Ctrl-Pで開いているPython スクリプトを実行
-        function! s:Exec()
-            exe "!" . &ft . " %"
-        :endfunction
-        command! Exec call <SID>Exec()
-        map <silent> <C-P> :call <SID>Exec()<CR>
-    
-    " 今日の日付を挿入
-        nnoremap <F6> <ESC>i<C-R>=strftime("%Y/%m/%d")<CR><CR>
-    
+" Required:
+set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-    let $PATH = "~/.pyenv/shims:".$PATH
+" Required:
+call dein#begin(expand('~/.config/nvim/dein'))
 
-" =========== NeoBundleの設定 =============
-    let g:neobundle_default_git_protocol='https'
-    set nocompatible
-    filetype off
-    if has('vim_starting')
-      set runtimepath+=C:\Users\joe/.vim/bundle/neobundle.vim
-      set runtimepath+=~/.vim/bundle/neobundle.vim
-      " call neobundle#rc(expand('~/.vim/bundle'))
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" load plugin lists from toml files
+let s:plugin_toml = '~/.config/nvim/dein.toml'
+let s:plugin_lazy_toml = '~/.config/nvim/dein_lazy.toml'
+
+if dein#load_cache([expand('<sfile>'), s:plugin_toml, s:plugin_lazy_toml])
+	call dein#load_toml(s:plugin_toml, {"lazy": 0})
+	call dein#load_toml(s:plugin_lazy_toml, {"lazy": 1})
+	call dein#save_cache()
+endif
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+
+" If you want to install not installed plugins on startup.
+" if dein#check_install()
+"   call dein#install()
+" endif
+" deoplete settings
+if dein#tap('deoplete.vim') && has('nvim')
+    let g:deoplete#enable_at_startup = 1
+endif
+if dein#tap('neocomplete.vim') && has('lua')
+    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
     endif
-    call neobundle#begin(expand('~/.vim/bundle'))
-    filetype plugin indent on
-	if neobundle#load_cache()
-        NeoBundleFetch 'Shougo/neobundle.vim'
-		call neobundle#load_toml("~/.vim/neobundle.toml")
-		call neobundle#load_toml("~/.vim/neobundlelazy.toml", {"lazy": 1})
-	endif
-    " ここにインストールしたいプラグインのリストを書く
-	  NeoBundle 'taketwo/vim-ros'
-    "
-    NeoBundleCheck
-    call neobundle#end()
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " markdown
-    let g:vim_markdown_folding_disabled=1
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-    " syntastic
-        let g:syntastic_python_checkers = ['flake8']
-        " 複数指定する場合はカンマ区切り
-        " e.g ) let g:flake8_ignore = 'E501,W293'
-        let g:flake8_ignore = 'E501'
-        " 複数指定する場合はカンマ区切り
-        " let g:syntastic_python_flake8_args = '--ignore="E501,E302"'
-        let g:syntastic_python_flake8_args = '--ignore="E501"'
-    
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-		" marching
-		let g:marching_clang_command = "clang++"
-        let g:marching#clang_command#options = {
-            \ "cpp": "-std=gnu++1y"
-        \}
-		let g:marching_include_paths = [
-								\ "/usr/include/",
-								\ "/usr/local/include/",
-								\ "/opt/ros/indigo/include/ros",
-								\]
-        let g:marching_enable_neocomplete = 1
-        if neobundle#is_installed("neocomplete")
-            if !exists('g:neocomplete#force_omni_input_patterns')
-                let g:neocomplete#force_omni_input_patterns = {}
-            endif
-            let g:neocomplete#force_omni_input_patterns.cpp =
-                    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-        else 
-            if !exists('g:neocomplcache_force_omni_patterns')
-                let g:neocomplcache_force_omni_patterns = {}
-            endif
-            let g:neocomplcache_force_omni_patterns.cpp = 
-                    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-        endif
-        
-    " easymotion
-        " 日本語に有効にする
-        let g:EasyMotion_use_migemo = 1
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+      let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+endif
 
-    " unite
-        let g:unite_source_history_yank_enable = 1
-    
-    " jedi-vim
-      let g:jedi#completions_enabled = 0
-      let g:jedi#auto_vim_configuration = 0
-	  if !exists('g:neocomplete#force_omni_input_patterns')
-		  let g:neocomplete#force_omni_input_patterns = {}
-	  endif
-	  let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-      let g:jedi#popup_select_first     = 0
-      let g:jedi#popup_on_dot = 0
+" neosnippet
+if dein#tap('neosnippet.vim')
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)"
+    \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)"
+    \: "\<TAB>"
+    " For snippet_complete marker.
+    if has('conceal')
+      set conceallevel=2 concealcursor=i
+    endif
+endif
 
-    " python class browser
-    nnoremap <Leader>t :TagbarToggle<CR>
+" colorscheme
+if dein#tap('vim-hybrid')
+    set background=dark
+    " colorscheme hybrid
+endif
 
-    " neocomplete
-        " if_luaが有効ならneocompleteを使う
-        if neobundle#is_installed('neocomplete')
-            " neocomplete用設定
-            let g:neocomplete#enable_at_startup  = 1
-            let g:neocomplete#enable_ignore_case = 1
-            let g:neocomplete#enable_smart_case  = 1
-            if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns   = {}
-            endif
-            let g:neocomplete#keyword_patterns._ = '\h\w*'
-        elseif neobundle#is_installed('neocomplcache')
-            " neocomplcache用設定
-            let g:neocomplcache_enable_at_startup  = 1
-            let g:neocomplcache_enable_ignore_case = 1
-            let g:neocomplcache_enable_smart_case  = 1
-            if !exists('g:neocomplcache_keyword_patterns')
-                let g:neocomplcache_keyword_patterns = {}
-            endif
-            let g:neocomplcache_keyword_patterns._           = '\h\w*'
-            let g:neocomplcache_enable_camel_case_completion = 1
-            let g:neocomplcache_enable_underbar_completion   = 1
-        endif
-        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><S-TAB> pumvisible() ? "\<C
+" golang
+" vim-go
+if dein#tap('vim-go')
+  let g:go_fmt_command='goimports'
+endif
 
-    " jedi-vim と neocomplete の連携
-        autocmd FileType python setlocal omnifunc=jedi#completions
+" python
+" jedi
 
-        if !exists('g:neocomplete#force_omni_input_patterns')
-                let g:neocomplete#force_omni_input_patterns = {}
-        endif
-    
-    " スニペットの設定
-        let s:hooks = neobundle#get_hooks("neosnippet.vim")
-        " Plugin key-mappings.
-        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        xmap <C-k>     <Plug>(neosnippet_expand_target)
-        " SuperTab like snippets behavior.
-        imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: pumvisible() ? "\<C-n>" : "\<TAB>"
-        smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: "\<TAB>"
-        " For snippet_complete marker.
-        if has('conceal')
-          set conceallevel=2 concealcursor=i
-        endif
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/ ,~/.vim/mysnip/'
+" === End dein Scripts ===
 
-    " submodeの設定
-        " window size の調整を連続キーでやる
-        call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-        call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-        call submode#map('winsize', 'n', '', '>', '<C-w>>')
-        call submode#map('winsize', 'n', '', '<', '<C-w><')
-        call submode#map('winsize', 'n', '', '+', '<C-w>-')
-        call submode#map('winsize', 'n', '', '-', '<C-w>+')
-        " タブ遷移を連続で行う
-        call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
-        call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
-        call submode#map('changetab', 'n', '', 't', 'gt')
-        call submode#map('changetab', 'n', '', 'T', 'gT')
 
-    " Neobundle 終わり
-" =========================================
+" === 一般的な設定  ===
+" 変数宣言
+if has('nvim')
+    let $MYVIMRC = "~/.config/nvim/init.vim"
+else
+    let $MYVIMRC = "~/.vimrc"
+endif
 
-" =========== キーマップ ========= 
+
+" 行番号表示
+set number
+
+" シンタックスハイライト
+syntax on
+
+" ファイル・タイプ自動認識
+filetype on
+
+" クリップボード共有
+set clipboard=unnamed
+
+" インクリメンタルサーチ
+set incsearch
+set ic
+
+" タブ量の設定
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
+
+" === 自作関数 ===
+" 現在開いているバッファをカレントディレクトリにする
+command! Cd cd %:h
+
+" === KEY BINDING ===
+" Leader を変更
 let mapleader=" "
-" <ESC> を C-g に割り当てる
-inoremap <C-j> <ESC>
-vnoremap <C-j> <ESC>
-nnoremap <C-j> <ESC>
-
-" $ と ^が使いづらいので変更
-noremap <Leader>h ^
-noremap <Leader>l $
-
-" 単語削除など
-nnoremap dw diw
-nnoremap cw ciw
 
 " jkでの移動
-nnoremap j gjzz
-nnoremap k gkzz
-vnoremap j gjzz
-vnoremap k gkzz
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
-
-" insert mode時に emacs 風キーバインド
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-e> <ESC><S-a>
-inoremap <C-a> <ESC><S-i>
-inoremap <C-d> <DEL>
-inoremap <C-h> <BS>
-
-" 検索での移動を画面中心に
-nnoremap <c-o> <c-o>zz
-nnoremap <c-i> <c-i>zz
-nnoremap <c-]> <c-]>zz
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-" File を開いたら画面中心に
-" augroup OpenCentralGroup
-" 	" this one is which you're most likely to use?
-" 	au!
-" 	autocmd VimEnter zz
-" 	autocmd VimEnter zz
-" augroup end
-"
-nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-
-" .vimrcや.gvimrcを編集するためのKey-mappingを定義する
-nnoremap <silent> <Space>ev  :<C-u>tabedit $MYVIMRC<CR>
-nnoremap <silent> <Space>eg  :<C-u>tabedit $MYGVIMRC<CR>
-
-" .vimrcや.gvimrcの変更を反映するためのKey-mappingを定義する
-nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
 
 " 画面分割
 nnoremap s <Nop>
@@ -277,204 +179,35 @@ nnoremap <silent>sj <C-w>j
 nnoremap <silent>sk <C-w>k
 nnoremap <silent>sl <C-w>l
 
+" $ と ^が使いづらいので変更
+noremap <Leader>h ^
+noremap <Leader>l $
+
+" 設定ファイルの編集
+nnoremap <silent><Leader>ev :tabedit $MYVIMRC<CR>
+
 " unite
-nnoremap <Leader>u<Space> :Unite<Space>
-nnoremap <Leader>uf       :UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <Leader>us       :Unite bookmark<CR>
-nnoremap <Leader>uy       : <C-u>Unite history/yank<CR>
-nnoremap <Leader>uo       : <C-u>Unite -vertical -winwidth=30 -no-quit outline<CR>
-nnoremap <Leader>uq		  : <C-u>Unite quickfix<CR>
-nnoremap <Leader>uz		  : <C-u>Unite fold<CR>
-nnoremap <Leader>ugb	  : <C-u>Unite giti/branch<CR>
-nnoremap <Leader>ugs	  : <C-u>Unite giti/status<CR>
+nnoremap <Leader>uf :Unite file<CR>
+nnoremap <Leader>gs :Unite giti/status<CR>
+nnoremap <Leader>gl :Unite giti/log<CR>
 
-" caw.vim の keymapping
+" vimfiler
+nnoremap <Leader>f :VimFilerBufferDir -split -winwidth=30 -find -no-quit -simple<Cr>
+
+
+" caw (コメントアウト切り替えプラグイン)
 nmap <Leader>c <Plug>(caw:i:toggle)
-vmap <Leader>c <Plug>(caw:i:toggle)
 
-" 検索を簡単に正規表現に
-nnoremap / /\v
 
-" vim 折りたたみ関連
-" 折りたたみ移動時の挙動:
-"    現在の折りたたみを閉じる -> 移動 -> 開く -> 折りたたみの先頭に移動 -> 画面中心に
-nnoremap zj zczjzozz
-nnoremap zk zczkzo[zzz
-" 今のカーソルのある折りたたみ以外は閉じる
-nnoremap <Leader>z zMzvzz
-" 折りたたみの最初,最後へ
-nnoremap zp [z
-nnoremap zn ]z
-" reload
-nnoremap re :e!<CR><Leader>z<CR>
-" omni func 
-inoremap <C-N> <C-x><C-o>
-inoremap <C-@> <C-Space>
-" joe 用の設定 "
-syntax on
-
-" Mac だと\がAlt+\しないとでないのでmappingを変更
-if has("mac")
-	inoremap \ \
-endif
-" 
-
-"  ************ ファイル作成時にディレクトリも作成する *************
-augroup vimrc-auto-mkdir
-  autocmd!
-  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-  function! s:auto_mkdir(dir, force)
-    if !isdirectory(a:dir) && (a:force ||
-    \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-    endif
-  endfunction
+" === VIM 用の自動設定 ===
+augroup MyVimGroup
+    au!
+    au BufWritePost *.vim source $MYVIMRC
 augroup END
 
-
-"  **************** 折りたたみ 用の自動設定 ****************
-augroup foldmethod-expr
-    autocmd!
-    autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-    \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-    \                   |   setlocal foldmethod=manual foldexpr=0
-    \                   | endif
-    autocmd InsertLeave * if exists('b:foldinfo')
-    \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-    \                   | endif
+" === Pyhon 用の自動設置 ===
+augroup MyPythonGroup
+    au!
+    " 後ろのスペースを削除
+    au BufWritePre *.py :FixWhitespace
 augroup END
-" 便利関数など
-nnoremap <silent><Leader>cd :cd %:h<CR>
-
-" Capture 
-command!
-      \ -nargs=1
-      \ -complete=command
-      \ Capture
-      \ call Capture(<f-args>)
- 
-function! Capture(cmd)
-  redir => result
-  silent execute a:cmd
-  redir END
- 
-  let bufname = 'Capture: ' . a:cmd
-  new
-  setlocal bufhidden=unload
-  setlocal nobuflisted
-  setlocal buftype=nofile
-  setlocal noswapfile
-  silent file `=bufname`
-  silent put =result
-  1,2delete _
-endfunction
- 
-
-function! g:SetQuickrunConfig()
-	let g:quickrun_config = {
-		\ '_': {
-			\ "hook/close_buffer/" : 1,
-			\ "hook/inu/enable" : 1,
-			\ "hook/inu/wait" : 20,
-			\ "runner" : "vimproc",
-			\ 'runner/vimproc/updatetime' : 10,
-			\ 'hook/time/enable' : 1,
-		\},
-		\ 'tex': {
-			\ 'command' : 'latexmk',
-			\ 'outputter': 'quickfix',
-			\ 'outputter/error/error': 'quickfix',
-			\ 'exec' : ["%c %s"],
-		\},
-		\ 'python': {
-			\ 'cmdopt' : '-u',
-			\ 'split' : 'vertical',
-		\ },
-		\ 'markdown': {
-			\ 'type': 'markdown/gfm',
-			\ 'outputter': 'browser',
-		\},
-	\}
-endfunction
-
-"  **************** vim 用の自動設定 **************** 
-augroup myVimrcGroup
-        au!
-		au QuickFixCmdPost vimgrep cw
-        au BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-        au BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-        " au BufWritePre * :%s/\s\+$//e
-augroup END
-
-
-"  **************** python 用の自動設定 ****************
-augroup myPythonGroup
-        au!
-		" jedi-vim のpop out を解除
-		au FileType python setlocal completeopt-=preview
-        " au FileType python setlocal omnifunc=jedi#completions
-        " class view を設定"
-        au BufEnter *.py :IndentLinesEnable
-		au FileType python set tabstop=4
-		au FileType python set autoindent
-		au FileType python set expandtab
-		au FileType python set shiftwidth=4
-        au FileType python set modeline
-        au FileType python set foldmethod=marker
-augroup END
-
-
-"  **************** latex 用の自動設定 ****************
-function! g:SetLaTeXMainSource() " latex 用関数
-	let currentFileDirectory = expand('%:p:h')
-	if has('win32') || has('win64')
-    	let latexmain = currentFileDirectory .'\main.tex' 
-		call g:SetQuickrunConfig()
-		let g:quickrun_config['tex']['srcfile'] = latexmain
-	elseif has('unix')
-		let latexmain = currentFileDirectory . '/main.tex'
-		call g:SetQuickrunConfig()
-		let g:quickrun_config['tex']['srcfile'] = latexmain
-	endif
-endfunction
-augroup myLaTeXGroup
-        au!
-        au BufNewFile,BufRead *.tex :NeoSnippetSource ~/.vim/mysnip/tex.snip
-        au BufNewFile,BufRead *.tex filetype plugin indent off
-        au BufEnter *.tex nnoremap <Leader>v :call <SID>:TexPdfView()<CR>
-        au BufEnter *.tex call g:SetLaTeXMainSource()
-		au BufEnter *.tex nnoremap <Leader><Leader>r :QuickRun tex<CR>
-		au BufEnter *.tex set commentstring=\%\%s
-		au FileType tex set tabstop=4
-		au FileType tex set autoindent
-		au FileType tex let g:tex_conceal = ""
-		if has("mac")
-			au FileType tex inoremap \ \
-		endif
-augroup END
-
-" C++ 用
-augroup myCppGroup
-		autocmd!
-		autocmd FileType cpp set tabstop=4
-		au FileType cpp  set tabstop=4
-		au FileType cpp  set autoindent
-		au FileType cpp  set expandtab
-		au FileType cpp  set shiftwidth=4
-		au FileType cpp  set foldmethod=marker
-        au FileType cpp inoremap <C-Space> <Plug>(marcing_start_omni_complete)
-augroup END
-
-augroup MyMarkdownGroup
-	autocmd!
-	autocmd BufRead,BufWrite *.md set filetype=markdown
-	au BufRead,BufWrite call g:SetQuickrunConfig()
-augroup END
-
-augroup myJSGroup
-	autocmd!
-	autocmd FileType html setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-augroup END
-" vim:set comentstrings=" %s
-" vim:set foldmethod=marker: "
