@@ -3,17 +3,28 @@ EXCLUDES       := .git .gitignore .gitattribute
 TARGETS        := $(wildcard .??*)
 DOTFILES_FILES := $(filter-out $(EXCLUDES), $(TARGETS))
 HOME_DIR       := $(abspath $(HOME))
+INSTALL_TARGETS +=
+
+
 
 all: deploy
 
 deploy:
 	@$(foreach file, $(DOTFILES_FILES), ln -snvf $(abspath $(file)) $(HOME_DIR)/$(file);)
 
-osx:
-	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh osx
+include etc/lib/log.mk
+include etc/init/common/*.mk
 
-linux:
-	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh linux
+ifeq ($(OS), Windows_NT)
+	$(eval include etc/windows/*.mk)
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Darwin)
+		include etc/init/osx/*.mk
+	endif
+endif
+
+init: $(INSTALL_TARGETS)
 
 update:
 	git pull origin master
