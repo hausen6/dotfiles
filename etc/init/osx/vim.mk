@@ -6,8 +6,8 @@ ifeq (, $(shell which lua))
 endif
 
 vim: brew lua
-ifeq (, $(shell which vim))
-	brew install vim --with-lua
+ifeq (, $(shell brew list macvim))
+	brew install macvim --with-lua --with-override-system-vim --with-python3
 else
 	$(call LOG_INFO, vim is OK.)
 endif
