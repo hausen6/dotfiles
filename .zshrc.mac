@@ -1,4 +1,4 @@
 # python
 if [ -e $HOME/miniconda3/bin ]; then
-    export PATH=$PATH:$HOME/miniconda3/bin
+    export PATH=$HOME/miniconda3/bin:$PATH
 fi

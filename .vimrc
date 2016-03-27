@@ -211,3 +211,9 @@ augroup MyPythonGroup
     " 後ろのスペースを削除
     au BufWritePre *.py :FixWhitespace
 augroup END
+
+" === reSt 用の設定 ===
+augroup MyreSTGroup
+    autocmd!
+    autocmd Filetype rst :set tabstop=2
+augroup END
