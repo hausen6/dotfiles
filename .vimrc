@@ -6,25 +6,24 @@ endif
 " Required:
 set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-call dein#begin(expand('~/.config/nvim/dein'))
-
 " Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+if dein#load_state(expand('~/.config/nvim/dein'))
+    " Required:
+    call dein#begin(expand('~/.config/nvim/dein'))
 
-" load plugin lists from toml files
-let s:plugin_toml = '~/.config/nvim/dein.toml'
-let s:plugin_lazy_toml = '~/.config/nvim/dein_lazy.toml'
+    " Required:
+    call dein#add('Shougo/dein.vim')
 
-if dein#load_cache([expand('<sfile>'), s:plugin_toml, s:plugin_lazy_toml])
+    " load plugin lists from toml files
+    let s:plugin_toml = '~/.config/nvim/dein.toml'
+    let s:plugin_lazy_toml = '~/.config/nvim/dein_lazy.toml'
+
 	call dein#load_toml(s:plugin_toml, {"lazy": 0})
 	call dein#load_toml(s:plugin_lazy_toml, {"lazy": 1})
-	call dein#save_cache()
+    " Required:
+    call dein#end()
+	call dein#save_state()
 endif
-
-" Required:
-call dein#end()
 
 " Required:
 filetype plugin indent on
