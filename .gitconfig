@@ -6,3 +6,8 @@
 	editor = vim
 [push]
 	default = simple
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
