@@ -186,7 +186,7 @@ noremap <Leader>l $
 nnoremap <silent><Leader>ev :tabedit $MYVIMRC<CR>
 
 " unite
-nnoremap <Leader>uf :Unite file<CR>
+nnoremap <Leader>uf :Unite file_rec:!<CR>
 nnoremap <Leader>gs :Unite giti/status<CR>
 nnoremap <Leader>gl :Unite giti/log<CR>
 
@@ -197,11 +197,11 @@ nnoremap <Leader>f :VimFilerBufferDir -split -winwidth=30 -find -no-quit -simple
 " caw (コメントアウト切り替えプラグイン)
 nmap <Leader>c <Plug>(caw:i:toggle)
 
-
 " === VIM 用の自動設定 ===
 augroup MyVimGroup
     au!
     au BufWritePost *.vim source $MYVIMRC
+    autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
 augroup END
 
 " === Pyhon 用の自動設置 ===
