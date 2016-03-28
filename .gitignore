@@ -16,6 +16,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.envrc
 
 # External tool builders
 .externalToolBuilders/
