@@ -1,5 +1,5 @@
 DOTPATH        := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
-EXCLUDES       := .git .gitignore .gitattribute
+EXCLUDES       := .git .gitignore .gitattribute .gitmodules
 TARGETS        := $(wildcard .??*)
 DOTFILES_FILES := $(filter-out $(EXCLUDES), $(TARGETS))
 HOME_DIR       := $(abspath $(HOME))
