@@ -7,15 +7,13 @@ endif
 
 vim: brew lua
 ifeq (, $(shell brew list macvim))
-	$(call LOG_INFO, vim is installing ...)
+	$(call LOG_INFO, install $@ ...)
 	brew install macvim --with-lua --with-override-system-vim --with-python3 > /dev/null
-	$(call LOG_SUCCESS, vim is successfuly installed.)
+	$(call LOG_SUCCESS, $@ is OK.)
 else
-	$(call LOG_INFO, $@ is OK.)
+	$(call LOG_SUCCESS, $@ is OK.)
 endif
 
-dein.vim: git vim deploy
-	$(call LOG_INFO, dein.vim is installing ...)
-	@bash etc/init/common/dein.vim.sh $(HOME)/.config/nvim/dein > /dev/null
-	vim -c "call dein#install() | q"
-	$(call LOG_SUCCESS, $@ is successfuly installed.)
+dein.vim: git vim simple_deploy
+	@bash etc/init/common/dein.vim.sh $(HOME)/.config/nvim/dein
+	@vim -c "call dein#install() | q"

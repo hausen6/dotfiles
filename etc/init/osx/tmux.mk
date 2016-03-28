@@ -2,7 +2,9 @@ INSTALL_TARGETS += tmux
 
 tmux: brew
 ifeq (, $(shell which tmux))
+	$(call LOG_INFO, install $@ ...)
 	brew install tmux
+	$(call LOG_SUCCESS, $@ is OK.)
 else
-	$(call LOG_INFO, $@ is OK.)
+	$(call LOG_SUCCESS, $@ is OK.)
 endif

@@ -12,6 +12,9 @@ all: deploy
 deploy:
 	@$(foreach file, $(DOTFILES_FILES), ln -snvf $(abspath $(file)) $(HOME_DIR)/$(file);)
 
+simple_deploy:
+	@$(foreach file, $(DOTFILES_FILES), ln -snf $(abspath $(file)) $(HOME_DIR)/$(file);)
+
 include etc/lib/log.mk
 include etc/init/common/*.mk
 
