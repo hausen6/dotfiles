@@ -12,6 +12,11 @@ alias reshell="exec $SHELL"
 # path
 export PATH=$PATH:$HOME/dotfiles/scripts/
 
+# rm -> gomi
+if [ -x `which gomi` ]; then
+    alias rm="gomi"
+fi
+
 # tmuxinator
 export EDITOR=vim
 
