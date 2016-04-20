@@ -214,5 +214,5 @@ augroup END
 " === reSt 用の設定 ===
 augroup MyreSTGroup
     autocmd!
-    autocmd Filetype rst :set tabstop=2
+    autocmd Filetype rst set tabstop=2
 augroup END

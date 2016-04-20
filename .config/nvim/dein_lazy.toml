@@ -102,3 +102,8 @@ if = '!has("nvim")'
 repo = 'zchee/deoplete-jedi'
 on_ft = ['python', 'python3']
 if = 'has("nvim")'
+
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+on_ft = ['python', 'python3']
+
