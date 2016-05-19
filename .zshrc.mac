@@ -4,5 +4,4 @@ if [ -e $HOME/.pyenv ]; then
     export PATH=$HOME/.pyenv/bin:$PATH
     eval "$(pyenv init -)"
 fi
-
 # vim: filetype=zsh

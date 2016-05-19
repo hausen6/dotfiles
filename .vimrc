@@ -115,6 +115,11 @@ if dein#tap('vim-go')
   let g:go_fmt_command='goimports'
 endif
 
+" easy-motion
+if dein#tap('vim-easymotion')
+    let g:EasyMotion_use_migemo = 1
+endif
+
 " python
 " jedi
 
@@ -129,6 +134,9 @@ else
     let $MYVIMRC = "~/.vimrc"
 endif
 
+" コマンドモードの補完を使いやすくする
+set wildmenu
+set wildmode=longest:full,full
 
 " 行番号表示
 set number
@@ -158,6 +166,9 @@ set autoindent
 command! Cd cd %:h
 
 " === KEY BINDING ===
+" <C-Space>でオムニ補完
+imap <C-Space> <C-x><C-o>
+
 " Leader を変更
 let mapleader=" "
 
@@ -168,6 +179,12 @@ vnoremap j gj
 vnoremap k gk
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
+inoremap jj <ESC>
+
+" emacs 風移動
+inoremap <C-b> <LEFT>
+inoremap <C-f> <RIGHT>
+inoremap <C-d> <DELETE>
 
 " 画面分割
 nnoremap s <Nop>
@@ -214,5 +231,7 @@ augroup END
 " === reSt 用の設定 ===
 augroup MyreSTGroup
     autocmd!
-    autocmd Filetype rst set tabstop=2
+    autocmd BufRead,BufWritePost *.rst set tabstop=2 
+    autocmd BufRead,BufWritePost *.rst set shiftwidth=2 
+    autocmd BufRead,BufWritePost *.rst set softtabstop=2
 augroup END
