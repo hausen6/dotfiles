@@ -107,3 +107,7 @@ if = 'has("nvim")'
 repo = 'lambdalisue/vim-pyenv'
 on_ft = ['python', 'python3']
 
+# rst
+[[plugins]]
+repo = 'Rykka/riv.vim'
+on_ft = ['rst']

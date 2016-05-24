@@ -164,6 +164,13 @@ set autoindent
 " === 自作関数 ===
 " 現在開いているバッファをカレントディレクトリにする
 command! Cd cd %:h
+command! ShowFiletype echo &filetype
+command! GoToActualFileDir call s:change_to_actual_file()
+
+function! s:change_to_actual_file()
+    let l:fname=resolve(expand('%:p'))
+    echo l:fname
+endfunction
 
 " === KEY BINDING ===
 " <C-Space>でオムニ補完
@@ -185,6 +192,10 @@ inoremap jj <ESC>
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
 inoremap <C-d> <DELETE>
+nnoremap <C-e> <ESC>$
+inoremap <C-e> <ESC>$a
+nnoremap <C-a> <ESC>^
+inoremap <C-a> <ESC>^i
 
 " 画面分割
 nnoremap s <Nop>
@@ -217,8 +228,10 @@ nmap <Leader>c <Plug>(caw:i:toggle)
 " === VIM 用の自動設定 ===
 augroup MyVimGroup
     au!
+    au BufWritePost *vimrc source $MYVIMRC
     au BufWritePost *.vim source $MYVIMRC
-    autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+    au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+    au BufWritePost *vimrc echo "reloading vimrc"
 augroup END
 
 " === Pyhon 用の自動設置 ===
@@ -229,9 +242,11 @@ augroup MyPythonGroup
 augroup END
 
 " === reSt 用の設定 ===
-augroup MyreSTGroup
+augroup MyRSTGroup
     autocmd!
+    autocmd BufRead,BufWritePre *.rst set foldmethod=marker
     autocmd BufRead,BufWritePost *.rst set tabstop=2 
     autocmd BufRead,BufWritePost *.rst set shiftwidth=2 
     autocmd BufRead,BufWritePost *.rst set softtabstop=2
+    autocmd BufWritePre *.rst :FixWhitespace
 augroup END
