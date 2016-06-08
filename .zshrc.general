@@ -13,7 +13,7 @@ alias reshell="exec $SHELL"
 export PATH=$PATH:$HOME/dotfiles/scripts/
 
 # rm -> gomi
-if [ -x `which gomi` ]; then
+if [[ -x `which gomi` ]]; then
     alias rm="gomi"
 fi
 
