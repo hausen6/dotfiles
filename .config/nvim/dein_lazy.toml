@@ -111,3 +111,8 @@ on_ft = ['python', 'python3']
 [[plugins]]
 repo = 'Rykka/riv.vim'
 on_ft = ['rst']
+
+# vim
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = ['tex', 'plainlatex']

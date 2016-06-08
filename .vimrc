@@ -194,7 +194,6 @@ inoremap <C-f> <RIGHT>
 inoremap <C-d> <DELETE>
 nnoremap <C-e> <ESC>$
 inoremap <C-e> <ESC>$a
-nnoremap <C-a> <ESC>^
 inoremap <C-a> <ESC>^i
 
 " 画面分割
@@ -249,4 +248,10 @@ augroup MyRSTGroup
     autocmd BufRead,BufWritePost *.rst set shiftwidth=2 
     autocmd BufRead,BufWritePost *.rst set softtabstop=2
     autocmd BufWritePre *.rst :FixWhitespace
+augroup END
+
+" === latex用の設定 ===
+augroup MyTexGroup
+    autocmd!
+    autocmd BufEnter *.latex let g:tex_conceal = ''
 augroup END
