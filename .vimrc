@@ -169,7 +169,7 @@ command! GoToActualFileDir call s:change_to_actual_file()
 
 function! s:change_to_actual_file()
     let l:fname=resolve(expand('%:p'))
-    echo l:fname
+    let l:fname=expand(l:fname . ':h')
 endfunction
 
 " === KEY BINDING ===
@@ -195,6 +195,12 @@ inoremap <C-d> <DELETE>
 nnoremap <C-e> <ESC>$
 inoremap <C-e> <ESC>$a
 inoremap <C-a> <ESC>^i
+" command modeでemacs風移動
+cnoremap <C-b> <LEFT>
+cnoremap <C-f> <RIGHT>
+cnoremap <C-d> <DELETE>
+cnoremap <C-a> <HOME>
+cnoremap <C-e> <END>
 
 " 画面分割
 nnoremap s <Nop>
@@ -253,5 +259,6 @@ augroup END
 " === latex用の設定 ===
 augroup MyTexGroup
     autocmd!
-    autocmd BufEnter *.latex let g:tex_conceal = ''
+    au BufEnter *.latex let g:tex_conceal = ''
+    au Filetype latex nnoremap <Leader>t :VimtexTocOpen
 augroup END
