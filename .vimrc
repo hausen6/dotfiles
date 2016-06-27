@@ -164,12 +164,19 @@ set autoindent
 " === 自作関数 ===
 " 現在開いているバッファをカレントディレクトリにする
 command! Cd cd %:h
+" 現在のファイル・タイプを表示
 command! ShowFiletype echo &filetype
-command! GoToActualFileDir call s:change_to_actual_file()
 
-function! s:change_to_actual_file()
-    let l:fname=resolve(expand('%:p'))
-    let l:fname=expand(l:fname . ':h')
+" バッファのシンボリック先自体を開く
+command! FollowSymlink call s:SwitchToActualFile()
+function! s:SwitchToActualFile()
+  let l:fname = resolve(expand('%:p'))
+  let l:pos = getpos('.')
+  let l:bufname = bufname('%')
+  enew
+  exec 'bw '. l:bufname
+  exec "e" . fname
+  call setpos('.', pos)
 endfunction
 
 " === KEY BINDING ===
@@ -226,15 +233,18 @@ nnoremap <Leader>gl :Unite giti/log<CR>
 " vimfiler
 nnoremap <Leader>f :VimFilerBufferDir -split -winwidth=30 -find -no-quit -simple<Cr>
 
-
 " caw (コメントアウト切り替えプラグイン)
 nmap <Leader>c <Plug>(caw:i:toggle)
 
 " === VIM 用の自動設定 ===
 augroup MyVimGroup
     au!
+    " バッファを開いた時に自動判別
+    " au BufEnter * if findfile(expand('%')) != "" && resolve(expand('%:p')) != getcwd().'/'.expand('%') | execute ':FollowSymlink' | endif
+    " vimrc更新時に自動で設定を更新
     au BufWritePost *vimrc source $MYVIMRC
     au BufWritePost *.vim source $MYVIMRC
+    " make, grep時に対象があればquickfixを自動で開く
     au QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
     au BufWritePost *vimrc echo "reloading vimrc"
 augroup END
