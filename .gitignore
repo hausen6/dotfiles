@@ -219,6 +219,9 @@ pip-log.txt
 ###########
 ## users
 ###########
+#
+
+.config/heroku
 
 *~
 *.lnk
