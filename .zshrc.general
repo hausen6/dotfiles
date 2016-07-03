@@ -36,11 +36,6 @@ function _pip_completion {
 compctl -K _pip_completion pip
 # pip zsh completion end
 
-# pythonz
-if [ -e $HOME/.pythonz/etc/bashrc ]; then
-    source $HOME/.pythonz/etc/bashrc
-fi
-
 # cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
