@@ -28,3 +28,7 @@ repo = 'Yggdroot/indentLine'
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
 
+
+# editorconfig
+[[plugins]]
+repo = "editorconfig/editorconfig-vim"
