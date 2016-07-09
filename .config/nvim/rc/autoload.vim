@@ -31,6 +31,8 @@ augroup END
 " === latex用の設定 ===
 augroup MyTexGroup
     autocmd!
-    au BufEnter *.latex let g:tex_conceal = ''
-    au Filetype latex nnoremap <Leader>t :VimtexTocOpen
+    au BufEnter *.tex set filetype=tex
+    au Filetype tex let g:tex_conceal = ''
+    au Filetype tex nnoremap <Leader>t :VimtexTocOpen
+    au Filetype tex let &formatprg="pandoc --from=markdown --to=latex"
 augroup END
