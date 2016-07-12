@@ -10,7 +10,7 @@ repo = 'kana/vim-smartinput'
 repo = 'tpope/vim-surround'
 
 [[plugins]]  # 文字整形
-repo = 'h1mesuke/vim-alignta'
+repo = 'junegunn/vim-easy-align'
 
 [[plugins]]  # コメントアウト切り替え
 repo =  'tyru/caw.vim'
@@ -25,8 +25,14 @@ repo = 'Lokaltog/vim-easymotion'
 [[plugins]]  # インデント可視化
 repo = 'Yggdroot/indentLine'
 
-[[plugins]]
+[[plugins]] # color theme
 repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'chriskempson/vim-tomorrow-theme'
+
+[[plugins]] # statusラインを綺麗に表示
+repo = 'itchyny/lightline.vim'
 
 
 # editorconfig
