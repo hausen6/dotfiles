@@ -53,5 +53,5 @@ nnoremap <Leader>gl :Unite giti/log<CR>
 nnoremap <Leader>f :VimFilerBufferDir -split -winwidth=30 -find -no-quit -simple<Cr>
 
 " caw (コメントアウト切り替えプラグイン)
-nmap <Leader>c <Plug>(caw:i:toggle)
-vmap <Leader>c <Plug>(caw:i:toggle)
+nmap <Leader>c <Plug>(caw:hatpos:toggle)
+vmap <Leader>c <Plug>(caw:hatpos:toggle)

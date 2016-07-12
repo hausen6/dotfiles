@@ -105,10 +105,28 @@ if dein#tap('neosnippet.vim')
     endif
 endif
 
+" vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " colorscheme
-if dein#tap('vim-hybrid')
-    set background=dark
-    " colorscheme hybrid
+" if dein#tap('vim-hybrid')
+"     set background=dark
+"     colorscheme hybrid
+" endif
+"
+if dein#tap("vim-tomorrow-theme")
+  set background=dark
+  colorscheme Tomorrow-Night
+endif
+
+" lightline.vim
+if dein#tap("lightline.vim")
+  set laststatus=2
+  set t_Co=256
+  let g:lightline = {
+    \ 'colorscheme': 'default'
+    \ }
 endif
 
 " golang

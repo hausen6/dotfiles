@@ -34,5 +34,5 @@ augroup MyTexGroup
     au BufEnter *.tex set filetype=tex
     au Filetype tex let g:tex_conceal = ''
     au Filetype tex nnoremap <Leader>t :VimtexTocOpen
-    au Filetype tex let &formatprg="pandoc --from=markdown --to=latex"
+    au Filetype tex let &formatprg="pandoc --from=rst --to=latex --listings"
 augroup END
