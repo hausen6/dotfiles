@@ -92,6 +92,10 @@ if = 'has("nvim")'
     unix = 'make'
     osx = 'make'
 
+[[plugins]]
+repo = 'rhysd/unite-go-import.vim'
+on_ft = ['go']
+
 # python
 [[plugins]]
 repo = 'davidhalter/jedi-vim'

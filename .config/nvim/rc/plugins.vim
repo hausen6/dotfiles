@@ -106,7 +106,7 @@ if dein#tap('neosnippet.vim')
 endif
 
 " vim-easy-align
-vmap <Enter> <Plug>(EasyAlign)
+vmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " colorscheme
