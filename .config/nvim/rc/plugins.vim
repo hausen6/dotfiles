@@ -87,6 +87,11 @@ if dein#tap('neocomplete.vim') && has('lua')
     endif
 endif
 
+" unite.vim
+if dein#tap('unite.vim')
+    let g:unite_enable_start_insert = 1
+endif
+
 " neosnippet
 if dein#tap('neosnippet.vim')
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
