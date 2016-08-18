@@ -11,3 +11,6 @@
     st = status
     ci = commit
     co = checkout
+
+[ghq]
+    root = ~/src
