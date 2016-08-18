@@ -62,5 +62,13 @@ if [ -x "$(which direnv)" ]; then
     eval "$(direnv hook zsh)"
 fi
 
+# ghq用の各種関数設定
+if [ -x `which ghq` ]; then
+    ghq-cd()
+    {
+        cd `ghq list -p | peco`
+    }
+fi
+
 # 重複pathの削除
 typeset -U path PATH
