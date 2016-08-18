@@ -1,3 +1,5 @@
+# PATHを/usr/local/binを優先にする
+export PATH=/usr/local/bin:$PATH
 # python
 if [ -e $HOME/.pyenv ]; then
     export PYENV_ROOT=$HOME/.pyenv
