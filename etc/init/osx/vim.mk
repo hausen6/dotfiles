@@ -15,5 +15,11 @@ else
 endif
 
 dein.vim: git vim simple_deploy
+ifeq (, $(shell find ~/.config/nvim -iname dein))
+	$(call LOG_INFO, install $@ ...)
 	@bash etc/init/common/dein.vim.sh $(HOME)/.config/nvim/dein
 	@vim -c "call dein#install() | q"
+	$(call LOG_SUCCESS, $@ is OK.)
+else
+	$(call LOG_SUCCESS, $@ is OK.)
+endif
