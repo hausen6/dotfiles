@@ -10,7 +10,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 alias edshell="vim $0"
 alias reshell="exec $SHELL"
 # path
-export PATH=$PATH:$HOME/dotfiles/scripts/
+export PATH=$PATH:$HOME/dotfiles/scripts
 
 # rm -> gomi
 if [[ -x `which gomi` ]]; then
