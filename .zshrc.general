@@ -53,7 +53,7 @@ bindkey "^xk" anyframe-widget-kill
 
 # go-lang
 if [ -x "$(which go)" ]; then
-	export GOPATH="$HOME/.go"
+	export GOPATH="$HOME"
 	export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 fi
 
