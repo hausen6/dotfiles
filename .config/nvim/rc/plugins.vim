@@ -120,10 +120,10 @@ nmap ga <Plug>(EasyAlign)
 "     colorscheme hybrid
 " endif
 "
-if dein#tap("vim-tomorrow-theme")
-  set background=dark
-  colorscheme Tomorrow-Night
-endif
+"if dein#tap("vim-tomorrow-theme")
+"  set background=dark
+"  colorscheme Tomorrow-Night
+"endif
 
 " lightline.vim
 if dein#tap("lightline.vim")

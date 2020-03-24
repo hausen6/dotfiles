@@ -8,4 +8,10 @@ if [ -e $HOME/.pyenv ]; then
     eval "$(pyenv virtualenv-init -)"
     echo "pyenv started"
 fi
+
+# google app engineのSDKにパスを通す．
+if [ -d $HOME/bin/go_appengine/ ]; then
+    export PATH=$PATH:$HOME/bin/go_appengine/
+fi
+
 # vim: filetype=zsh

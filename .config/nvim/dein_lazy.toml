@@ -32,11 +32,6 @@ repo = 'Shougo/neocomplete.vim'
 on_i = 1
 if = 'has("lua")'
 
-[[plugins]]
-repo = 'Shougo/neocomplecache.vim'
-on_i = 1
-if = '!has("lua")'
-
 # utils
 [[plugins]]  # スニペット
 repo = 'Shougo/neosnippet.vim'
@@ -74,6 +69,26 @@ on_path = ".*"
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
+# language server
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+on_path = ".*"
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+on_path = ".*"
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+on_path = ".*"
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_path = ".*"
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+on_path = ".*"
 
 # golang
 [[plugins]]

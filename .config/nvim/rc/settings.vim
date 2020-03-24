@@ -6,6 +6,9 @@ else
     let $MYVIMRC = "~/.vimrc"
 endif
 
+set swapfile
+set directory=$HOME/.vim/swapfiles
+
 " コマンドモードの補完を使いやすくする
 set wildmenu
 set wildmode=longest:full,full
